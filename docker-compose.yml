@@ -1,0 +1,267 @@
+version: "3.3"
+services:
+  traefik:
+    image: traefik:v2.0
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "8080:8080" # internal dashboard
+    environment:
+      - "TRAEFIK_ENTRYPOINTS_WEB=true"
+      - "TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80"
+      - "TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false"
+      - "TRAEFIK_API=true"
+      - "TRAEFIK_API_DASHBOARD=true"
+      - "TRAEFIK_API_INSECURE=true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    depends_on:
+      - telegraf
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: traefik
+        syslog-format: rfc5424
+
+
+  code-server:
+    image: linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - PASSWORD=${CODER_PASSWORD} #optional
+    volumes:
+      - ${ROOT_DATA}/code-server:/config
+      - ./..:/sillyroot
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    depends_on:
+      - telegraf
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: code-server
+        syslog-format: rfc5424
+
+
+  influxdb:
+    image: influxdb:1.7-alpine
+    container_name: influxdb
+    volumes:
+      - ${ROOT_DATA}/influxdb:/var/lib/influxdb
+
+  telegraf:
+    image: telegraf:1.12-alpine
+    container_name: telegraf
+    links:
+      - influxdb
+    ports:
+      - "6514:6514"
+    environment:
+      HOST_PROC: /rootfs/proc
+    volumes:
+      - ${ROOT_DATA}/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/rootfs/proc:ro
+    depends_on:
+      - influxdb
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: telegraf
+        syslog-format: rfc5424
+
+  chronograf:
+    image: chronograf:1.7-alpine
+    container_name: chronograf
+    volumes:
+      - '${ROOT_DATA}/chronograf:/var/lib/chronograf'
+    environment:
+      BASE_PATH: "/chronograf"
+      INFLUXDB_URL: "http://influxdb:8086"
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.chronograf.entrypoints: "web"
+      traefik.http.routers.chronograf.rule: "PathPrefix(`/chronograf`)"
+      traefik.http.routers.chronograf.middlewares: "chronoauth"
+      traefik.http.middlewares.chronoauth.basicauth.users: "${CHRONOGRAF_AUTH}"
+    depends_on:
+      - influxdb
+      - telegraf
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: chronograf
+        syslog-format: rfc5424
+
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - UMASK_SET=022 #optional
+    volumes:
+      - ${ROOT_DATA}/sonarr:/config
+      - ${ROOT_MEDIAS}:/data
+    depends_on:
+      - telegraf
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.sonarr.entrypoints: "web"
+      traefik.http.routers.sonarr.rule: "PathPrefix(`/sonarr`)"
+      traefik.http.routers.sonarr.middlewares: "chronoauth"
+    restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: sonarr
+        syslog-format: rfc5424
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - UMASK_SET=022 #optional
+    volumes:
+      - ${ROOT_DATA}/radarr:/config
+      - ${ROOT_MEDIAS}:/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.radarr.entrypoints: "web"
+      traefik.http.routers.radarr.rule: "PathPrefix(`/radarr`)"
+      traefik.http.routers.radarr.middlewares: "chronoauth"
+    depends_on:
+      - telegraf
+    restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: radarr
+        syslog-format: rfc5424
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - RUN_OPTS=run options here #optional
+    volumes:
+      - ${ROOT_DATA}/jackett:/config
+      - ${ROOT_MEDIAS}:/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.jackett.entrypoints: "web"
+      traefik.http.routers.jackett.rule: "PathPrefix(`/jackett`)"
+      traefik.http.routers.jackett.middlewares: "chronoauth"
+    depends_on:
+      - telegraf
+    restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: jackett
+        syslog-format: rfc5424
+
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT_DATA}/transmission:/config
+      - ${ROOT_MEDIAS}:/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.transmission.entrypoints: "web"
+      traefik.http.routers.transmission.rule: "PathPrefix(`/transmission`)"
+      traefik.http.routers.transmission.middlewares: "chronoauth"
+    depends_on:
+      - telegraf
+    restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: transmission
+        syslog-format: rfc5424
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - ${ROOT_DATA}/jellyfin/config:/config
+      - ${ROOT_DATA}/jellyfin/cache:/cache
+      - ${ROOT_MEDIAS}:/media
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.jellyfin.entrypoints: "web"
+      traefik.http.routers.jellyfin.rule: "PathPrefix(`/jellyfin`)"
+      traefik.http.routers.jellyfin.middlewares: "chronoauth"
+    depends_on:
+      - telegraf
+    restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:6514"
+        tag: jellyfin
+        syslog-format: rfc5424
+
+
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - ${ROOT_DATA}/homeassistant/:/config
+    network_mode: host
+    environment:
+      - TZ=${TZ}
+    depends_on:
+      - telegraf
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    expose:
+      - "1883"
+      - "9001"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ${ROOT_DATA}/zigbee2mqtt/:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    privileged: true
+    environment:
+      - TZ=${TZ}
+
