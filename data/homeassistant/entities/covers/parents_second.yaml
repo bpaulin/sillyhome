@@ -1,0 +1,4 @@
+platform: group
+name: parents_second
+entities:
+  - cover.myhomeserver1_parents_placard

@@ -1,0 +1,5 @@
+platform: group
+name: living
+entities:
+  - light.living_ceiling
+  - light.living_plug

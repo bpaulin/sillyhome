@@ -1,0 +1,17 @@
+##
+# Main UI configuration file
+#
+# This file must be as short as possible.
+# All real configuration is in lovelace directory
+##
+
+resources:
+  - url: /local/custom/card-mod.js?v=1
+    type: module
+
+views:
+  - !include lovelace/views/context.yaml
+  - !include lovelace/views/rooms.yaml
+  - !include lovelace/views/controls.yaml
+  - !include lovelace/views/climate.yaml
+  - !include lovelace/views/automations.yaml

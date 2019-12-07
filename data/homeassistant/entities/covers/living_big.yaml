@@ -1,0 +1,4 @@
+platform: group
+name: living_big
+entities:
+  - cover.myhomeserver1_salon_grand

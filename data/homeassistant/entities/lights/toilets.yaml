@@ -1,0 +1,4 @@
+platform: group
+name: toilets
+entities:
+  - light.myhomeserver1_wc

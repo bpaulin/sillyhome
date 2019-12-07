@@ -1,0 +1,14 @@
+platform: template
+switches:
+  boost_bathroom_climate:
+    value_template: "{{ is_state_attr('climate.netatmo_salle_de_bains', 'preset_mode', 'manual') and state_attr('climate.netatmo_salle_de_bains', 'temperature')>19 }}"
+    turn_on:
+      service: climate.set_temperature
+      data:
+        entity_id: climate.netatmo_salle_de_bains
+        temperature: 24
+    turn_off:
+      service: climate.set_hvac_mode
+      data:
+        entity_id: climate.netatmo_salle_de_bains
+        hvac_mode: auto

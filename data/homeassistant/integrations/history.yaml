@@ -1,0 +1,16 @@
+history:
+  include:
+    entities:
+      - light.kitchen_sconce
+      - light.kitchen_ceiling
+      - light.living_ceiling
+      - light.living_plug
+      - light.corridor
+      - light.bathroom_ceiling
+      - light.bathroom_sconce
+      - light.toilets
+      - light.office
+      - light.child_ceiling
+      - light.child_plug
+      - light.parents
+      - light.laundry

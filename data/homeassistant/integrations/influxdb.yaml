@@ -1,0 +1,20 @@
+influxdb:
+  host: localhost
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+  tags:
+    instance: prod
+    source: hass
+
+  include:
+    entities:
+      - climate.netatmo_salon
+      - climate.netatmo_salle_de_bains
+      - climate.netatmo_enfant
+      - climate.netatmo_parents
+      - climate.netatmo_bureau
+      - climate.netatmo_thermostat

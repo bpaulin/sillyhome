@@ -1,52 +1,51 @@
+---
+
 version: "3.3"
 services:
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000  # optional
+      - PGID=1000  # optional
+      - TZ=${TZ}
+      - SUBDOMAINS=${DOMAIN_NAMES}
+      - TOKEN=${DOMAIN_TOKEN}
+      - LOG_FILE=false  # optional
+    volumes:
+      - ${ROOT_DATA}/duckdns:/config  # optional
+    restart: unless-stopped
+
   traefik:
     image: traefik:v2.0
     container_name: traefik
     ports:
       - "80:80"
-      - "8080:8080" # internal dashboard
+      - "10443:443"
+      - "8080:8080"  # internal dashboard
     environment:
-      - "TRAEFIK_ENTRYPOINTS_WEB=true"
-      - "TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80"
-      - "TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false"
-      - "TRAEFIK_API=true"
-      - "TRAEFIK_API_DASHBOARD=true"
-      - "TRAEFIK_API_INSECURE=true"
+      - TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL=${ACME_EMAIL}  # optional
     volumes:
+      - ${ROOT_DATA}/letsencrypt:/letsencrypt
+      - ${ROOT_DATA}/traefik:/etc/traefik
       - "/var/run/docker.sock:/var/run/docker.sock"
-    depends_on:
-      - telegraf
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: traefik
-        syslog-format: rfc5424
+    restart: unless-stopped
 
 
-  code-server:
+  codeserver:
     image: linuxserver/code-server:latest
     container_name: code-server
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - PASSWORD=${CODER_PASSWORD} #optional
+      - PASSWORD=${CODER_PASSWORD}  # optional
     volumes:
       - ${ROOT_DATA}/code-server:/config
       - ./..:/sillyroot
     ports:
       - 8443:8443
     restart: unless-stopped
-    depends_on:
-      - telegraf
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: code-server
-        syslog-format: rfc5424
 
 
   influxdb:
@@ -54,6 +53,9 @@ services:
     container_name: influxdb
     volumes:
       - ${ROOT_DATA}/influxdb:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+    restart: unless-stopped
 
   telegraf:
     image: telegraf:1.12-alpine
@@ -70,12 +72,7 @@ services:
       - /proc:/rootfs/proc:ro
     depends_on:
       - influxdb
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: telegraf
-        syslog-format: rfc5424
+    restart: unless-stopped
 
   chronograf:
     image: chronograf:1.7-alpine
@@ -93,13 +90,7 @@ services:
       traefik.http.middlewares.chronoauth.basicauth.users: "${CHRONOGRAF_AUTH}"
     depends_on:
       - influxdb
-      - telegraf
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: chronograf
-        syslog-format: rfc5424
+    restart: unless-stopped
 
 
   sonarr:
@@ -109,24 +100,16 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - UMASK_SET=022 #optional
+      - UMASK_SET=022  # optional
     volumes:
       - ${ROOT_DATA}/sonarr:/config
       - ${ROOT_MEDIAS}:/data
-    depends_on:
-      - telegraf
     labels:
       traefik.enable: "true"
       traefik.http.routers.sonarr.entrypoints: "web"
       traefik.http.routers.sonarr.rule: "PathPrefix(`/sonarr`)"
       traefik.http.routers.sonarr.middlewares: "chronoauth"
     restart: unless-stopped
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: sonarr
-        syslog-format: rfc5424
 
   radarr:
     image: linuxserver/radarr
@@ -135,7 +118,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - UMASK_SET=022 #optional
+      - UMASK_SET=022  # optional
     volumes:
       - ${ROOT_DATA}/radarr:/config
       - ${ROOT_MEDIAS}:/data
@@ -144,15 +127,7 @@ services:
       traefik.http.routers.radarr.entrypoints: "web"
       traefik.http.routers.radarr.rule: "PathPrefix(`/radarr`)"
       traefik.http.routers.radarr.middlewares: "chronoauth"
-    depends_on:
-      - telegraf
     restart: unless-stopped
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: radarr
-        syslog-format: rfc5424
 
   jackett:
     image: linuxserver/jackett
@@ -161,7 +136,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - RUN_OPTS=run options here #optional
+      - RUN_OPTS=run options here  # optional
     volumes:
       - ${ROOT_DATA}/jackett:/config
       - ${ROOT_MEDIAS}:/data
@@ -170,15 +145,7 @@ services:
       traefik.http.routers.jackett.entrypoints: "web"
       traefik.http.routers.jackett.rule: "PathPrefix(`/jackett`)"
       traefik.http.routers.jackett.middlewares: "chronoauth"
-    depends_on:
-      - telegraf
     restart: unless-stopped
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: jackett
-        syslog-format: rfc5424
 
   transmission:
     image: linuxserver/transmission
@@ -195,15 +162,7 @@ services:
       traefik.http.routers.transmission.entrypoints: "web"
       traefik.http.routers.transmission.rule: "PathPrefix(`/transmission`)"
       traefik.http.routers.transmission.middlewares: "chronoauth"
-    depends_on:
-      - telegraf
     restart: unless-stopped
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: transmission
-        syslog-format: rfc5424
 
   jellyfin:
     image: jellyfin/jellyfin
@@ -217,15 +176,7 @@ services:
       traefik.http.routers.jellyfin.entrypoints: "web"
       traefik.http.routers.jellyfin.rule: "PathPrefix(`/jellyfin`)"
       traefik.http.routers.jellyfin.middlewares: "chronoauth"
-    depends_on:
-      - telegraf
     restart: unless-stopped
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:6514"
-        tag: jellyfin
-        syslog-format: rfc5424
 
 
   homeassistant:
@@ -249,6 +200,7 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+    restart: unless-stopped
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
@@ -265,3 +217,21 @@ services:
     environment:
       - TZ=${TZ}
 
+  zigbee2mqttassistant:
+    container_name: zigbee2mqttassistant
+    ports:
+      - '8880:80'
+    environment:
+      - Z2MA_SETTINGS__MQTTSERVER=mosquitto
+    image: carldebilly/zigbee2mqttassistant
+
+  valetudomap:
+    container_name: valetudomap
+    image: bruvv/icantbelieveitsnotvaletudo
+    ports:
+      - '3000:3000'
+    volumes:
+      - ${ROOT_DATA}/valetudomap/config.json:/app/config.json
+    depends_on:
+      - mosquitto
+    restart: unless-stopped

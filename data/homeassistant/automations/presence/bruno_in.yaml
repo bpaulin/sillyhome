@@ -1,0 +1,11 @@
+alias: "bruno in"
+trigger:
+  - platform: state
+    entity_id: person.bruno
+    from: 'not_home'
+    to: 'home'
+    for: '00:02:00'
+action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.bruno_home

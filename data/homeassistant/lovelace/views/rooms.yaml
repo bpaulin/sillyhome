@@ -1,0 +1,146 @@
+title: Rooms
+path: rooms
+panel: true
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: picture-glance
+            title: salon
+            entities:
+              - light.living_ceiling
+              - light.living_plug
+              - cover.living_big
+              - cover.living_small
+              - media_player.salon
+            entity: light.living
+            state_image:
+              "on": /local/rooms/color/living.jpg
+              "off": /local/rooms/gray/living.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: cuisine
+            entities:
+              - light.kitchen_ceiling
+              - light.kitchen_sconce
+              - cover.kitchen
+            entity: light.kitchen
+            state_image:
+              "on": /local/rooms/color/kitchen.jpg
+              "off": /local/rooms/gray/kitchen.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: couloir
+            entities:
+              - light.corridor
+            # - light.gateway_light_7811dcb8c373
+            entity: light.corridor
+            state_image:
+              "on": /local/rooms/color/corridor.jpg
+              "off": /local/rooms/gray/corridor.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+      - type: horizontal-stack
+        cards:
+          - type: picture-glance
+            title: sdb
+            entities:
+              - light.bathroom_ceiling
+              - light.bathroom_sconce
+              - media_player.salle_de_bain
+            entity: light.bathroom
+            state_image:
+              "on": /local/rooms/color/bathroom.jpg
+              "off": /local/rooms/gray/bathroom.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: wc
+            entities:
+              - light.toilets
+            entity: light.toilets
+            state_image:
+              "on": /local/rooms/color/toilet.jpg
+              "off": /local/rooms/gray/toilet.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: bureau
+            entities:
+              - light.office
+              - cover.office
+              - media_player.bureau
+            entity: light.office
+            state_image:
+              "on": /local/rooms/color/office.jpg
+              "off": /local/rooms/gray/office.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+      - type: horizontal-stack
+        cards:
+          - type: picture-glance
+            title: !secret child_name
+            entities:
+              - light.child_ceiling
+              - light.child_plug
+              - cover.child
+              - media_player.chambre
+            entity: light.child
+            state_image:
+              "on": /local/rooms/color/child.jpg
+              "off": /local/rooms/gray/child.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: chambre
+            entities:
+              - light.parents
+              - cover.parents_first
+              - cover.parents_second
+              - media_player.parents
+            entity: light.parents
+            state_image:
+              "on": /local/rooms/color/parents.jpg
+              "off": /local/rooms/gray/parents.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }
+
+          - type: picture-glance
+            title: buanderie
+            entities:
+              - light.laundry
+            entity: light.laundry
+            state_image:
+              "on": /local/rooms/color/laundry.jpg
+              "off": /local/rooms/gray/laundry.jpg
+            style: |
+              ha-card .box{
+                background-color: rgba(0, 0, 0, 0.6);;
+              }

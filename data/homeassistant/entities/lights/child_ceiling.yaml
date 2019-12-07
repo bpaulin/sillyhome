@@ -1,0 +1,4 @@
+platform: group
+name: child_ceiling
+entities:
+  - light.myhomeserver1_enfant

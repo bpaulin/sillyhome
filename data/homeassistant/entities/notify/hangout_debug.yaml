@@ -1,0 +1,4 @@
+name: hangout_debug
+platform: hangouts
+default_conversations:
+  - id: !secret hangout_conversation_debug

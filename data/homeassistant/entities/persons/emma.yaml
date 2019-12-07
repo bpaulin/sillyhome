@@ -1,0 +1,6 @@
+name: Emma
+id: emma
+# user_id: fc5f452053164359865aaea4a26b5b57
+device_trackers:
+  - device_tracker.google_maps_112878560787742332291
+  - device_tracker.redminote7_redmi

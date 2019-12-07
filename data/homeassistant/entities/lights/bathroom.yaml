@@ -1,0 +1,5 @@
+platform: group
+name: bathroom
+entities:
+  - light.bathroom_ceiling
+  - light.bathroom_sconce

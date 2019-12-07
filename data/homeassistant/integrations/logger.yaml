@@ -1,0 +1,5 @@
+logger:
+  default: info
+  logs:
+    homeassistant.components.command_line.switch: warn
+    homeassistant.components.cloud.google_config: error

@@ -1,0 +1,3 @@
+name: !secret name_work_bruno
+latitude: !secret latitude_work_bruno
+longitude: !secret longitude_work_bruno

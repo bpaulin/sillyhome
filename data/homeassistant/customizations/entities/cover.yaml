@@ -1,0 +1,20 @@
+cover.kitchen:
+  friendly_name: 'Cuisine'
+
+cover.living_big:
+  friendly_name: 'Salon (grand)'
+
+cover.living_small:
+  friendly_name: 'Salon (petit)'
+
+cover.office:
+  friendly_name: 'Bureau'
+
+cover.child:
+  friendly_name: 'Enfant'
+
+cover.parents_first:
+  friendly_name: 'Parents (entrée)'
+
+cover.parents_second:
+  friendly_name: 'Parents (placard)'

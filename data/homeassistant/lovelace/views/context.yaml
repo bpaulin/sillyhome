@@ -1,0 +1,93 @@
+title: Controls
+icon: 'mdi:home-minus'
+path: context
+cards:
+  # Our faces, to see who's home
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: picture-entity
+            entity: person.bruno
+            show_name: false
+            image: /local/private/bp_nb.JPG
+            state_image:
+              "home": /local/private/bp_col.JPG
+
+          - type: picture-entity
+            entity: person.emma
+            show_name: false
+            image: /local/private/eh_nb.JPG
+            state_image:
+              "home": /local/private/eh_col.JPG
+      - type: map
+        aspect_ratio: 16x9
+        entities:
+          - person.bruno
+          - person.emma
+
+  - type: horizontal-stack
+    cards:
+      - type: entity-button
+        entity: switch.boost_bathroom_climate
+        icon: mdi:radiator
+        name: boost SdB
+
+      - type: entity-button
+        entity: switch.boost_child_climate
+        icon: mdi:radiator
+        name: boost chambre
+
+  - type: picture-entity
+    entity: camera.rockrobo_map
+    camera_view: live
+    show_state: false
+    show_name: false
+
+  # Vacuum away
+  - type: glance
+    entities:
+      - entity: vacuum.rockrobo
+      - entity: script.vacuum_all_but_bedrooms
+        icon: mdi:home
+        name: Quotidien
+
+  # Lights on
+  - type: entity-filter
+    show_empty: false
+    card:
+      type: entities
+    entities:
+      - entity: light.living_ceiling
+      - entity: light.living_plug
+      - entity: light.myhomeserver1_cuisine_meuble
+      - entity: light.myhomeserver1_cuisine_plafond
+      - entity: light.myhomeserver1_couloir
+      - entity: light.gateway_light_7811dcb8c373
+      - entity: light.tradfri_bulb_7
+      - entity: light.myhomeserver1_sdb_prise
+      - entity: light.myhomeserver1_sdb_plafond
+      - entity: light.myhomeserver1_wc
+      - entity: light.myhomeserver1_bureau
+      - entity: light.myhomeserver1_enfant
+      - entity: light.myhomeserver1_parents
+      - entity: light.myhomeserver1_buanderie
+    state_filter:
+      - "on"
+
+  # rain in next hour
+  - type: sensor
+    entity: sensor.rain_forecast
+    name: Prochaine heure
+    style: |
+      ha-card #value{
+        font-size: 1.6rem;
+      }
+
+  # inside and outside temperatures
+  - type: horizontal-stack
+    cards:
+      - type: sensor
+        entity: sensor.lyon_temperature
+        graph: line
+        name: Exterieur

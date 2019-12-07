@@ -1,0 +1,6 @@
+platform: google_maps
+username: !secret google_username
+max_gps_accuracy: 150
+new_device_defaults:
+  track_new_devices: true
+  hide_if_away: true

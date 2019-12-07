@@ -1,0 +1,4 @@
+platform: group
+name: child_plug
+entities:
+  - light.tradfri_bulb_7

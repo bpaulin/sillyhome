@@ -1,0 +1,4 @@
+platform: group
+name: corridor
+entities:
+  - light.myhomeserver1_couloir

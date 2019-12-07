@@ -1,0 +1,6 @@
+name: Bruno
+id: bruno
+user_id: 74719fc877e543bfa1bef65de6eea994
+device_trackers:
+  - device_tracker.google_maps_101752326389778645446
+  - device_tracker.android_bruno

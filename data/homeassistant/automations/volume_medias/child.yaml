@@ -1,0 +1,19 @@
+alias: 'Volume Chambre Enfant'
+trigger:
+  - platform: state
+    entity_id: media_player.chambre
+    from: 'playing'
+    to: 'paused'
+    for:
+      seconds: 10
+  - platform: state
+    entity_id: media_player.chambre
+    from: 'playing'
+    to: 'idle'
+    for:
+      seconds: 10
+action:
+  service: media_player.volume_set
+  data:
+    entity_id: media_player.chambre
+    volume_level: 0.08

@@ -1,0 +1,8 @@
+meteo_france:
+  - city: !secret meteo_france_city
+    monitored_conditions:
+      - next_rain
+      - rain_chance
+      - thunder_chance
+      - weather_alert
+      - temperature

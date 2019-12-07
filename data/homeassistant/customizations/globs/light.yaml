@@ -1,0 +1,11 @@
+"light.*_ceiling":
+  icon: mdi:ceiling-light
+
+"light.*_sconce":
+  icon: mdi:wall-sconce-flat
+
+"light.myhomeserver1_*":
+  hidden: true
+
+"light.tradfri_*":
+  hidden: true

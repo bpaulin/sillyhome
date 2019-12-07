@@ -1,0 +1,19 @@
+alias: 'Volume Salle de bains'
+trigger:
+  - platform: state
+    entity_id: media_player.salle_de_bain
+    from: 'playing'
+    to: 'paused'
+    for:
+      seconds: 10
+  - platform: state
+    entity_id: media_player.salle_de_bain
+    from: 'playing'
+    to: 'idle'
+    for:
+      seconds: 10
+action:
+  service: media_player.volume_set
+  data:
+    entity_id: media_player.salle_de_bain
+    volume_level: 0.2

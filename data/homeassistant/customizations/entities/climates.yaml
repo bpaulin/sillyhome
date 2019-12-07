@@ -1,0 +1,12 @@
+climate.netatmo_salon:
+  friendly_name: Salon
+climate.netatmo_salle_de_bains:
+  friendly_name: Sdb
+climate.netatmo_enfant:
+  friendly_name: !secret child_name
+climate.netatmo_parents:
+  friendly_name: Parents
+climate.netatmo_bureau:
+  friendly_name: Bureau
+climate.netatmo_thermostat:
+  hidden: true

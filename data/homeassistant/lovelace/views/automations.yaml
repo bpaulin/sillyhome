@@ -1,0 +1,23 @@
+title: automation
+badges: []
+icon: mdi:home-automation
+cards:
+  - type: entities
+    entities:
+      - entity: group.all_automations
+        name: Toutes les automatisations
+
+  - title: Volume enceintes
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.volume_salon
+        name: Salon
+      - entity: automation.volume_salle_de_bains
+        name: Salle de bains
+      - entity: automation.volume_bureau
+        name: Bureau
+      - entity: automation.volume_chambre_enfant
+        name: Chambre enfant
+      - entity: automation.volume_parents
+        name: Chambre parents

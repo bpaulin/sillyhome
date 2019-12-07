@@ -1,0 +1,4 @@
+platform: group
+name: bathroom_ceiling
+entities:
+  - light.myhomeserver1_sdb_plafond

@@ -1,0 +1,26 @@
+platform: myhomeserver1
+devices:
+  - name: salon_plafond
+    address: '02'
+  - name: salon_prise
+    address: '01'
+  - name: cuisine_plafond
+    address: '0012'
+  - name: cuisine_meuble
+    address: '0011'
+  - name: parents
+    address: '15'
+  - name: enfant
+    address: '19'
+  - name: bureau
+    address: '0111'
+  - name: wc
+    address: '04'
+  - name: couloir
+    address: '11'
+  - name: sdb_plafond
+    address: '0010'
+  - name: sdb_prise
+    address: '09'
+  - name: buanderie
+    address: '0014'

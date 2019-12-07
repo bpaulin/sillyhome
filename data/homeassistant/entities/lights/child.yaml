@@ -1,0 +1,5 @@
+platform: group
+name: child
+entities:
+  - light.child_ceiling
+  - light.child_plug

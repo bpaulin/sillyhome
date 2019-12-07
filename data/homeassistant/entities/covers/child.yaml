@@ -1,0 +1,4 @@
+platform: group
+name: child
+entities:
+  - cover.myhomeserver1_enfant

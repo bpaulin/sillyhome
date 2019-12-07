@@ -1,0 +1,127 @@
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.kitchen_sconce
+        - light.kitchen_ceiling
+        - light.living_ceiling
+        - light.living_plug
+        - light.corridor
+        - light.bathroom_ceiling
+        - light.bathroom_sconce
+        - light.toilets
+        - light.office
+        - light.child_ceiling
+        - light.child_plug
+        - light.parents
+        - light.laundry
+
+        - cover.kitchen
+        - cover.living_big
+        - cover.living_small
+        - cover.office
+        - cover.child
+        - cover.parents_first
+        - cover.parents_second
+
+        - climate.netatmo_salon
+        - climate.netatmo_salle_de_bains
+        - climate.netatmo_enfant
+        - climate.netatmo_parents
+        - climate.netatmo_bureau
+
+    entity_config:
+      light.living_ceiling:
+        aliases:
+          - plafond
+          - grande lumière
+        room: salon
+      light.living_plug:
+        aliases:
+          - prise
+          - petite lumière
+        room: salon
+      light.kitchen_sconce:
+        aliases: []
+        room: cuisine
+      light.kitchen_ceiling:
+        aliases: []
+        room: cuisine
+      light.corridor:
+        aliases: []
+        room: couloir
+      light.bathroom_ceiling:
+        aliases: []
+        room: salle de bains
+      light.bathroom_sconce:
+        aliases: []
+        room: salle de bains
+      light.toilets:
+        aliases: []
+        room: toilettes
+      light.office:
+        aliases: []
+        room: bureau
+      light.child_ceiling:
+        aliases: []
+        room: !secret child_room
+      light.child_plug:
+        aliases: []
+        room: !secret child_room
+      light.parents:
+        aliases: []
+        room: Chambre parents
+      light.laundry:
+        aliases: []
+        room: buanderie
+
+      cover.kitchen:
+        aliases:
+          - volet
+          - store
+        room: cuisine
+      cover.living_big:
+        aliases:
+          - grand volet
+          - grand store
+        room: salon
+      cover.living_small:
+        aliases:
+          - petit volet
+          - petit store
+        room: salon
+      cover.office:
+        aliases:
+          - volet
+          - store
+        room: bureau
+      cover.child:
+        aliases:
+          - volet
+          - store
+        room: !secret child_room
+      cover.parents_first:
+        aliases:
+          - volet de l'entrée
+          - store de l'entrée
+          - volet d'emma
+          - store d'emma
+        room: chambre parents
+      cover.parents_second:
+        aliases:
+          - volet du placard
+          - store du placard
+          - volet de bruno
+          - store de bruno
+        room: chambre parents
+
+      climate.netatmo_salon:
+        room: salon
+      climate.netatmo_salle_de_bains:
+        room: salle de bains
+      climate.netatmo_enfant:
+        room: chambre de lise
+      climate.netatmo_parents:
+        room: chambre
+      climate.netatmo_bureau:
+        room: bureau

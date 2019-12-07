@@ -1,3 +1,18 @@
-*
-!.gitignore
-!telegraf.conf
+chronograf
+code-server
+heimdall
+influxdb
+jackett
+jellyfin
+nodered
+ombi
+plex
+radarr
+sonarr
+transmission
+zigbee2mqtt
+# homeassistant
+letsencrypt
+valetudomap
+traefik
+telegraf.conf
