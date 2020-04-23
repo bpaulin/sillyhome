@@ -1,0 +1,8 @@
+vacuum_child_chair:
+  alias: "Aspirer sous la chaise enfant"
+  sequence:
+    - service: vacuum.xiaomi_clean_zone
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        repeats: 1
+        zone: [[26554, 26847, 27904, 28397]]

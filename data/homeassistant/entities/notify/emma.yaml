@@ -1,0 +1,4 @@
+name: emma
+platform: group
+services:
+  - service: mobile_app_portable_emma

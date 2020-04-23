@@ -1,0 +1,13 @@
+alias: Update Available Notification
+trigger:
+  - platform: state
+    entity_id: binary_sensor.updater
+    from: 'off'
+    to: 'on'
+action:
+  - service: notify.bruno
+    data_template:
+      message: "Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version') }} is available."
+  - service: rest_command.github_issue
+    data_template:
+      title: "Update to {{ state_attr('binary_sensor.updater', 'newest_version') }}"

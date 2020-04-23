@@ -1,0 +1,6 @@
+platform: radarr
+api_key: !secret radarr_key
+host: !secret local_ip
+monitored_conditions:
+  - movies
+  - upcoming

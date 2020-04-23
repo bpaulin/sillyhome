@@ -1,0 +1,13 @@
+platform: template
+switches:
+  harmony_molotov:
+    value_template: "{{ is_state_attr('remote.harmony_hub', 'current_activity', 'Molotov') }}"
+    turn_on:
+      service: remote.turn_on
+      data:
+        entity_id: remote.harmony_hub
+        activity: 'Molotov'
+    turn_off:
+      service: remote.turn_off
+      data:
+        entity_id: remote.harmony_hub

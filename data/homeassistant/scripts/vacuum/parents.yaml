@@ -1,0 +1,8 @@
+vacuum_parents:
+  alias: "Aspirer la chambre parents"
+  sequence:
+    - service: vacuum.xiaomi_clean_zone
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        repeats: 1
+        zone: [[27922, 36315, 31122, 41465], [26561, 36309, 27911, 37359]]

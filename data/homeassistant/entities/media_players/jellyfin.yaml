@@ -1,0 +1,3 @@
+platform: emby
+host: !secret local_ip
+api_key: !secret jellyfin_token

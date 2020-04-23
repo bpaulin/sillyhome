@@ -1,0 +1,12 @@
+switch.harmony_netflix:
+  friendly_name: Netflix
+  icon: mdi:netflix
+switch.harmony_prime:
+  friendly_name: Amazon
+  icon: mdi:amazon
+switch.harmony_jellyfin:
+  friendly_name: Jellyfin
+  icon: mdi:emby
+switch.harmony_molotov:
+  friendly_name: Molotov
+  icon: mdi:television-classic

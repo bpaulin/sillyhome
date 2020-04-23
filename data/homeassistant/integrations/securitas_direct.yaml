@@ -1,0 +1,10 @@
+securitas_direct:
+  username: !secret securitas_username
+  password: !secret securitas_password
+  code: !secret securitas_code
+  country: FR
+  scan_interval: 300
+
+# logger:
+#   logs:
+#     custom_components.securitas_direct: debug

@@ -1,0 +1,4 @@
+name: bruno
+platform: group
+services:
+  - service: mobile_app_portable_bruno

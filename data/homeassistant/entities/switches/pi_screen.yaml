@@ -3,4 +3,4 @@ switches:
   pi_screen:
     command_on: ssh -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=no -i /config/.ssh/id_rsa pi@192.168.1.205 'DISPLAY=:0 xset dpms force on && DISPLAY=:0 xset s off -dpms'
     command_off: ssh -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=no -i /config/.ssh/id_rsa pi@192.168.1.205 'DISPLAY=:0 xset dpms force off'
-    # command_state: ssh -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=no -i /config/.ssh/id_rsa pi@192.168.1.205 'DISPLAY=:0 xset q dpms | ! grep "Monitor is Off" > /dev/null'
+    # command_state: ssh -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=no -i /config/.ssh/id_rsa pi@192.168.1.205 'DISPLAY=:0 xset q dpms | grep "Monitor is On" > /dev/null'

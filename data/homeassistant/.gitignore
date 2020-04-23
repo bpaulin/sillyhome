@@ -16,3 +16,4 @@ freebox.conf
 .google_maps_location_sharing*
 .cloud
 .ssh
+harmony_*.conf

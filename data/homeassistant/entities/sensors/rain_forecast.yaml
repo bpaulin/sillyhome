@@ -1,0 +1,4 @@
+platform: template
+sensors:
+  rain_forecast:
+    value_template: "{{ state_attr('sensor.lyon_next_rain', '1h rain forecast') }}"

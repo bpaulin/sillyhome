@@ -5,6 +5,7 @@ import voluptuous as vol
 from homeassistant.components.light import Light, PLATFORM_SCHEMA
 from homeassistant.const import CONF_NAME, CONF_ADDRESS, CONF_DEVICES
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.restore_state import RestoreEntity
 from brownpaperbag import BpbGate
 
 DOMAIN = "myhomeserver1"
@@ -42,7 +43,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     return True
 
 
-class BrownPaperBagLight(Light):
+class BrownPaperBagLight(Light, RestoreEntity):
     """Representation of an BrownPaperBag Light."""
 
     def __init__(self, light, gate: BpbGate):
@@ -84,3 +85,12 @@ class BrownPaperBagLight(Light):
     async def receive_gate_state(self, bpb_state):
         self._state = bpb_state == "1"
         await self.async_update_ha_state()
+
+    async def async_added_to_hass(self):
+        """Call when entity about to be added to hass."""
+        # If not None, we got an initial value.
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if not state:
+            return
+        self._state = state.state == "on"

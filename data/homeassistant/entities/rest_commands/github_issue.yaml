@@ -1,0 +1,8 @@
+github_issue:
+  url: !secret github_private_api_issues
+  method: POST
+  payload: '{"title": "{{ title }}", "body": "{{ body }}"}'
+  content_type: 'application/json; charset=utf-8'
+  username: bpaulin
+  password: !secret github_access_token
+  verify_ssl: true

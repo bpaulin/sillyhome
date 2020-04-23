@@ -1,0 +1,9 @@
+platform: template
+sensors:
+  harmony_activity:
+    value_template: >
+      {% if is_state("remote.harmony_hub", 'on') %}
+        {{ states.remote.harmony_hub.attributes.current_activity }}
+      {% else %}
+        Off
+      {% endif %}

@@ -1,0 +1,29 @@
+type: vertical-stack
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: picture-entity
+        entity: person.bruno
+        show_name: false
+        image: /local/private/bp_nb.JPG
+        state_image:
+          "home": /local/private/bp_col.JPG
+
+      - type: picture-entity
+        entity: person.emma
+        show_name: false
+        image: /local/private/eh_nb.JPG
+        state_image:
+          "home": /local/private/eh_col.JPG
+
+  # Display map only if somedody is away
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.everybody_home
+        state_not: "on"
+    card:
+      type: map
+      aspect_ratio: 16x9
+      entities:
+        - person.bruno
+        - person.emma

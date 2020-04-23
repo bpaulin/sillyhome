@@ -1,0 +1,12 @@
+type: picture-glance
+title: buanderie
+entities:
+  - light.laundry
+entity: light.laundry
+state_image:
+  "on": /local/rooms/color/laundry.jpg
+  "off": /local/rooms/gray/laundry.jpg
+style: |
+  ha-card .box{
+    background-color: rgba(0, 0, 0, 0.6);;
+  }

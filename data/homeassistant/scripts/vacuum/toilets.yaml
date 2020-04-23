@@ -1,0 +1,8 @@
+vacuum_toilets:
+  alias: "Aspirer les toilettes"
+  sequence:
+    - service: vacuum.xiaomi_clean_zone
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        repeats: 1
+        zone: [[25463, 31077, 26413, 32277]]

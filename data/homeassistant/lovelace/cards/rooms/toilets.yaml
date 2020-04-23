@@ -1,0 +1,12 @@
+type: picture-glance
+title: wc
+entities:
+  - light.toilets
+entity: light.toilets
+state_image:
+  "on": /local/rooms/color/toilet.jpg
+  "off": /local/rooms/gray/toilet.jpg
+style: |
+  ha-card .box{
+    background-color: rgba(0, 0, 0, 0.6);;
+  }

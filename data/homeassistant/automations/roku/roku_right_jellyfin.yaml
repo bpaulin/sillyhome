@@ -1,0 +1,14 @@
+id: run_jellyfin
+alias: Jellyfin
+trigger:
+  - platform: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Right
+action:
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.mibox
+      source: 'org.jellyfin.androidtv'

@@ -30,47 +30,56 @@ cloud:
         - climate.netatmo_parents
         - climate.netatmo_bureau
 
+        - vacuum.xiaomi_vacuum_cleaner
+
+        - script.vacuum_child_chair
+
     entity_config:
       light.living_ceiling:
         aliases:
           - plafond
           - grande lumière
-        room: salon
+        room: Salon
       light.living_plug:
         aliases:
           - prise
           - petite lumière
-        room: salon
+        room: Salon
       light.kitchen_sconce:
         aliases: []
-        room: cuisine
+        room: Cuisine
       light.kitchen_ceiling:
         aliases: []
-        room: cuisine
+        room: Cuisine
       light.corridor:
         aliases: []
-        room: couloir
+        room: Couloir
       light.bathroom_ceiling:
         aliases: []
-        room: salle de bains
+        room: Salle de bains
       light.bathroom_sconce:
         aliases: []
-        room: salle de bains
+        room: Salle de bains
       light.toilets:
         aliases: []
-        room: toilettes
+        room: Toilettes
       light.office:
         aliases: []
-        room: bureau
+        room: Bureau
       light.child_ceiling:
-        aliases: []
-        room: !secret child_room
+        aliases:
+          - plafond
+          - grande lumière
+        room: Chambre de Lise
       light.child_plug:
-        aliases: []
-        room: !secret child_room
+        aliases:
+          - prise
+          - petite lumière
+          - veilleuse
+        room: Chambre de Lise
       light.parents:
         aliases: []
-        room: Chambre parents
+        room: Chambre
       light.laundry:
         aliases: []
         room: buanderie
@@ -79,49 +88,55 @@ cloud:
         aliases:
           - volet
           - store
-        room: cuisine
+        room: Cuisine
       cover.living_big:
         aliases:
           - grand volet
           - grand store
-        room: salon
+        room: Salon
       cover.living_small:
         aliases:
           - petit volet
           - petit store
-        room: salon
+        room: Salon
       cover.office:
         aliases:
           - volet
           - store
-        room: bureau
+        room: Bureau
       cover.child:
         aliases:
           - volet
           - store
-        room: !secret child_room
+        room: Chambre de lise
       cover.parents_first:
         aliases:
           - volet de l'entrée
           - store de l'entrée
           - volet d'emma
           - store d'emma
-        room: chambre parents
+        room: Chambre
       cover.parents_second:
         aliases:
           - volet du placard
           - store du placard
           - volet de bruno
           - store de bruno
-        room: chambre parents
+        room: Chambre
 
       climate.netatmo_salon:
-        room: salon
+        room: Salon
       climate.netatmo_salle_de_bains:
-        room: salle de bains
+        room: Salle de bains
       climate.netatmo_enfant:
-        room: chambre de lise
+        room: Chambre de lise
       climate.netatmo_parents:
-        room: chambre
+        room: Chambre
       climate.netatmo_bureau:
-        room: bureau
+        room: Bureau
+
+      script.vacuum_child_chair:
+        room: Salon
+
+      vacuum.xiaomi_vacuum_cleaner:
+        room: Salon

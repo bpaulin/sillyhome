@@ -4,7 +4,7 @@ trigger:
     entity_id: person.emma
     from: 'home'
     to: 'not_home'
-    for: '00:10:00'
+    for: '00:04:00'
 action:
   - service: input_boolean.turn_off
     data:

@@ -1,0 +1,11 @@
+platform: androidtv
+name: Mibox
+host: 192.168.1.43
+device_class: androidtv
+apps:
+  com.netflix.ninja: "Netflix"
+  com.google.android.tvlauncher: "Home"
+  com.google.android.youtube.tv: "Youtube"
+  org.jellyfin.androidtv: "Jellyfin"
+  tv.molotov.app: "Molotov"
+  com.amazon.amazonvideo.livingroom: "Prime Video"

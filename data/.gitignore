@@ -14,5 +14,11 @@ zigbee2mqtt
 # homeassistant
 letsencrypt
 valetudomap
-traefik
+# traefik
 telegraf.conf
+bazarr
+lazylibrarian
+grafana
+pihole
+dnsmasq
+assistant_relay

@@ -1,5 +1,6 @@
 light.living_ceiling:
   friendly_name: 'Salon (plafond)'
+  icon: mdi:ceiling-light
 
 light.living_plug:
   friendly_name: 'Salon (prise)'
@@ -11,9 +12,11 @@ light.living:
 
 light.kitchen_ceiling:
   friendly_name: 'Cuisine (plafond)'
+  icon: mdi:ceiling-light
 
 light.kitchen_sconce:
   friendly_name: 'Cuisine (meuble)'
+  icon: mdi:wall-sconce-flat
 
 light.kitchen:
   friendly_name: 'Cuisine'
@@ -21,13 +24,16 @@ light.kitchen:
 
 light.corridor:
   friendly_name: 'Couloir'
+  icon: mdi:ceiling-light
 
 
 light.bathroom_ceiling:
   friendly_name: 'Salle de bains (plafond)'
+  icon: mdi:ceiling-light
 
 light.bathroom_sconce:
   friendly_name: 'Salle de bains (meuble)'
+  icon: mdi:wall-sconce-flat
 
 light.bathroom:
   friendly_name: 'Salle de bains'
@@ -35,17 +41,21 @@ light.bathroom:
 
 light.toilets:
   friendly_name: 'Wc'
+  icon: mdi:ceiling-light
 
 
 light.office:
   friendly_name: 'Bureau'
+  icon: mdi:ceiling-light
 
 
 light.child_ceiling:
   friendly_name: 'Enfant (plafond)'
+  icon: mdi:ceiling-light
 
 light.child_plug:
   friendly_name: 'Enfant (prise)'
+  icon: mdi:floor-lamp
 
 light.child:
   friendly_name: 'Enfant'
@@ -53,10 +63,12 @@ light.child:
 
 light.parents:
   friendly_name: 'Parents'
+  icon: mdi:ceiling-light
 
 
 light.laundry:
   friendly_name: 'Buanderie'
+  icon: mdi:ceiling-light
 
 light.0x90fd9ffffe87490c_light:
   hidden: true

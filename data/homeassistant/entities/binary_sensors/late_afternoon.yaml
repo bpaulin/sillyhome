@@ -1,0 +1,4 @@
+platform: tod
+name: Late Afternoon
+after: '17:00'
+before: '19:30'

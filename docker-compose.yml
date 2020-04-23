@@ -4,7 +4,6 @@ version: "3.3"
 services:
   duckdns:
     image: linuxserver/duckdns
-    container_name: duckdns
     environment:
       - PUID=1000  # optional
       - PGID=1000  # optional
@@ -17,40 +16,90 @@ services:
     restart: unless-stopped
 
   traefik:
-    image: traefik:v2.0
-    container_name: traefik
+    image: traefik:v2.1
     ports:
-      - "80:80"
       - "10443:443"
       - "8080:8080"  # internal dashboard
     environment:
-      - TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL=${ACME_EMAIL}  # optional
+      TRAEFIK_ENTRYPOINTS_WEBSECURE: "true"
+      TRAEFIK_ENTRYPOINTS_WEBSECURE_ADDRESS: ":443"
+      TRAEFIK_API: "true"
+      TRAEFIK_API_DASHBOARD: "true"
+      TRAEFIK_API_INSECURE: "true"
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${ACME_EMAIL}
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_STORAGE: "/letsencrypt/acme.json"
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_TLSCHALLENGE: "true"
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_DNSCHALLENGE_PROVIDER: "duckdns"
+      DUCKDNS_TOKEN: ${DOMAIN_TOKEN}
+      TRAEFIK_PROVIDERS_DOCKER: "true"
+      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
+      TRAEFIK_PROVIDERS_FILE_DIRECTORY: "/etc/traefik/dynamic/"
     volumes:
       - ${ROOT_DATA}/letsencrypt:/letsencrypt
       - ${ROOT_DATA}/traefik:/etc/traefik
       - "/var/run/docker.sock:/var/run/docker.sock"
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.secured.chain.middlewares: "auth-users, test-ratelimit"
+      traefik.http.middlewares.auth-users.basicauth.users: "${BASIC_AUTH}"
+      traefik.http.middlewares.known-ips.ipwhitelist.sourceRange: "${WHITELIST_RANGE}"
+      traefik.http.middlewares.test-ratelimit.ratelimit.average: "100"
+      traefik.http.middlewares.test-ratelimit.ratelimit.burst: "100"
+      traefik.http.routers.hass.rule: "Host(`${HOME_DOMAIN}`)"
+      traefik.http.routers.hass.service: "hass@file"
+      traefik.http.routers.hass.entrypoints: "websecure"
+      traefik.http.routers.hass.tls: "true"
+      traefik.http.routers.hass.tls.certresolver: "letsencrypt"
+      traefik.http.routers.hass.tls.domains[0].main: "${HOME_DOMAIN}"
+      traefik.http.routers.hass.tls.domains[0].sans: "*.${HOME_DOMAIN}"
     restart: unless-stopped
 
-
-  codeserver:
-    image: linuxserver/code-server:latest
-    container_name: code-server
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - PASSWORD=${CODER_PASSWORD}  # optional
-    volumes:
-      - ${ROOT_DATA}/code-server:/config
-      - ./..:/sillyroot
+  pihole:
+    image: pihole/pihole:latest
     ports:
-      - 8443:8443
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: 'America/Chicago'
+      # WEBPASSWORD: 'set a secure password here or it will be random'
+    # Volumes store your data between container upgrades
+    volumes:
+      - ${ROOT_DATA}/pihole:/etc/pihole/
+      - ${ROOT_DATA}/dnsmasq:/etc/dnsmasq.d/
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
     restart: unless-stopped
+
+  # codeserver:
+  #   image: linuxserver/code-server:latest
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${ROOT_DATA}/code-server:/config
+  #     - ./..:/sillyroot
+  #   ports:
+  #     - 8443:8443
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.cdr.entrypoints: "websecure"
+  #     traefik.http.routers.cdr.rule: "Host(`code.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.cdr.middlewares: "secured"
+  #     traefik.http.routers.cdr.tls: "true"
+  #   restart: unless-stopped
 
 
   influxdb:
     image: influxdb:1.7-alpine
-    container_name: influxdb
     volumes:
       - ${ROOT_DATA}/influxdb:/var/lib/influxdb
     ports:
@@ -59,7 +108,6 @@ services:
 
   telegraf:
     image: telegraf:1.12-alpine
-    container_name: telegraf
     links:
       - influxdb
     ports:
@@ -74,28 +122,25 @@ services:
       - influxdb
     restart: unless-stopped
 
-  chronograf:
-    image: chronograf:1.7-alpine
-    container_name: chronograf
+  grafana:
+    image: grafana/grafana
     volumes:
-      - '${ROOT_DATA}/chronograf:/var/lib/chronograf'
+      - '${ROOT_DATA}/grafana/var:/var/lib/grafana'
+      - '${ROOT_DATA}/grafana/provisioning:/etc/grafana/provisioning'
     environment:
-      BASE_PATH: "/chronograf"
-      INFLUXDB_URL: "http://influxdb:8086"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      GF_AUTH_BASIC_ENABLED: "false"
     labels:
       traefik.enable: "true"
-      traefik.http.routers.chronograf.entrypoints: "web"
-      traefik.http.routers.chronograf.rule: "PathPrefix(`/chronograf`)"
-      traefik.http.routers.chronograf.middlewares: "chronoauth"
-      traefik.http.middlewares.chronoauth.basicauth.users: "${CHRONOGRAF_AUTH}"
-    depends_on:
-      - influxdb
-    restart: unless-stopped
-
+      traefik.http.routers.grafana.entrypoints: "websecure"
+      traefik.http.routers.grafana.rule: "Host(`grafana.${HOME_DOMAIN}`)"
+      traefik.http.routers.grafana.middlewares: "secured"
+      traefik.http.routers.grafana.tls: "true"
+    user: "1000"
 
   sonarr:
     image: linuxserver/sonarr
-    container_name: sonarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -104,16 +149,19 @@ services:
     volumes:
       - ${ROOT_DATA}/sonarr:/config
       - ${ROOT_MEDIAS}:/data
+    ports:
+      - 8989:8989
     labels:
       traefik.enable: "true"
-      traefik.http.routers.sonarr.entrypoints: "web"
-      traefik.http.routers.sonarr.rule: "PathPrefix(`/sonarr`)"
-      traefik.http.routers.sonarr.middlewares: "chronoauth"
+      traefik.http.routers.sonarr.entrypoints: "websecure"
+      traefik.http.routers.sonarr.rule: "Host(`sonarr.${HOME_DOMAIN}`)"
+      traefik.http.routers.sonarr.middlewares: "secured"
+      traefik.http.routers.sonarr.tls: "true"
     restart: unless-stopped
+
 
   radarr:
     image: linuxserver/radarr
-    container_name: radarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -122,16 +170,18 @@ services:
     volumes:
       - ${ROOT_DATA}/radarr:/config
       - ${ROOT_MEDIAS}:/data
+    ports:
+      - 7878:7878
     labels:
       traefik.enable: "true"
-      traefik.http.routers.radarr.entrypoints: "web"
-      traefik.http.routers.radarr.rule: "PathPrefix(`/radarr`)"
-      traefik.http.routers.radarr.middlewares: "chronoauth"
+      traefik.http.routers.radarr.entrypoints: "websecure"
+      traefik.http.routers.radarr.rule: "Host(`radarr.${HOME_DOMAIN}`)"
+      traefik.http.routers.radarr.middlewares: "secured"
+      traefik.http.routers.radarr.tls: "true"
     restart: unless-stopped
 
   jackett:
     image: linuxserver/jackett
-    container_name: jackett
     environment:
       - PUID=1000
       - PGID=1000
@@ -142,14 +192,14 @@ services:
       - ${ROOT_MEDIAS}:/data
     labels:
       traefik.enable: "true"
-      traefik.http.routers.jackett.entrypoints: "web"
-      traefik.http.routers.jackett.rule: "PathPrefix(`/jackett`)"
-      traefik.http.routers.jackett.middlewares: "chronoauth"
+      traefik.http.routers.jackett.entrypoints: "websecure"
+      traefik.http.routers.jackett.rule: "Host(`jackett.${HOME_DOMAIN}`)"
+      traefik.http.routers.jackett.middlewares: "secured"
+      traefik.http.routers.jackett.tls: "true"
     restart: unless-stopped
 
   transmission:
     image: linuxserver/transmission
-    container_name: transmission
     environment:
       - PUID=1000
       - PGID=1000
@@ -157,30 +207,53 @@ services:
     volumes:
       - ${ROOT_DATA}/transmission:/config
       - ${ROOT_MEDIAS}:/data
+    ports:
+      - 9091:9091
     labels:
       traefik.enable: "true"
-      traefik.http.routers.transmission.entrypoints: "web"
-      traefik.http.routers.transmission.rule: "PathPrefix(`/transmission`)"
-      traefik.http.routers.transmission.middlewares: "chronoauth"
+      traefik.http.routers.transmission.entrypoints: "websecure"
+      traefik.http.routers.transmission.rule: "Host(`transmission.${HOME_DOMAIN}`)"
+      traefik.http.routers.transmission.middlewares: "secured"
+      traefik.http.routers.transmission.tls: "true"
     restart: unless-stopped
 
   jellyfin:
     image: jellyfin/jellyfin
-    container_name: jellyfin
     volumes:
       - ${ROOT_DATA}/jellyfin/config:/config
       - ${ROOT_DATA}/jellyfin/cache:/cache
       - ${ROOT_MEDIAS}:/media
+    ports:
+      - 8096:8096
     labels:
       traefik.enable: "true"
-      traefik.http.routers.jellyfin.entrypoints: "web"
-      traefik.http.routers.jellyfin.rule: "PathPrefix(`/jellyfin`)"
-      traefik.http.routers.jellyfin.middlewares: "chronoauth"
+      traefik.http.routers.jellyfin.entrypoints: "websecure"
+      traefik.http.routers.jellyfin.rule: "Host(`jellyfin.${HOME_DOMAIN}`)"
+      # traefik.http.routers.jellyfin.middlewares: "secured"
+      traefik.http.routers.jellyfin.tls: "true"
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
+
+  bazarr:
+    image: linuxserver/bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT_DATA}/bazarr/config:/config
+      - ${ROOT_MEDIAS}:/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.bazarr.entrypoints: "websecure"
+      traefik.http.routers.bazarr.rule: "Host(`bazarr.${HOME_DOMAIN}`)"
+      traefik.http.routers.bazarr.middlewares: "secured"
+      traefik.http.routers.bazarr.tls: "true"
     restart: unless-stopped
 
 
   homeassistant:
-    container_name: home-assistant
     image: homeassistant/home-assistant:stable
     volumes:
       - ${ROOT_DATA}/homeassistant/:/config
@@ -193,7 +266,6 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto
-    container_name: mosquitto
     expose:
       - "1883"
       - "9001"
@@ -203,7 +275,6 @@ services:
     restart: unless-stopped
 
   zigbee2mqtt:
-    container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
     volumes:
       - ${ROOT_DATA}/zigbee2mqtt/:/app/data
@@ -218,7 +289,6 @@ services:
       - TZ=${TZ}
 
   zigbee2mqttassistant:
-    container_name: zigbee2mqttassistant
     ports:
       - '8880:80'
     environment:
@@ -226,10 +296,9 @@ services:
     image: carldebilly/zigbee2mqttassistant
 
   valetudomap:
-    container_name: valetudomap
     image: bruvv/icantbelieveitsnotvaletudo
     ports:
-      - '3000:3000'
+      - '4000:4000'
     volumes:
       - ${ROOT_DATA}/valetudomap/config.json:/app/config.json
     depends_on:

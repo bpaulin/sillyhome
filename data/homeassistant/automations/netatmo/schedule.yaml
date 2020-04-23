@@ -1,0 +1,8 @@
+alias: Set Thermostat Mode
+trigger:
+  platform: state
+  entity_id: input_select.netatmo_schedule
+action:
+  service: netatmo.set_schedule
+  data_template:
+    schedule: "{{ states('input_select.netatmo_schedule') }}"

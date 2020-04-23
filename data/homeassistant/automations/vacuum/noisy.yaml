@@ -1,0 +1,10 @@
+alias: 'vacuum_noisy'
+trigger:
+  - platform: state
+    entity_id: binary_sensor.nobody_home
+    to: 'on'
+action:
+  - service: vacuum.set_fan_speed
+    data_template:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      fan_speed: 'Max'

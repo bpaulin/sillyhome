@@ -1,0 +1,45 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - entity: sun.sun
+        state_not: "above_horizon"
+    card:
+      type: entity-filter
+      show_empty: false
+      card:
+        type: entities
+        title: Volets ouverts
+        show_header_toggle: false
+      entities:
+        - cover.kitchen
+        - cover.living_big
+        - cover.living_small
+        - cover.office
+        - cover.child
+        - cover.parents_first
+        - cover.parents_second
+      state_filter:
+        - "open"
+
+  - type: conditional
+    conditions:
+      - entity: sun.sun
+        state: "above_horizon"
+    card:
+      type: entity-filter
+      show_empty: false
+      card:
+        type: entities
+        title: Volets fermés
+        show_header_toggle: false
+      entities:
+        - cover.kitchen
+        - cover.living_big
+        - cover.living_small
+        - cover.office
+        - cover.child
+        - cover.parents_first
+        - cover.parents_second
+      state_filter:
+        - "closed"

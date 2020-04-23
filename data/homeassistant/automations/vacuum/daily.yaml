@@ -1,0 +1,18 @@
+alias: 'vacuum_daily'
+trigger:
+  - platform: state
+    entity_id: binary_sensor.nobody_home
+    to: 'on'
+action:
+  - service: vacuum.start
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+  - wait_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') == 'cleaning' }}"
+    timeout: '00:02:00'
+    continue_on_timeout: 'false'
+  - wait_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') == 'docked' }}"
+    timeout: '02:00:00'
+    continue_on_timeout: 'false'
+  - service: notify.mobiles
+    data:
+      message: "L'aspirateur vient de nettoyer {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaned_area') }} m² en {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaning_time') }} minutes"

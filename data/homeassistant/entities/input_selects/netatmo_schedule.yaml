@@ -1,0 +1,6 @@
+netatmo_schedule:
+  name: Planning chauffage
+  options:
+    - Standard
+    - A la maison
+  initial: Standard

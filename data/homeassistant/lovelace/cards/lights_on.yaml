@@ -1,0 +1,22 @@
+type: entity-filter
+show_empty: false
+card:
+  type: entities
+  title: Lumières allumées
+  show_header_toggle: false
+entities:
+  - light.kitchen_sconce
+  - light.kitchen_ceiling
+  - light.living_ceiling
+  - light.living_plug
+  - light.corridor
+  - light.bathroom_ceiling
+  - light.bathroom_sconce
+  - light.toilets
+  - light.office
+  - light.child_ceiling
+  - light.child_plug
+  - light.parents
+  - light.laundry
+state_filter:
+  - "on"

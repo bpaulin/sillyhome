@@ -1,0 +1,13 @@
+platform: template
+switches:
+  harmony_prime:
+    value_template: "{{ is_state_attr('remote.harmony_hub', 'current_activity', 'Prime') }}"
+    turn_on:
+      service: remote.turn_on
+      data:
+        entity_id: remote.harmony_hub
+        activity: 'Prime'
+    turn_off:
+      service: remote.turn_off
+      data:
+        entity_id: remote.harmony_hub

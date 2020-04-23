@@ -1,2 +1,8 @@
 .env
 notes.md
+tests/perf
+__pycache__
+.vscode
+/tests
+notes.md
+/docs

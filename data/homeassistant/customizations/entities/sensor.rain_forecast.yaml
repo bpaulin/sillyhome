@@ -1,0 +1,3 @@
+sensor.rain_forecast:
+  friendly_name: 'Pluie'
+  icon: mdi:weather-rainy

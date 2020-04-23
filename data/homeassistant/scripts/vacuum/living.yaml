@@ -1,0 +1,8 @@
+vacuum_living:
+  alias: "Aspirer le salon"
+  sequence:
+    - service: vacuum.xiaomi_clean_zone
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        repeats: 1
+        zone: [[22830, 25048, 29030, 29048]]

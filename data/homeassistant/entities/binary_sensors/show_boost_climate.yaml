@@ -1,0 +1,5 @@
+platform: template
+sensors:
+  show_boost_climate:
+    value_template: >-
+      {{ is_state('binary_sensor.workday_sensor', 'off') or is_state('binary_sensor.late_afternoon', 'on') or is_state('switch.boost_child_climate', 'on') or is_state('switch.boost_bathroom_climate', 'on') }}

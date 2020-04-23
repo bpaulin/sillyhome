@@ -1,13 +1,13 @@
 title: automation
+path: automation
 badges: []
 icon: mdi:home-automation
 cards:
   - type: entities
     entities:
-      - entity: group.all_automations
-        name: Toutes les automatisations
+      - input_select.netatmo_schedule
 
-  - title: Volume enceintes
+  - title: Volume des enceintes
     type: entities
     show_header_toggle: true
     entities:
@@ -21,3 +21,46 @@ cards:
         name: Chambre enfant
       - entity: automation.volume_parents
         name: Chambre parents
+
+  - title: Aspirateur
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.vacuum_daily
+        name: Lancement automatique
+      - entity: automation.vacuum_error
+        name: Notif. d'erreur
+      - entity: automation.vacuum_noisy
+        name: Bruyant si absence
+      - entity: automation.vacuum_quiet
+        name: Silencieux si présence
+
+  - title: Entrée sortie
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.bruno_out
+        name: Bruno sort
+      - entity: automation.bruno_in
+        name: Bruno rentre
+      - entity: automation.emma_out
+        name: Emma sort
+      - entity: automation.emma_in
+        name: Emma rentre
+      - entity: automation.arrivee_chez_nounou
+
+  - title: Volets
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.cover_night_sunrise
+        name: Ouvrir le matin
+      - entity: automation.cover_night_sunset
+        name: Fermer le soir
+
+  - title: System
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.update_available_notification
+        name: Nouvelle version

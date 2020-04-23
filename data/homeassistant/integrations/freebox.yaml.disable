@@ -1,0 +1,3 @@
+freebox:
+  host: !secret freebox_host
+  port: !secret freebox_port

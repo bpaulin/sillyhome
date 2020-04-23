@@ -1,3 +1,0 @@
-name: !secret name_work_emma_2
-latitude: !secret latitude_work_emma_2
-longitude: !secret longitude_work_emma_2

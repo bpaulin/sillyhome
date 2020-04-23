@@ -4,14 +4,22 @@
 # This file must be as short as possible.
 # All real configuration is in lovelace directory
 ##
+custom_header:
+  compact_mode: true
 
 resources:
-  - url: /local/custom/card-mod.js?v=1
+  - url: /community_plugin/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /community_plugin/simple-thermostat/simple-thermostat.js
+    type: module
+  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js?v=1.5.2
+    type: module
+  - url: /community_plugin/custom-header/custom-header.js
     type: module
 
 views:
   - !include lovelace/views/context.yaml
   - !include lovelace/views/rooms.yaml
-  - !include lovelace/views/controls.yaml
   - !include lovelace/views/climate.yaml
+  - !include lovelace/views/medias.yaml
   - !include lovelace/views/automations.yaml

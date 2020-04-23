@@ -1,0 +1,16 @@
+alias: 'cover_night_sunset'
+trigger:
+  platform: sun
+  event: sunset
+condition:
+  condition: state
+  entity_id: binary_sensor.nobody_home
+  state: 'on'
+action:
+  service: cover.close_cover
+  data:
+    entity_id:
+      - cover.parents_first
+      - cover.parents_second
+      - cover.child
+      - cover.office

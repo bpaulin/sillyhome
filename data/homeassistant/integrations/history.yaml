@@ -14,3 +14,20 @@ history:
       - light.child_plug
       - light.parents
       - light.laundry
+
+      - cover.kitchen
+      - cover.living_big
+      - cover.living_small
+      - cover.office
+      - cover.child
+      - cover.parents_first
+      - cover.parents_second
+
+      - climate.netatmo_salon
+      - climate.netatmo_salle_de_bains
+      - climate.netatmo_enfant
+      - climate.netatmo_parents
+      - climate.netatmo_bureau
+
+      - person.bruno
+      - person.emma

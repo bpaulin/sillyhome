@@ -1,0 +1,16 @@
+type: picture-glance
+title: salon
+entities:
+  - light.living_ceiling
+  - light.living_plug
+  - cover.living_big
+  - cover.living_small
+  - media_player.salon
+entity: light.living
+state_image:
+  "on": /local/rooms/color/living.jpg
+  "off": /local/rooms/gray/living.jpg
+style: |
+  ha-card .box{
+    background-color: rgba(0, 0, 0, 0.6);;
+  }

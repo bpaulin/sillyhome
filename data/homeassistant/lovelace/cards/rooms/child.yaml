@@ -1,0 +1,15 @@
+type: picture-glance
+title: !secret child_name
+entities:
+  - light.child_ceiling
+  - light.child_plug
+  - cover.child
+  - media_player.chambre
+entity: light.child
+state_image:
+  "on": /local/rooms/color/child.jpg
+  "off": /local/rooms/gray/child.jpg
+style: |
+  ha-card .box{
+    background-color: rgba(0, 0, 0, 0.6);;
+  }

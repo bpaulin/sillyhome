@@ -1,0 +1,25 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - entity: vacuum.xiaomi_vacuum_cleaner
+        state: "docked"
+    card:
+      type: entities
+      entities:
+        - entity: vacuum.xiaomi_vacuum_cleaner
+
+  - type: conditional
+    conditions:
+      - entity: vacuum.xiaomi_vacuum_cleaner
+        state_not: "docked"
+    card:
+      type: picture-glance
+      entities:
+        - vacuum.xiaomi_vacuum_cleaner
+      title: Aspirateur
+      camera_image: camera.rockrobo_map
+      style: |
+        ha-card .box{
+          background-color: rgba(0, 0, 0, 0.6);;
+        }

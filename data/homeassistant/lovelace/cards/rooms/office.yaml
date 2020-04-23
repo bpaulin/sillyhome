@@ -1,0 +1,14 @@
+type: picture-glance
+title: bureau
+entities:
+  - light.office
+  - cover.office
+  - media_player.bureau
+entity: light.office
+state_image:
+  "on": /local/rooms/color/office.jpg
+  "off": /local/rooms/gray/office.jpg
+style: |
+  ha-card .box{
+    background-color: rgba(0, 0, 0, 0.6);;
+  }

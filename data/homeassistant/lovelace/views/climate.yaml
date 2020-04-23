@@ -1,14 +1,19 @@
 title: Climate
-icon: 'mdi:thermometer'
+icon: mdi:thermometer
 path: climate
 cards:
+
   - type: thermostat
     entity: climate.netatmo_salon
+
   - type: thermostat
     entity: climate.netatmo_salle_de_bains
+
   - type: thermostat
     entity: climate.netatmo_enfant
+
   - type: thermostat
     entity: climate.netatmo_bureau
+
   - type: thermostat
     entity: climate.netatmo_parents

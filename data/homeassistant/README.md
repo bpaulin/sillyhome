@@ -1,0 +1,3 @@
+# Sillyhome
+
+ma domotique, qui sera un jour documentée...
