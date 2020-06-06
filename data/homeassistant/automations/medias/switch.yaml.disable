@@ -1,0 +1,24 @@
+alias: 'turn_off_tv_after_switch'
+trigger:
+  - platform: state
+    entity_id: device_tracker.04_03_d6_4c_a1_f1
+    from: 'home'
+    to: 'not_home'
+    for: '00:04:00'
+  platform: sun
+  event: sunrise
+condition:
+  condition: state
+  entity_id: binary_sensor.nobody_home
+  state: 'on'
+action:
+  service: cover.open_cover
+  data:
+    entity_id:
+      - cover.parents_first
+      - cover.parents_second
+      - cover.child
+      - cover.office
+      - cover.kitchen
+      - cover.living_big
+      - cover.living_small

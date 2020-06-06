@@ -130,7 +130,10 @@ services:
     environment:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      GF_AUTH_ANONYMOUS_ORG_NAME: "sillyhome"
       GF_AUTH_BASIC_ENABLED: "false"
+      GF_INSTALL_PLUGINS: ""
+      HASS_INFLUXDB_PASSWORD: ${HASS_INFLUXDB_PASSWORD}
     labels:
       traefik.enable: "true"
       traefik.http.routers.grafana.entrypoints: "websecure"
@@ -304,3 +307,44 @@ services:
     depends_on:
       - mosquitto
     restart: unless-stopped
+
+  mi-scale:
+    image: lolouk44/xiaomi-mi-scale:latest
+    restart: unless-stopped
+
+    network_mode: host
+    privileged: true
+
+    # volumes:
+    #   - ${ROOT_DATA}/../../dev/xiaomi_mi_scale/src:/opt/miscale
+
+    environment:
+      - TZ=${TZ}
+      - MISCALE_MAC=C3:B3:42:7B:96:3D # Mac address of your scale
+      - MQTT_HOST=127.0.0.1  # MQTT Server (defaults to 127.0.0.1)
+      - MQTT_PREFIX=miScale
+      # - MQTT_USERNAME=       # Username for MQTT server (comment out if not required)
+      # - MQTT_PASSWORD=       # Password for MQTT (comment out if not required)
+      # - MQTT_PORT=           # Defaults to 1883
+      # - MQTT_TIMEOUT=30      # Defaults to 60
+      # - TIME_INTERVAL=30     # Time in sec between each query to the scale, to allow other applications to use the Bluetooth module. Defaults to 30
+
+      # Auto-gender selection/config -- This is used to create the calculations such as BMI, Water/Bone Mass etc...
+      # Up to 3 users possible as long as weights do not overlap!
+
+      - USER1_GT=80            # If the weight is greater than this number, we'll assume that we're weighing User #1
+      - USER1_SEX=male
+      - USER1_NAME=bruno         # Name of the user
+      - USER1_HEIGHT=180       # Height (in cm) of the user
+      - USER1_DOB=${BRUNO_DOB}   # DOB (in yyyy-mm-dd format)
+
+      - USER2_LT=35            # If the weight is less than this number, we'll assume that we're weighing User #2
+      - USER2_SEX=female
+      - USER2_NAME=lise      # Name of the user
+      - USER2_HEIGHT=95        # Height (in cm) of the user
+      - USER2_DOB=${LISE_DOB}   # DOB (in yyyy-mm-dd format)
+
+      - USER3_SEX=female
+      - USER3_NAME=emma       # Name of the user
+      - USER3_HEIGHT=150       # Height (in cm) of the user
+      - USER3_DOB=${EMMA_DOB}   # DOB (in yyyy-mm-dd format)

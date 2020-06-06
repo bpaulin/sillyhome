@@ -3,6 +3,7 @@ lights:
   living_plug:
     level_template: "{{ state_attr('light.tradfri_bulb_8', 'brightness') }}"
     value_template: "{{ states('light.myhomeserver1_salon_prise') }}"
+    temperature_template: "{{ state_attr('light.tradfri_bulb_8', 'color_temp') }}"
     turn_on:
       service: light.turn_on
       data_template:
@@ -16,3 +17,8 @@ lights:
       data_template:
         entity_id: light.tradfri_bulb_8
         brightness: "{{ brightness }}"
+    set_temperature:
+      service: light.turn_on
+      data_template:
+        entity_id: light.tradfri_bulb_8
+        color_temp: "{{ color_temp }}"

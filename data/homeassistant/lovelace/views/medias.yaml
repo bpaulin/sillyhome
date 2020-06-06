@@ -14,6 +14,10 @@ cards:
         entity: switch.harmony_jellyfin
       - type: entity-button
         entity: switch.harmony_molotov
+      - type: entity-button
+        entity: switch.harmony_switch
+      - type: entity-button
+        entity: switch.harmony_shadow
 
   # - type: entities
   #   title: Films

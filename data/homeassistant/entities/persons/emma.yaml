@@ -2,5 +2,6 @@ name: Emma
 id: emma
 user_id: 01ef66256c564f99b726962300beba24
 device_trackers:
-  - device_tracker.google_maps_112878560787742332291
-  - device_tracker.redmi_note_7
+  - device_tracker.google_maps_112878560787742332291 # gmaps
+  - device_tracker.redmi_note_7 # app
+  - device_tracker.redminote7_redmi_3 # router

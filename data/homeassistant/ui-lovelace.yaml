@@ -20,6 +20,7 @@ resources:
 views:
   - !include lovelace/views/context.yaml
   - !include lovelace/views/rooms.yaml
+  - !include lovelace/views/outside.yaml
   - !include lovelace/views/climate.yaml
   - !include lovelace/views/medias.yaml
   - !include lovelace/views/automations.yaml

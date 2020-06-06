@@ -1,0 +1,7 @@
+platform: mqtt
+name: "weight_bruno"
+state_topic: "miScale/bruno/weight"
+value_template: "{{ value_json['Weight'] }}"
+unit_of_measurement: "kg"
+json_attributes_topic: "miScale/bruno/weight"
+icon: mdi:scale-bathroom

@@ -1,0 +1,7 @@
+platform: mqtt
+name: "weight_emma"
+state_topic: "miScale/emma/weight"
+value_template: "{{ value_json['Weight'] }}"
+unit_of_measurement: "kg"
+json_attributes_topic: "miScale/emma/weight"
+icon: mdi:scale-bathroom

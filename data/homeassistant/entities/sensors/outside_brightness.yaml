@@ -1,0 +1,8 @@
+platform: min_max
+name: outside_illuminance
+entity_ids:
+  - sensor.miflora0a68_illuminance
+  - sensor.miflorab613_illuminance
+  - sensor.miflorab5f5_illuminance
+type: mean
+round_digits: 0

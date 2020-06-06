@@ -1,0 +1,11 @@
+alias: 'notify_weight_bruno'
+trigger:
+  platform: state
+  entity_id:
+    - sensor.weight_bruno
+    - sensor.weight_emma
+action:
+  service_template: >
+    {{ trigger.entity_id | replace('sensor.weight_', 'notify.') }}
+  data_template:
+    message: 'Nouveau poids: {{ trigger.to_state.state }} kg ({{ trigger.to_state.state | float - trigger.from_state.state | float }})'

@@ -9,6 +9,8 @@ influxdb:
   tags:
     instance: prod
     source: hass
+  tags_attributes:
+    - friendly_name
 
   include:
     entities:
@@ -18,3 +20,10 @@ influxdb:
       - climate.netatmo_parents
       - climate.netatmo_bureau
       - climate.netatmo_thermostat
+
+      - plant.0a68
+      - plant.b5f5
+      - plant.b613
+
+      - sensor.weight_bruno
+      - sensor.weight_emma

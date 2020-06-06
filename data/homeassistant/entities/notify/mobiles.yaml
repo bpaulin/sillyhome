@@ -1,5 +1,5 @@
 name: mobiles
 platform: group
 services:
-  - service: mobile_app_portable_bruno
+  - service: mobile_app_phone_bruno
   - service: mobile_app_portable_emma

@@ -10,3 +10,9 @@ switch.harmony_jellyfin:
 switch.harmony_molotov:
   friendly_name: Molotov
   icon: mdi:television-classic
+switch.harmony_switch:
+  friendly_name: Switch
+  icon: mdi:nintendo-switch
+switch.harmony_shadow:
+  friendly_name: Shadow
+  icon: mdi:gamepad-variant

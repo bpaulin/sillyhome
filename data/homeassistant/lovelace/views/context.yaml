@@ -2,14 +2,14 @@ title: Controls
 icon: mdi:home
 path: context
 cards:
-  # - type: history-graph
-  #   title: 'Covid-19'
-  #   hours_to_show: 80
-  #   refresh_interval: 300
-  #   entities:
-  #     - sensor.france_coronavirus_current
-  #     - sensor.france_coronavirus_deaths
-  #     - sensor.france_coronavirus_recovered
+  - type: entities
+    entities:
+      - entity: sensor.weight_bruno
+        name: Bruno
+      - entity: sensor.weight_emma
+        name: Emma
+      - entity: sensor.weight_lise
+        name: Lise
   - !include ../cards/alarm.yaml
   - !include ../cards/presence.yaml
   - !include ../cards/lights_on.yaml

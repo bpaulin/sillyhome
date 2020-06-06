@@ -1,0 +1,7 @@
+platform: mqtt
+name: "weight_lise"
+state_topic: "miScale/lise/weight"
+value_template: "{{ value_json['Weight'] }}"
+unit_of_measurement: "kg"
+json_attributes_topic: "miScale/lise/weight"
+icon: mdi:scale-bathroom

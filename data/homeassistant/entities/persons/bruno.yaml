@@ -2,5 +2,6 @@ name: Bruno
 id: bruno
 user_id: 74719fc877e543bfa1bef65de6eea994
 device_trackers:
-  - device_tracker.google_maps_101752326389778645446
-  - device_tracker.redmi_note_7_2
+  - device_tracker.google_maps_104886970812471678255 # gmaps
+  - device_tracker.redmi_note_7_2 # app
+  - device_tracker.redminote7_redmi_4 # router

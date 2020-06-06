@@ -18,7 +18,8 @@ valetudomap
 telegraf.conf
 bazarr
 lazylibrarian
-grafana
+grafana/share
+grafana/var
 pihole
 dnsmasq
 assistant_relay
