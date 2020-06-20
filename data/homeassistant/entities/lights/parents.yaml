@@ -1,4 +1,5 @@
 platform: group
 name: parents
 entities:
-  - light.myhomeserver1_parents
+  - light.parents_ceiling
+  - light.parents_bed

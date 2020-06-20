@@ -61,9 +61,24 @@ light.child:
   friendly_name: 'Enfant'
 
 
-light.parents:
-  friendly_name: 'Parents'
+light.parents_ceiling:
+  friendly_name: 'Parents (plafond)'
   icon: mdi:ceiling-light
+
+light.parents_mum:
+  friendly_name: 'Emma'
+  icon: mdi:lamp
+
+light.parents_dad:
+  friendly_name: 'Bruno'
+  icon: mdi:lamp
+
+light.parents_bed:
+  friendly_name: 'Chevets'
+  icon: mdi:lamp
+
+light.parents:
+  friendly_name: 'Enfant'
 
 
 light.laundry:

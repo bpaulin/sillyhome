@@ -16,7 +16,9 @@ entities:
   - light.office
   - light.child_ceiling
   - light.child_plug
-  - light.parents
+  - light.parents_ceiling
+  - light.parents_dad
+  - light.parents_mum
   - light.laundry
 state_filter:
   - "on"

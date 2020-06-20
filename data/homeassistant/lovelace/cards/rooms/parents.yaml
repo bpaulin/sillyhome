@@ -1,7 +1,8 @@
 type: picture-glance
 title: chambre
 entities:
-  - light.parents
+  - light.parents_ceiling
+  - light.parents_bed
   - cover.parents_first
   - cover.parents_second
   - media_player.parents

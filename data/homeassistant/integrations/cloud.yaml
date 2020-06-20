@@ -13,7 +13,8 @@ cloud:
         - light.office
         - light.child_ceiling
         - light.child_plug
-        - light.parents
+        - light.parents_ceiling
+        - light.parents_bed
         - light.laundry
 
         - cover.kitchen
@@ -34,15 +35,18 @@ cloud:
 
         - script.vacuum_child_chair
 
+        - input_boolean.harmony_netflix
+
     entity_config:
       light.living_ceiling:
+        name: Plafond
         aliases:
-          - plafond
           - grande lumière
         room: Salon
       light.living_plug:
+        name: Prise
         aliases:
-          - prise
+          - lampadaire
           - petite lumière
         room: Salon
       light.kitchen_sconce:
@@ -77,8 +81,13 @@ cloud:
           - petite lumière
           - veilleuse
         room: Chambre de Lise
-      light.parents:
-        aliases: []
+      light.parents_ceiling:
+        aliases:
+          - plafond
+        room: Chambre
+      light.parents_bed:
+        aliases:
+          - lampes de chevet
         room: Chambre
       light.laundry:
         aliases: []
@@ -90,11 +99,13 @@ cloud:
           - store
         room: Cuisine
       cover.living_big:
+        name: Grand
         aliases:
           - grand volet
           - grand store
         room: Salon
       cover.living_small:
+        name: Petit
         aliases:
           - petit volet
           - petit store

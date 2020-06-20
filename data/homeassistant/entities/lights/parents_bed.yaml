@@ -1,0 +1,5 @@
+platform: group
+name: parents_bed
+entities:
+  - light.parents_dad
+  - light.parents_mum

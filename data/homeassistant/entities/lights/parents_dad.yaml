@@ -1,0 +1,4 @@
+platform: group
+name: parents_dad
+entities:
+  - light.tradfri_bulb_9
