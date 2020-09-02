@@ -1,0 +1,651 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 18,
+    "iteration": 1599049227788,
+    "links": [],
+    "panels": [
+      {
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "hiddenSeries": false,
+        "id": 4,
+        "interval": "1m",
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "7.1.5",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "Error",
+            "color": "#C4162A"
+          },
+          {
+            "alias": "Warning",
+            "color": "#FF780A"
+          },
+          {
+            "alias": "Info",
+            "color": "#56A64B"
+          }
+        ],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "[[tag_com.docker.compose.service]]",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "com.docker.compose.service"
+                ],
+                "type": "tag"
+              },
+              {
+                "params": [
+                  "linear"
+                ],
+                "type": "fill"
+              }
+            ],
+            "hide": true,
+            "measurement": "docker_log",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT count(\"message\") FROM \"docker_log\" WHERE (\"com.docker.compose.service\" =~ /^$containers$/) AND $timeFilter GROUP BY time($__interval), \"com.docker.compose.service\" fill(linear)",
+            "rawQuery": false,
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "message"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "count"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "com.docker.compose.service",
+                "operator": "=~",
+                "value": "/^$containers$/"
+              }
+            ]
+          },
+          {
+            "alias": "Error",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "com.docker.compose.service"
+                ],
+                "type": "tag"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "docker_log",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT count(\"message\") FROM \"docker_log\" WHERE (\"com.docker.compose.service\" =~ /^$containers$/) AND $timeFilter AND (message =~ /(?i)Error/) GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "message"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "count"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "com.docker.compose.service",
+                "operator": "=~",
+                "value": "/^$containers$/"
+              }
+            ]
+          },
+          {
+            "alias": "Warning",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "com.docker.compose.service"
+                ],
+                "type": "tag"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "docker_log",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT count(\"message\") FROM \"docker_log\" WHERE (\"com.docker.compose.service\" =~ /^$containers$/) AND $timeFilter AND (message =~ /(?i)Warning/) GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "C",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "message"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "count"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "com.docker.compose.service",
+                "operator": "=~",
+                "value": "/^$containers$/"
+              }
+            ]
+          },
+          {
+            "alias": "Info",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "com.docker.compose.service"
+                ],
+                "type": "tag"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "docker_log",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT count(\"message\") FROM \"docker_log\" WHERE (\"com.docker.compose.service\" =~ /^$containers$/) AND $timeFilter AND (message =~ /(?i)Info/) GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "D",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "message"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "count"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "com.docker.compose.service",
+                "operator": "=~",
+                "value": "/^$containers$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Panel Title",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "telegraf",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 7
+        },
+        "id": 2,
+        "options": {
+          "showLabels": false,
+          "showTime": true,
+          "sortOrder": "Descending",
+          "wrapLogMessage": false
+        },
+        "pluginVersion": "7.0.3",
+        "targets": [
+          {
+            "datasource": "telegraf",
+            "groupBy": [],
+            "hide": false,
+            "limit": "1000",
+            "measurement": "docker_log",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "table",
+            "select": [
+              [
+                {
+                  "params": [
+                    "message"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "com.docker.compose.service",
+                "operator": "=~",
+                "value": "/^$containers$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Panel Title",
+        "type": "logs"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 26,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "tags": [],
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": "telegraf",
+          "definition": "SHOW TAG VALUES ON telegraf WITH KEY=\"com.docker.compose.service\"",
+          "hide": 0,
+          "includeAll": true,
+          "label": null,
+          "multi": true,
+          "name": "containers",
+          "options": [
+            {
+              "selected": true,
+              "text": "All",
+              "value": "$__all"
+            },
+            {
+              "selected": false,
+              "text": "bazarr",
+              "value": "bazarr"
+            },
+            {
+              "selected": false,
+              "text": "chronograf",
+              "value": "chronograf"
+            },
+            {
+              "selected": false,
+              "text": "code-server",
+              "value": "code-server"
+            },
+            {
+              "selected": false,
+              "text": "duckdns",
+              "value": "duckdns"
+            },
+            {
+              "selected": false,
+              "text": "grafana",
+              "value": "grafana"
+            },
+            {
+              "selected": false,
+              "text": "homeassistant",
+              "value": "homeassistant"
+            },
+            {
+              "selected": false,
+              "text": "influxdb",
+              "value": "influxdb"
+            },
+            {
+              "selected": false,
+              "text": "jackett",
+              "value": "jackett"
+            },
+            {
+              "selected": false,
+              "text": "jellyfin",
+              "value": "jellyfin"
+            },
+            {
+              "selected": false,
+              "text": "mi-scale",
+              "value": "mi-scale"
+            },
+            {
+              "selected": false,
+              "text": "mosquitto",
+              "value": "mosquitto"
+            },
+            {
+              "selected": false,
+              "text": "pihole",
+              "value": "pihole"
+            },
+            {
+              "selected": false,
+              "text": "portainer",
+              "value": "portainer"
+            },
+            {
+              "selected": false,
+              "text": "radarr",
+              "value": "radarr"
+            },
+            {
+              "selected": false,
+              "text": "sonarr",
+              "value": "sonarr"
+            },
+            {
+              "selected": false,
+              "text": "telegraf",
+              "value": "telegraf"
+            },
+            {
+              "selected": false,
+              "text": "traefik",
+              "value": "traefik"
+            },
+            {
+              "selected": false,
+              "text": "transmission",
+              "value": "transmission"
+            },
+            {
+              "selected": false,
+              "text": "valetudomap",
+              "value": "valetudomap"
+            },
+            {
+              "selected": false,
+              "text": "zigbee2mqtt",
+              "value": "zigbee2mqtt"
+            },
+            {
+              "selected": false,
+              "text": "zigbee2mqttassistant",
+              "value": "zigbee2mqttassistant"
+            },
+            {
+              "selected": false,
+              "text": "assistant-relay",
+              "value": "assistant-relay"
+            },
+            {
+              "selected": false,
+              "text": "codeserver",
+              "value": "codeserver"
+            },
+            {
+              "selected": false,
+              "text": "elastic",
+              "value": "elastic"
+            },
+            {
+              "selected": false,
+              "text": "filebeat",
+              "value": "filebeat"
+            },
+            {
+              "selected": false,
+              "text": "grocy",
+              "value": "grocy"
+            },
+            {
+              "selected": false,
+              "text": "heimdall",
+              "value": "heimdall"
+            },
+            {
+              "selected": false,
+              "text": "kibana",
+              "value": "kibana"
+            },
+            {
+              "selected": false,
+              "text": "lazylibrarian",
+              "value": "lazylibrarian"
+            },
+            {
+              "selected": false,
+              "text": "node-red",
+              "value": "node-red"
+            },
+            {
+              "selected": false,
+              "text": "nodered",
+              "value": "nodered"
+            },
+            {
+              "selected": false,
+              "text": "ombi",
+              "value": "ombi"
+            },
+            {
+              "selected": false,
+              "text": "rsyslog",
+              "value": "rsyslog"
+            },
+            {
+              "selected": false,
+              "text": "syslog-ng",
+              "value": "syslog-ng"
+            },
+            {
+              "selected": false,
+              "text": "syslogng",
+              "value": "syslogng"
+            },
+            {
+              "selected": false,
+              "text": "whoami",
+              "value": "whoami"
+            }
+          ],
+          "query": "SHOW TAG VALUES ON telegraf WITH KEY=\"com.docker.compose.service\"",
+          "refresh": 0,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "logs",
+    "uid": "xOURd7mGk",
+    "version": 7
+  }

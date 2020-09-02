@@ -1,0 +1,5 @@
+platform: google_fit_hass
+name: bruno
+client_id: !secret fit_bruno_client_id
+client_secret: !secret fit_bruno_client_secret
+scan_interval: 300

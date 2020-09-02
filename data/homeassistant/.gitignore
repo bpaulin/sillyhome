@@ -17,3 +17,4 @@ freebox.conf
 .cloud
 .ssh
 harmony_*.conf
+*.token

@@ -54,6 +54,16 @@ services:
       traefik.http.routers.hass.tls.domains[0].sans: "*.${HOME_DOMAIN}"
     restart: unless-stopped
 
+  portainer:
+    image: portainer/portainer
+    command: --no-auth
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${ROOT_DATA}/portainer:/data
+
   pihole:
     image: pihole/pihole:latest
     ports:
@@ -77,26 +87,6 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
-
-  # codeserver:
-  #   image: linuxserver/code-server:latest
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${ROOT_DATA}/code-server:/config
-  #     - ./..:/sillyroot
-  #   ports:
-  #     - 8443:8443
-  #   labels:
-  #     traefik.enable: "true"
-  #     traefik.http.routers.cdr.entrypoints: "websecure"
-  #     traefik.http.routers.cdr.rule: "Host(`code.${HOME_DOMAIN}`)"
-  #     traefik.http.routers.cdr.middlewares: "secured"
-  #     traefik.http.routers.cdr.tls: "true"
-  #   restart: unless-stopped
-
 
   influxdb:
     image: influxdb:1.7-alpine
@@ -314,9 +304,6 @@ services:
 
     network_mode: host
     privileged: true
-
-    # volumes:
-    #   - ${ROOT_DATA}/../../dev/xiaomi_mi_scale/src:/opt/miscale
 
     environment:
       - TZ=${TZ}
