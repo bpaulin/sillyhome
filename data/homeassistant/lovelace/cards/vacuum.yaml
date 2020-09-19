@@ -2,21 +2,21 @@ type: vertical-stack
 cards:
   - type: conditional
     conditions:
-      - entity: vacuum.xiaomi_vacuum_cleaner
+      - entity: vacuum.rockrobo
         state: "docked"
     card:
       type: entities
       entities:
-        - entity: vacuum.xiaomi_vacuum_cleaner
+        - entity: vacuum.rockrobo
 
   - type: conditional
     conditions:
-      - entity: vacuum.xiaomi_vacuum_cleaner
+      - entity: vacuum.rockrobo
         state_not: "docked"
     card:
       type: picture-glance
       entities:
-        - vacuum.xiaomi_vacuum_cleaner
+        - vacuum.rockrobo
       title: Aspirateur
       camera_image: camera.rockrobo_map
       style: |

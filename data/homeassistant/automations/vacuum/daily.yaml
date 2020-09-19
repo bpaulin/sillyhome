@@ -6,13 +6,13 @@ trigger:
 action:
   - service: vacuum.start
     data:
-      entity_id: vacuum.xiaomi_vacuum_cleaner
-  - wait_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') == 'cleaning' }}"
+      entity_id: vacuum.rockrobo
+  - wait_template: "{{ states('vacuum.rockrobo') == 'cleaning' }}"
     timeout: '00:02:00'
     continue_on_timeout: 'false'
-  - wait_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') == 'docked' }}"
+  - wait_template: "{{ states('vacuum.rockrobo') == 'docked' }}"
     timeout: '02:00:00'
     continue_on_timeout: 'false'
   - service: notify.mobiles
     data:
-      message: "L'aspirateur vient de nettoyer {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaned_area') }} m² en {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaning_time') }} minutes"
+      message: "L'aspirateur vient de nettoyer {{ state_attr('vacuum.rockrobo', 'cleaned_area') }} m² en {{ state_attr('vacuum.rockrobo', 'cleaning_time') }} minutes"

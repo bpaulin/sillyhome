@@ -1,3 +1,4 @@
+# replaced by mqtt
 platform: xiaomi_miio
 host: !secret xiaomi_vacuum_host
 token: !secret xiaomi_vacuum_token

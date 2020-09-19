@@ -31,7 +31,7 @@ cloud:
         - climate.netatmo_parents
         - climate.netatmo_bureau
 
-        - vacuum.xiaomi_vacuum_cleaner
+        - vacuum.rockrobo
 
         - script.vacuum_child_chair
 
@@ -149,5 +149,5 @@ cloud:
       script.vacuum_child_chair:
         room: Salon
 
-      vacuum.xiaomi_vacuum_cleaner:
+      vacuum.rockrobo:
         room: Salon

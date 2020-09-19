@@ -1,9 +1,9 @@
 alias: 'vacuum_error'
 trigger:
   - platform: state
-    entity_id: vacuum.xiaomi_vacuum_cleaner
+    entity_id: vacuum.rockrobo
     to: 'error'
 action:
   - service: notify.mobiles
     data:
-      message: "L'aspirateur est bloqué (\"{{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'error') }}\")"
+      message: "L'aspirateur est bloqué (\"{{ state_attr('vacuum.rockrobo', 'error') }}\")"

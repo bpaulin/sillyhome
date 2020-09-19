@@ -6,5 +6,5 @@ trigger:
 action:
   - service: vacuum.set_fan_speed
     data_template:
-      entity_id: vacuum.xiaomi_vacuum_cleaner
-      fan_speed: 'Quiet'
+      entity_id: vacuum.rockrobo
+      fan_speed: 'low'

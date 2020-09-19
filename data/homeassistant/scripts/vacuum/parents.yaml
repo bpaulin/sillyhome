@@ -3,6 +3,6 @@ vacuum_parents:
   sequence:
     - service: vacuum.xiaomi_clean_zone
       data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.rockrobo
         repeats: 1
         zone: [[27922, 36315, 31122, 41465], [26561, 36309, 27911, 37359]]

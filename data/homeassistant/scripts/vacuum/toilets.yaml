@@ -3,6 +3,6 @@ vacuum_toilets:
   sequence:
     - service: vacuum.xiaomi_clean_zone
       data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.rockrobo
         repeats: 1
         zone: [[25463, 31077, 26413, 32277]]
