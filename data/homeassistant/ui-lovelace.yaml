@@ -8,15 +8,14 @@ custom_header:
   compact_mode: true
 
 resources:
-  - url: /community_plugin/lovelace-card-mod/card-mod.js
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
     type: module
-  - url: /community_plugin/simple-thermostat/simple-thermostat.js
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
     type: module
-  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js?v=1.5.2
+  - url: /hacsfiles/custom-header/custom-header.js
     type: module
-  - url: /community_plugin/custom-header/custom-header.js
+  - url: /hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js
     type: module
-
 views:
   - !include lovelace/views/context.yaml
   - !include lovelace/views/rooms.yaml

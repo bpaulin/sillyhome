@@ -18,3 +18,4 @@ freebox.conf
 .ssh
 harmony_*.conf
 *.token
+mqtt_dump.txt

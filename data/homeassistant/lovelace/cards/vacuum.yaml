@@ -1,25 +1,14 @@
 type: vertical-stack
 cards:
-  - type: conditional
-    conditions:
+  - type: entities
+    entities:
       - entity: vacuum.rockrobo
-        state: "docked"
-    card:
-      type: entities
-      entities:
-        - entity: vacuum.rockrobo
-
-  - type: conditional
-    conditions:
-      - entity: vacuum.rockrobo
-        state_not: "docked"
-    card:
-      type: picture-glance
-      entities:
-        - vacuum.rockrobo
-      title: Aspirateur
-      camera_image: camera.rockrobo_map
-      style: |
-        ha-card .box{
-          background-color: rgba(0, 0, 0, 0.6);;
-        }
+  - type: 'custom:valetudo-map-card'
+    entity: sensor.rockrobo_map
+    rotate: 90
+    crop:
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+    min_height: 0
