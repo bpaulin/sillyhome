@@ -5,18 +5,14 @@ services:
   duckdns:
     image: linuxserver/duckdns
     environment:
-      - PUID=1000  # optional
-      - PGID=1000  # optional
       - TZ=${TZ}
       - SUBDOMAINS=${DOMAIN_NAMES}
       - TOKEN=${DOMAIN_TOKEN}
-      - LOG_FILE=false  # optional
-    volumes:
-      - ${ROOT_DATA}/duckdns:/config  # optional
+      - LOG_FILE=false
     restart: unless-stopped
 
   traefik:
-    image: traefik:v2.1
+    image: traefik:v2.2
     ports:
       - "10443:443"
       - "8080:8080"  # internal dashboard
@@ -54,16 +50,6 @@ services:
       traefik.http.routers.hass.tls.domains[0].sans: "*.${HOME_DOMAIN}"
     restart: unless-stopped
 
-  portainer:
-    image: portainer/portainer
-    command: --no-auth
-    ports:
-      - 9000:9000
-      - 8000:8000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${ROOT_DATA}/portainer:/data
-
   pihole:
     image: pihole/pihole:latest
     ports:
@@ -89,7 +75,7 @@ services:
     restart: unless-stopped
 
   influxdb:
-    image: influxdb:1.7-alpine
+    image: influxdb:1.8-alpine
     volumes:
       - ${ROOT_DATA}/influxdb:/var/lib/influxdb
     ports:
@@ -288,16 +274,6 @@ services:
       - Z2MA_SETTINGS__MQTTSERVER=mosquitto
     image: carldebilly/zigbee2mqttassistant
 
-  valetudomap:
-    image: bruvv/icantbelieveitsnotvaletudo
-    ports:
-      - '4000:4000'
-    volumes:
-      - ${ROOT_DATA}/valetudomap/config.json:/app/config.json
-    depends_on:
-      - mosquitto
-    restart: unless-stopped
-
   mi-scale:
     image: lolouk44/xiaomi-mi-scale:latest
     restart: unless-stopped
@@ -310,14 +286,6 @@ services:
       - MISCALE_MAC=C3:B3:42:7B:96:3D # Mac address of your scale
       - MQTT_HOST=127.0.0.1  # MQTT Server (defaults to 127.0.0.1)
       - MQTT_PREFIX=miScale
-      # - MQTT_USERNAME=       # Username for MQTT server (comment out if not required)
-      # - MQTT_PASSWORD=       # Password for MQTT (comment out if not required)
-      # - MQTT_PORT=           # Defaults to 1883
-      # - MQTT_TIMEOUT=30      # Defaults to 60
-      # - TIME_INTERVAL=30     # Time in sec between each query to the scale, to allow other applications to use the Bluetooth module. Defaults to 30
-
-      # Auto-gender selection/config -- This is used to create the calculations such as BMI, Water/Bone Mass etc...
-      # Up to 3 users possible as long as weights do not overlap!
 
       - USER1_GT=80            # If the weight is greater than this number, we'll assume that we're weighing User #1
       - USER1_SEX=male
