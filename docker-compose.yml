@@ -118,118 +118,118 @@ services:
       traefik.http.routers.grafana.tls: "true"
     user: "1000"
 
-  sonarr:
-    image: linuxserver/sonarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - UMASK_SET=022  # optional
-    volumes:
-      - ${ROOT_DATA}/sonarr:/config
-      - ${ROOT_MEDIAS}:/data
-    ports:
-      - 8989:8989
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.sonarr.entrypoints: "websecure"
-      traefik.http.routers.sonarr.rule: "Host(`sonarr.${HOME_DOMAIN}`)"
-      traefik.http.routers.sonarr.middlewares: "secured"
-      traefik.http.routers.sonarr.tls: "true"
-    restart: unless-stopped
+  # sonarr:
+  #   image: linuxserver/sonarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #     - UMASK_SET=022  # optional
+  #   volumes:
+  #     - ${ROOT_DATA}/sonarr:/config
+  #     - ${ROOT_MEDIAS}:/data
+  #   ports:
+  #     - 8989:8989
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.sonarr.entrypoints: "websecure"
+  #     traefik.http.routers.sonarr.rule: "Host(`sonarr.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.sonarr.middlewares: "secured"
+  #     traefik.http.routers.sonarr.tls: "true"
+  #   restart: unless-stopped
 
 
-  radarr:
-    image: linuxserver/radarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - UMASK_SET=022  # optional
-    volumes:
-      - ${ROOT_DATA}/radarr:/config
-      - ${ROOT_MEDIAS}:/data
-    ports:
-      - 7878:7878
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.radarr.entrypoints: "websecure"
-      traefik.http.routers.radarr.rule: "Host(`radarr.${HOME_DOMAIN}`)"
-      traefik.http.routers.radarr.middlewares: "secured"
-      traefik.http.routers.radarr.tls: "true"
-    restart: unless-stopped
+  # radarr:
+  #   image: linuxserver/radarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #     - UMASK_SET=022  # optional
+  #   volumes:
+  #     - ${ROOT_DATA}/radarr:/config
+  #     - ${ROOT_MEDIAS}:/data
+  #   ports:
+  #     - 7878:7878
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.radarr.entrypoints: "websecure"
+  #     traefik.http.routers.radarr.rule: "Host(`radarr.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.radarr.middlewares: "secured"
+  #     traefik.http.routers.radarr.tls: "true"
+  #   restart: unless-stopped
 
-  jackett:
-    image: linuxserver/jackett
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - RUN_OPTS=run options here  # optional
-    volumes:
-      - ${ROOT_DATA}/jackett:/config
-      - ${ROOT_MEDIAS}:/data
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.jackett.entrypoints: "websecure"
-      traefik.http.routers.jackett.rule: "Host(`jackett.${HOME_DOMAIN}`)"
-      traefik.http.routers.jackett.middlewares: "secured"
-      traefik.http.routers.jackett.tls: "true"
-    restart: unless-stopped
+  # jackett:
+  #   image: linuxserver/jackett
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #     - RUN_OPTS=run options here  # optional
+  #   volumes:
+  #     - ${ROOT_DATA}/jackett:/config
+  #     - ${ROOT_MEDIAS}:/data
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.jackett.entrypoints: "websecure"
+  #     traefik.http.routers.jackett.rule: "Host(`jackett.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.jackett.middlewares: "secured"
+  #     traefik.http.routers.jackett.tls: "true"
+  #   restart: unless-stopped
 
-  transmission:
-    image: linuxserver/transmission
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - ${ROOT_DATA}/transmission:/config
-      - ${ROOT_MEDIAS}:/data
-    ports:
-      - 9091:9091
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.transmission.entrypoints: "websecure"
-      traefik.http.routers.transmission.rule: "Host(`transmission.${HOME_DOMAIN}`)"
-      traefik.http.routers.transmission.middlewares: "secured"
-      traefik.http.routers.transmission.tls: "true"
-    restart: unless-stopped
+  # transmission:
+  #   image: linuxserver/transmission
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${ROOT_DATA}/transmission:/config
+  #     - ${ROOT_MEDIAS}:/data
+  #   ports:
+  #     - 9091:9091
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.transmission.entrypoints: "websecure"
+  #     traefik.http.routers.transmission.rule: "Host(`transmission.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.transmission.middlewares: "secured"
+  #     traefik.http.routers.transmission.tls: "true"
+  #   restart: unless-stopped
 
-  jellyfin:
-    image: jellyfin/jellyfin
-    volumes:
-      - ${ROOT_DATA}/jellyfin/config:/config
-      - ${ROOT_DATA}/jellyfin/cache:/cache
-      - ${ROOT_MEDIAS}:/media
-    ports:
-      - 8096:8096
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.jellyfin.entrypoints: "websecure"
-      traefik.http.routers.jellyfin.rule: "Host(`jellyfin.${HOME_DOMAIN}`)"
-      # traefik.http.routers.jellyfin.middlewares: "secured"
-      traefik.http.routers.jellyfin.tls: "true"
-    devices:
-      - /dev/dri:/dev/dri
-    restart: unless-stopped
+  # jellyfin:
+  #   image: jellyfin/jellyfin
+  #   volumes:
+  #     - ${ROOT_DATA}/jellyfin/config:/config
+  #     - ${ROOT_DATA}/jellyfin/cache:/cache
+  #     - ${ROOT_MEDIAS}:/media
+  #   ports:
+  #     - 8096:8096
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.jellyfin.entrypoints: "websecure"
+  #     traefik.http.routers.jellyfin.rule: "Host(`jellyfin.${HOME_DOMAIN}`)"
+  #     # traefik.http.routers.jellyfin.middlewares: "secured"
+  #     traefik.http.routers.jellyfin.tls: "true"
+  #   devices:
+  #     - /dev/dri:/dev/dri
+  #   restart: unless-stopped
 
-  bazarr:
-    image: linuxserver/bazarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - ${ROOT_DATA}/bazarr/config:/config
-      - ${ROOT_MEDIAS}:/data
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.bazarr.entrypoints: "websecure"
-      traefik.http.routers.bazarr.rule: "Host(`bazarr.${HOME_DOMAIN}`)"
-      traefik.http.routers.bazarr.middlewares: "secured"
-      traefik.http.routers.bazarr.tls: "true"
-    restart: unless-stopped
+  # bazarr:
+  #   image: linuxserver/bazarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${ROOT_DATA}/bazarr/config:/config
+  #     - ${ROOT_MEDIAS}:/data
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.http.routers.bazarr.entrypoints: "websecure"
+  #     traefik.http.routers.bazarr.rule: "Host(`bazarr.${HOME_DOMAIN}`)"
+  #     traefik.http.routers.bazarr.middlewares: "secured"
+  #     traefik.http.routers.bazarr.tls: "true"
+  #   restart: unless-stopped
 
 
   homeassistant:
