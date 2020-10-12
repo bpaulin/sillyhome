@@ -1,13 +1,13 @@
 alias: 'Volume Salon'
 trigger:
   - platform: state
-    entity_id: media_player.salon
+    entity_id: media_player.ecran
     from: 'playing'
     to: 'paused'
     for:
       seconds: 10
   - platform: state
-    entity_id: media_player.salon
+    entity_id: media_player.ecran
     from: 'playing'
     to: 'idle'
     for:
@@ -15,5 +15,5 @@ trigger:
 action:
   service: media_player.volume_set
   data:
-    entity_id: media_player.salon
-    volume_level: 0.25
+    entity_id: media_player.ecran
+    volume_level: 0.40

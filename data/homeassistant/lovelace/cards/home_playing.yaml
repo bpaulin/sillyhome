@@ -10,7 +10,7 @@ entities:
     group: true
     artwork: cover
   - type: custom:mini-media-player
-    entity: media_player.salon
+    entity: media_player.ecran
     group: true
     artwork: cover
   - type: custom:mini-media-player

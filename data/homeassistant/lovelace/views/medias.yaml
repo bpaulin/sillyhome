@@ -18,7 +18,46 @@ cards:
         entity: switch.harmony_switch
       - type: entity-button
         entity: switch.harmony_shadow
+  - type: glance
+    show_state: false
+    columns: 3
+    entities:
+      - entity: switch.harmony_netflix
+      - entity: switch.harmony_prime
+      - entity: switch.harmony_jellyfin
+      - entity: switch.harmony_molotov
+      - entity: switch.harmony_switch
+      - entity: switch.harmony_shadow
 
+  - type: entities
+    entities:
+      - type: custom:mini-media-player
+        entity: media_player.salle_de_bain
+        group: true
+        artwork: cover
+      - type: custom:mini-media-player
+        entity: media_player.chambre
+        group: true
+        artwork: cover
+      - type: custom:mini-media-player
+        entity: media_player.ecran
+        group: true
+        artwork: cover
+      - type: custom:mini-media-player
+        entity: media_player.bureau
+        group: true
+        artwork: cover
+      - type: custom:mini-media-player
+        entity: media_player.parents
+        group: true
+        artwork: cover
+      - type: custom:mini-media-player
+        entity: media_player.mibox
+        group: true
+        artwork: cover
+        hide:
+          power: true
+          source: true
   # - type: entities
   #   title: Films
   #   show_header_toggle: false
