@@ -15,4 +15,4 @@ action:
     continue_on_timeout: 'false'
   - service: notify.mobiles
     data:
-      message: "L'aspirateur vient de nettoyer {{ state_attr('vacuum.rockrobo', 'cleaned_area') }} m² en {{ state_attr('vacuum.rockrobo', 'cleaning_time') }} minutes"
+      message: "L'aspirateur vient de nettoyer {{ state_attr('vacuum.rockrobo', 'last_run_stats').area }} m² en {{ state_attr('vacuum.rockrobo', 'last_run_stats').duration }} minutes"

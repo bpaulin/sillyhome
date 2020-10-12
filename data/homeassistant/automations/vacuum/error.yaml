@@ -6,4 +6,4 @@ trigger:
 action:
   - service: notify.mobiles
     data:
-      message: "L'aspirateur est bloqué (\"{{ state_attr('vacuum.rockrobo', 'error') }}\")"
+      message: "L'aspirateur est bloqué (\"{{ state_attr('vacuum.rockrobo', 'last_run_stats').errorDescription }}\")"
