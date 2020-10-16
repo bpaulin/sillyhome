@@ -5,6 +5,7 @@ cards:
       - entity: vacuum.rockrobo
   - type: 'custom:valetudo-map-card'
     entity: sensor.rockrobo_map
+    vacuum_entity: sensor.rockrobo_map
     rotate: 90
     crop:
       top: 0
