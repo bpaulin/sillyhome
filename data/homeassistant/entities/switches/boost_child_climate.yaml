@@ -6,7 +6,7 @@ switches:
       service: climate.set_temperature
       data:
         entity_id: climate.netatmo_enfant
-        temperature: 22
+        temperature: 20
     turn_off:
       service: climate.set_hvac_mode
       data:
