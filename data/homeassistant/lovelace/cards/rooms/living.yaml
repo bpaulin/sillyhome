@@ -3,6 +3,7 @@ title: salon
 entities:
   - light.living_ceiling
   - light.living_plug
+  - light.christmas_lights
   - cover.living_big
   - cover.living_small
   - media_player.salon

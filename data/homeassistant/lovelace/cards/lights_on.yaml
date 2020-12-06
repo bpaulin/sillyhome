@@ -20,5 +20,6 @@ entities:
   - light.parents_dad
   - light.parents_mum
   - light.laundry
+  - light.christmas_lights
 state_filter:
   - "on"

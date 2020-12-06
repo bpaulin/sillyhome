@@ -9,6 +9,10 @@ light.living_plug:
 light.living:
   friendly_name: 'Salon'
 
+light.christmas_lights:
+  friendly_name: 'Lumières de noël'
+  icon: mdi:pine-tree
+
 
 light.kitchen_ceiling:
   friendly_name: 'Cuisine (plafond)'

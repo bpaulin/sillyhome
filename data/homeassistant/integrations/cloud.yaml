@@ -16,6 +16,7 @@ cloud:
         - light.parents_ceiling
         - light.parents_bed
         - light.laundry
+        - light.christmas_lights
 
         - cover.kitchen
         - cover.living_big
@@ -92,6 +93,13 @@ cloud:
       light.laundry:
         aliases: []
         room: buanderie
+
+      light.christmas_lights:
+        name: lumières de noël
+        aliases:
+          - décorations de noël
+          - le sapin
+        room: Salon
 
       cover.kitchen:
         aliases:

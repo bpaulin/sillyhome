@@ -1,0 +1,8 @@
+alias: 'christmas_sunset'
+trigger:
+  platform: sun
+  event: sunset
+action:
+  service: light.turn_on
+  data:
+    entity_id: light.christmas_lights

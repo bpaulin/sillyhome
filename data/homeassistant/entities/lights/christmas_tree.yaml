@@ -1,0 +1,3 @@
+platform: switch
+name: christmas_tree
+entity_id: switch.tradfri_outlet

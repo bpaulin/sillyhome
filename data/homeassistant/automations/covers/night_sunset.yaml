@@ -1,11 +1,11 @@
-alias: 'cover_night_sunset'
+alias: 'cover_sunset'
 trigger:
   platform: sun
   event: sunset
-condition:
-  condition: state
-  entity_id: binary_sensor.nobody_home
-  state: 'on'
+# condition:
+#   condition: state
+#   entity_id: binary_sensor.nobody_home
+#   state: 'on'
 action:
   service: cover.close_cover
   data:

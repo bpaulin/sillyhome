@@ -1,4 +1,4 @@
-alias: 'cover_night_sunrise'
+alias: 'cover_sunrise'
 trigger:
   platform: sun
   event: sunrise

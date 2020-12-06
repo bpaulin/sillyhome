@@ -53,10 +53,17 @@ cards:
     type: entities
     show_header_toggle: true
     entities:
-      - entity: automation.cover_night_sunrise
+      - entity: automation.cover_sunrise
         name: Ouvrir le matin
-      - entity: automation.cover_night_sunset
+      - entity: automation.cover_sunset
         name: Fermer le soir
+
+  - title: Lumières
+    type: entities
+    show_header_toggle: true
+    entities:
+      - entity: automation.christmas_sunset
+        name: Soir de Noël
 
   - title: System
     type: entities
