@@ -1,0 +1,14 @@
+alias: "arrivée à l'école"
+trigger:
+  - platform: zone
+    entity_id: person.bruno
+    zone: zone.school
+    event: enter
+  - platform: zone
+    entity_id: person.emma
+    zone: zone.school
+    event: enter
+action:
+  service: notify.mobiles
+  data_template:
+    message: "{{ state_attr(trigger.entity_id, 'friendly_name') }} arrive à l'école"

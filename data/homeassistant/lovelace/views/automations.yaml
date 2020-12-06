@@ -48,6 +48,7 @@ cards:
       - entity: automation.emma_in
         name: Emma rentre
       - entity: automation.arrivee_chez_nounou
+      - entity: automation.arrivee_a_l_ecole
 
   - title: Volets
     type: entities

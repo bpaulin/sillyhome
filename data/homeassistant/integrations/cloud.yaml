@@ -99,7 +99,7 @@ cloud:
         aliases:
           - décorations de noël
           - le sapin
-        room: Salon
+        room: Special
 
       cover.kitchen:
         aliases:
