@@ -1,0 +1,10 @@
+alias: 'pause bathroom speaker'
+trigger:
+  platform: state
+  entity_id: light.bathroom
+  to: "off"
+action:
+  service: media_player.media_pause
+  data:
+    entity_id:
+      - media_player.salle_de_bain
