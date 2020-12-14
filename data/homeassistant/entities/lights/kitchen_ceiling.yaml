@@ -1,4 +1,4 @@
 platform: group
 name: kitchen_ceiling
 entities:
-  - light.myhomeserver1_cuisine_plafond
+  - light.myhomeserver1_0012

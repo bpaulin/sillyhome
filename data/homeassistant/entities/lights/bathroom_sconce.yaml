@@ -1,4 +1,4 @@
 platform: group
 name: bathroom_sconce
 entities:
-  - light.myhomeserver1_sdb_prise
+  - light.myhomeserver1_09

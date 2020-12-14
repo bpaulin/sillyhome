@@ -1,4 +1,4 @@
 platform: group
 name: office
 entities:
-  - light.myhomeserver1_bureau
+  - light.myhomeserver1_0111

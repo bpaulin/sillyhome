@@ -1,4 +1,4 @@
 platform: group
 name: child_ceiling
 entities:
-  - light.myhomeserver1_enfant
+  - light.myhomeserver1_19

@@ -1,4 +1,4 @@
 platform: group
 name: kitchen_sconce
 entities:
-  - light.myhomeserver1_cuisine_meuble
+  - light.myhomeserver1_0011
