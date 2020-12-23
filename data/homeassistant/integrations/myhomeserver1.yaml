@@ -2,6 +2,7 @@ myhomeserver1:
   host: !secret myhomeserver1_host
   port: !secret myhomeserver1_port
   password: !secret myhomeserver1_password
+  event: True
 
 # logger:
 #   logs:
