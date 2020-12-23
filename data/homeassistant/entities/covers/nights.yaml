@@ -1,0 +1,7 @@
+platform: group
+name: nights
+entities:
+  - cover.child
+  - cover.office
+  - cover.parents_first
+  - cover.parents_second

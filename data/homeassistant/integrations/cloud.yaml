@@ -25,6 +25,7 @@ cloud:
         - cover.child
         - cover.parents_first
         - cover.parents_second
+        - cover.nights
 
         - climate.netatmo_salon
         - climate.netatmo_salle_de_bains
@@ -142,6 +143,11 @@ cloud:
           - volet de bruno
           - store de bruno
         room: Chambre
+      cover.nights:
+        name: volets coté nuit
+        aliases:
+          - volets des chambres
+          - stores des chambres
 
       climate.netatmo_salon:
         room: Salon
