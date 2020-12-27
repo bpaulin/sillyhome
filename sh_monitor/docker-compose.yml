@@ -1,0 +1,55 @@
+---
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:alpine
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - $PWD/portainer:/data
+    restart: unless-stopped
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:alpine
+    volumes:
+      - $PWD/influxdb:/var/lib/influxdb
+    restart: unless-stopped
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf:alpine
+    environment:
+      HOST_ETC: /hostfs/etc
+      HOST_PROC: /hostfs/proc
+      HOST_SYS: /hostfs/sys
+      HOST_VAR: /hostfs/var
+      HOST_RUN: /hostfs/run
+      HOST_MOUNT_PREFIX: /hostfs
+    depends_on:
+      - influxdb
+    volumes:
+      - $PWD/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /:/hostfs:ro
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - '$PWD/grafana/var:/var/lib/grafana'
+      - '$PWD/grafana/provisioning:/etc/grafana/provisioning'
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."
+      GF_AUTH_BASIC_ENABLED: "false"
+      GF_INSTALL_PLUGINS: ""
+    user: '1000'
+    depends_on:
+      - influxdb
+    ports:
+      - 3000:3000
