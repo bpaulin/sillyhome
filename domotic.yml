@@ -1,0 +1,20 @@
+---
+services:
+  homeassistant:
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - $PWD/homeassistant/:/config
+    network_mode: host
+    environment:
+      - TZ=${TZ}
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto
+    expose:
+      - "1883"
+      - "9001"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    restart: unless-stopped
