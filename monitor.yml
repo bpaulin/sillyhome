@@ -1,7 +1,6 @@
 ---
 services:
   portainer:
-    container_name: portainer
     image: portainer/portainer-ce:alpine
     command: -H unix:///var/run/docker.sock
     ports:
@@ -14,14 +13,12 @@ services:
     restart: unless-stopped
 
   influxdb:
-    container_name: influxdb
     image: influxdb:alpine
     volumes:
       - $PWD/influxdb:/var/lib/influxdb
     restart: unless-stopped
 
   telegraf:
-    container_name: telegraf
     image: telegraf:alpine
     environment:
       HOST_ETC: /hostfs/etc
