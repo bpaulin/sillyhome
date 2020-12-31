@@ -45,7 +45,7 @@ services:
       GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."
       GF_AUTH_BASIC_ENABLED: "false"
       GF_INSTALL_PLUGINS: ""
-    user: '1000'
+    user: '${UID}'
     depends_on:
       - influxdb
     ports:
