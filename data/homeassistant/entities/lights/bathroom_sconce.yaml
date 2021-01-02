@@ -1,4 +1,4 @@
 platform: group
 name: bathroom_sconce
 entities:
-  - light.myhomeserver1_09
+  - light.a0pl9

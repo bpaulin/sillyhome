@@ -1,16 +1,23 @@
-platform: myhomeserver1
-# devices:
-#   - name: salon_grand
-#     address: '08'
-#   - name: salon_petit
-#     address: '13'
-#   - name: cuisine
-#     address: '17'
-#   - name: bureau
-#     address: '06'
-#   - name: enfant
-#     address: '0113'
-#   - name: parents_porte
-#     address: '07'
-#   - name: parents_placard
-#     address: '16'
+platform: myhome
+devices:
+  myhomeserver1_08:
+    where: '08'
+    name: 'myhomeserver1_08'
+  myhomeserver1_13:
+    where: '13'
+    name: 'myhomeserver1_13'
+  myhomeserver1_17:
+    where: '17'
+    name: 'myhomeserver1_17'
+  myhomeserver1_06:
+    where: '06'
+    name: 'myhomeserver1_06'
+  myhomeserver1_0113:
+    where: '0113'
+    name: 'myhomeserver1_0113'
+  myhomeserver1_07:
+    where: '07'
+    name: 'myhomeserver1_07'
+  myhomeserver1_16:
+    where: '16'
+    name: 'myhomeserver1_16'

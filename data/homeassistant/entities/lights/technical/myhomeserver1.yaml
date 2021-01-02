@@ -1,26 +1,38 @@
-platform: myhomeserver1
-# devices:
-#   - name: salon_plafond
-#     address: '02'
-#   - name: salon_prise
-#     address: '01'
-#   - name: cuisine_plafond
-#     address: '0012'
-#   - name: cuisine_meuble
-#     address: '0011'
-#   - name: parents
-#     address: '15'
-#   - name: enfant
-#     address: '19'
-#   - name: bureau
-#     address: '0111'
-#   - name: wc
-#     address: '04'
-#   - name: couloir
-#     address: '11'
-#   - name: sdb_plafond
-#     address: '0010'
-#   - name: sdb_prise
-#     address: '09'
-#   - name: buanderie
-#     address: '0014'
+platform: myhome
+devices:
+  myhomeserver1_02:
+    where: '02'
+    name: 'myhomeserver1_02'
+  myhomeserver1_01:
+    where: '01'
+    name: 'myhomeserver1_01'
+  myhomeserver1_0012:
+    where: '0012'
+    name: 'myhomeserver1_0012'
+  myhomeserver1_0011:
+    where: '0011'
+    name: 'myhomeserver1_0011'
+  myhomeserver1_15:
+    where: '15'
+    name: 'myhomeserver1_15'
+  myhomeserver1_19:
+    where: '19'
+    name: 'myhomeserver1_19'
+  myhomeserver1_0111:
+    where: '0111'
+    name: 'myhomeserver1_0111'
+  myhomeserver1_04:
+    where: '04'
+    name: 'myhomeserver1_04'
+  myhomeserver1_11:
+    where: '11'
+    name: 'myhomeserver1_11'
+  myhomeserver1_0010:
+    where: '0010'
+    name: 'myhomeserver1_0010'
+  myhomeserver1_09:
+    where: '09'
+    name: 'myhomeserver1_09'
+  myhomeserver1_0014:
+    where: '0014'
+    name: 'myhomeserver1_0014'

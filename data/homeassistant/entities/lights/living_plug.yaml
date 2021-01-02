@@ -2,16 +2,16 @@ platform: template
 lights:
   living_plug:
     level_template: "{{ state_attr('light.tradfri_bulb_8', 'brightness') }}"
-    value_template: "{{ states('light.myhomeserver1_01') }}"
+    value_template: "{{ states('light.a0pl1') }}"
     temperature_template: "{{ state_attr('light.tradfri_bulb_8', 'color_temp') }}"
     turn_on:
       service: light.turn_on
       data_template:
-        entity_id: light.myhomeserver1_01
+        entity_id: light.a0pl1
     turn_off:
       service: light.turn_off
       data_template:
-        entity_id: light.myhomeserver1_01
+        entity_id: light.a0pl1
     set_level:
       service: light.turn_on
       data_template:

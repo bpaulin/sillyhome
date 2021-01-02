@@ -2,15 +2,15 @@ platform: template
 lights:
   living_ceiling:
     level_template: "{{ state_attr('light.tradfri_group_2', 'brightness') }}"
-    value_template: "{{ states('light.myhomeserver1_02') }}"
+    value_template: "{{ states('light.a0pl2') }}"
     turn_on:
       service: light.turn_on
       data_template:
-        entity_id: light.myhomeserver1_02
+        entity_id: light.a0pl2
     turn_off:
       service: light.turn_off
       data_template:
-        entity_id: light.myhomeserver1_02
+        entity_id: light.a0pl2
     set_level:
       service: light.turn_on
       data_template:

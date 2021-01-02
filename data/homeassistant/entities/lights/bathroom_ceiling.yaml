@@ -1,4 +1,4 @@
 platform: group
 name: bathroom_ceiling
 entities:
-  - light.myhomeserver1_0010
+  - light.a00pl10
