@@ -3,4 +3,4 @@ http:
     hass:
       loadBalancer:
         servers:
-          - url: "http://192.168.1.25:8123"
+          - url: "http://192.168.86.10:8123"
