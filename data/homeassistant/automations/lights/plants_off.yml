@@ -1,0 +1,8 @@
+alias: 'plants_off'
+trigger:
+  platform: time
+  at: "22:30:00"
+action:
+  service: light.turn_off
+  data:
+    entity_id: light.plants
