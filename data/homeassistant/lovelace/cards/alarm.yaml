@@ -1,7 +1,0 @@
-type: conditional
-conditions:
-  - entity: binary_sensor.show_alarm
-    state: "on"
-card:
-  type: alarm-panel
-  entity: alarm_control_panel.securitas_697793
