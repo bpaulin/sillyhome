@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.kitchen_ceiling:
-      friendly_name: 'Cuisine (plafond)'
+      friendly_name: "Cuisine (plafond)"
       icon: mdi:ceiling-light
 
 cloud:

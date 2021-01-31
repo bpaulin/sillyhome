@@ -30,7 +30,7 @@ light:
 homeassistant:
   customize:
     light.corridor_ceiling:
-      friendly_name: 'Couloir'
+      friendly_name: "Couloir"
       icon: mdi:ceiling-light
 
 cloud:
@@ -42,4 +42,3 @@ cloud:
       light.corridor_ceiling:
         aliases: []
         room: Couloir
-

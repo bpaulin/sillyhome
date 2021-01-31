@@ -30,7 +30,7 @@ light:
 homeassistant:
   customize:
     light.living_ceiling:
-      friendly_name: 'Salon (plafond)'
+      friendly_name: "Salon (plafond)"
       icon: mdi:ceiling-light
 
 cloud:
@@ -44,4 +44,3 @@ cloud:
         aliases:
           - grande lumière
         room: Salon
-

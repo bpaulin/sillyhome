@@ -27,7 +27,7 @@ light:
 homeassistant:
   customize:
     light.living_plug:
-      friendly_name: 'Salon (prise)'
+      friendly_name: "Salon (prise)"
       icon: mdi:floor-lamp
 
 cloud:
@@ -42,4 +42,3 @@ cloud:
           - lampadaire
           - petite lumière
         room: Salon
-

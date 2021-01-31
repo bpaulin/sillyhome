@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.kitchen_sconce:
-      friendly_name: 'Cuisine (meuble)'
+      friendly_name: "Cuisine (meuble)"
       icon: mdi:wall-sconce-flat
 
 cloud:

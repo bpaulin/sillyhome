@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.bulb_parents_dad:
-      friendly_name: 'Bruno'
+      friendly_name: "Bruno"
       icon: mdi:lamp
 
 cloud:

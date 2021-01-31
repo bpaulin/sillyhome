@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.bathroom_sconce:
-      friendly_name: 'Salle de bains (meuble)'
+      friendly_name: "Salle de bains (meuble)"
       icon: mdi:wall-sconce-flat
 
 cloud:

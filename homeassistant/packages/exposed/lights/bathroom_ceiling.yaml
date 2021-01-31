@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.bathroom_ceiling:
-      friendly_name: 'Salle de bains (plafond)'
+      friendly_name: "Salle de bains (plafond)"
       icon: mdi:ceiling-light
 
 cloud:

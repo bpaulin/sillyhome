@@ -19,8 +19,8 @@ script:
         data:
           entity_id: cover.a1pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a1pl6
+          - platform: state
+            entity_id: cover.a1pl6
       - service: automation.turn_on
         data:
           entity_id: automation.parents_second_cover_known_action
@@ -34,8 +34,8 @@ script:
         data:
           entity_id: cover.a1pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a1pl6
+          - platform: state
+            entity_id: cover.a1pl6
       - service: automation.turn_on
         data:
           entity_id: automation.parents_second_cover_known_action
@@ -49,8 +49,8 @@ script:
         data:
           entity_id: cover.a1pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a1pl6
+          - platform: state
+            entity_id: cover.a1pl6
       - service: automation.turn_on
         data:
           entity_id: automation.parents_second_cover_known_action
@@ -76,7 +76,7 @@ automation parents_second_cover:
 homeassistant:
   customize:
     cover.parents_second:
-      friendly_name: 'Parents (placard)'
+      friendly_name: "Parents (placard)"
 
 cloud:
   google_actions:

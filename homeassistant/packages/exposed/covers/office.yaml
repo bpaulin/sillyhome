@@ -19,8 +19,8 @@ script:
         data:
           entity_id: cover.a0pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl6
+          - platform: state
+            entity_id: cover.a0pl6
       - service: automation.turn_on
         data:
           entity_id: automation.office_cover_known_action
@@ -34,8 +34,8 @@ script:
         data:
           entity_id: cover.a0pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl6
+          - platform: state
+            entity_id: cover.a0pl6
       - service: automation.turn_on
         data:
           entity_id: automation.office_cover_known_action
@@ -49,8 +49,8 @@ script:
         data:
           entity_id: cover.a0pl6
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl6
+          - platform: state
+            entity_id: cover.a0pl6
       - service: automation.turn_on
         data:
           entity_id: automation.office_cover_known_action
@@ -76,7 +76,7 @@ automation office_cover:
 homeassistant:
   customize:
     cover.office:
-      friendly_name: 'Bureau'
+      friendly_name: "Bureau"
 
 cloud:
   google_actions:

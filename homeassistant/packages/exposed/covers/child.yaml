@@ -19,8 +19,8 @@ script:
         data:
           entity_id: cover.a01pl13
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a01pl13
+          - platform: state
+            entity_id: cover.a01pl13
       - service: automation.turn_on
         data:
           entity_id: automation.child_cover_known_action
@@ -34,8 +34,8 @@ script:
         data:
           entity_id: cover.a01pl13
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a01pl13
+          - platform: state
+            entity_id: cover.a01pl13
       - service: automation.turn_on
         data:
           entity_id: automation.child_cover_known_action
@@ -49,8 +49,8 @@ script:
         data:
           entity_id: cover.a01pl13
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a01pl13
+          - platform: state
+            entity_id: cover.a01pl13
       - service: automation.turn_on
         data:
           entity_id: automation.child_cover_known_action
@@ -76,7 +76,7 @@ automation child_cover:
 homeassistant:
   customize:
     cover.child:
-      friendly_name: 'Enfant'
+      friendly_name: "Enfant"
 
 cloud:
   google_actions:

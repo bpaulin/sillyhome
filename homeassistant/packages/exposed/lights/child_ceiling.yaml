@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.child_ceiling:
-      friendly_name: 'Enfant (plafond)'
+      friendly_name: "Enfant (plafond)"
       icon: mdi:ceiling-light
 
 cloud:

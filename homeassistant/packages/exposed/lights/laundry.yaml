@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.laundry:
-      friendly_name: 'Buanderie'
+      friendly_name: "Buanderie"
       icon: mdi:ceiling-light
 
 cloud:

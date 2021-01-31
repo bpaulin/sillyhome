@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.toilets:
-      friendly_name: 'Wc'
+      friendly_name: "Wc"
       icon: mdi:ceiling-light
 
 cloud:

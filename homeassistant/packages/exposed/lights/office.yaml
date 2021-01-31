@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.office:
-      friendly_name: 'Bureau'
+      friendly_name: "Bureau"
       icon: mdi:ceiling-light
 
 cloud:

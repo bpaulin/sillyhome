@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.child_plug:
-      friendly_name: 'Enfant (prise)'
+      friendly_name: "Enfant (prise)"
       icon: mdi:floor-lamp
 
 cloud:

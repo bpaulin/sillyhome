@@ -7,7 +7,7 @@ light:
 homeassistant:
   customize:
     light.parents_ceiling:
-      friendly_name: 'Parents (plafond)'
+      friendly_name: "Parents (plafond)"
       icon: mdi:ceiling-light
 
 cloud:

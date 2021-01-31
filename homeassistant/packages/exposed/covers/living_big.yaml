@@ -19,8 +19,8 @@ script:
         data:
           entity_id: cover.a0pl8
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl8
+          - platform: state
+            entity_id: cover.a0pl8
       - service: automation.turn_on
         data:
           entity_id: automation.living_big_cover_known_action
@@ -34,8 +34,8 @@ script:
         data:
           entity_id: cover.a0pl8
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl8
+          - platform: state
+            entity_id: cover.a0pl8
       - service: automation.turn_on
         data:
           entity_id: automation.living_big_cover_known_action
@@ -49,8 +49,8 @@ script:
         data:
           entity_id: cover.a0pl8
       - wait_for_trigger:
-        - platform: state
-          entity_id: cover.a0pl8
+          - platform: state
+            entity_id: cover.a0pl8
       - service: automation.turn_on
         data:
           entity_id: automation.living_big_cover_known_action
@@ -76,7 +76,7 @@ automation living_big_cover:
 homeassistant:
   customize:
     cover.living_big:
-      friendly_name: 'Salon (grand)'
+      friendly_name: "Salon (grand)"
 
 cloud:
   google_actions:
