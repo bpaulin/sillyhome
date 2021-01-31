@@ -1,0 +1,22 @@
+light:
+  - platform: group
+    name: parents_ceiling
+    entities:
+      - light.a1pl5
+
+homeassistant:
+  customize:
+    light.parents_ceiling:
+      friendly_name: 'Parents (plafond)'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.parents_ceiling
+    entity_config:
+      light.parents_ceiling:
+        aliases:
+          - plafond
+        room: Chambre

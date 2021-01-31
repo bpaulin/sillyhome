@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: toilets
+    entities:
+      - light.a0pl4
+
+homeassistant:
+  customize:
+    light.toilets:
+      friendly_name: 'Wc'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.toilets
+    entity_config:
+      light.toilets:
+        aliases: []
+        room: Toilettes

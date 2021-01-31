@@ -1,0 +1,9 @@
+*
+!.gitignore
+!.HA_VERSION
+!*.yaml
+!packages
+!packages/exposed
+!packages/exposed/lights
+!packages/exposed/covers
+secrets.yaml

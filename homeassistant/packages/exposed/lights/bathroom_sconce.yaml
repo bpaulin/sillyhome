@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: bathroom_sconce
+    entities:
+      - light.a0pl9
+
+homeassistant:
+  customize:
+    light.bathroom_sconce:
+      friendly_name: 'Salle de bains (meuble)'
+      icon: mdi:wall-sconce-flat
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.bathroom_sconce
+    entity_config:
+      light.bathroom_sconce:
+        aliases: []
+        room: Salle de bains

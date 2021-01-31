@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: office
+    entities:
+      - light.a01pl11
+
+homeassistant:
+  customize:
+    light.office:
+      friendly_name: 'Bureau'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.office
+    entity_config:
+      light.office:
+        aliases: []
+        room: Bureau

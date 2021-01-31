@@ -1,0 +1,23 @@
+light:
+  - platform: group
+    name: child_ceiling
+    entities:
+      - light.a1pl9
+
+homeassistant:
+  customize:
+    light.child_ceiling:
+      friendly_name: 'Enfant (plafond)'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.child_ceiling
+    entity_config:
+      light.child_ceiling:
+        aliases:
+          - plafond
+          - grande lumière
+        room: Chambre de Lise

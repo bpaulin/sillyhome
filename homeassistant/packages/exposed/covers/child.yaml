@@ -1,0 +1,91 @@
+cover:
+  - platform: cover_rf_time_based
+    devices:
+      child:
+        name: child
+        travelling_time_up: 26
+        travelling_time_down: 24
+        close_script_entity_id: script.child_cover_down
+        stop_script_entity_id: script.child_cover_stop
+        open_script_entity_id: script.child_cover_up
+
+script:
+  child_cover_down:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.child_cover_known_action
+      - service: cover.close_cover
+        data:
+          entity_id: cover.a01pl13
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a01pl13
+      - service: automation.turn_on
+        data:
+          entity_id: automation.child_cover_known_action
+
+  child_cover_stop:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.child_cover_known_action
+      - service: cover.stop_cover
+        data:
+          entity_id: cover.a01pl13
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a01pl13
+      - service: automation.turn_on
+        data:
+          entity_id: automation.child_cover_known_action
+
+  child_cover_up:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.child_cover_known_action
+      - service: cover.open_cover
+        data:
+          entity_id: cover.a01pl13
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a01pl13
+      - service: automation.turn_on
+        data:
+          entity_id: automation.child_cover_known_action
+
+automation child_cover:
+  - alias: child_cover_known_action
+    trigger:
+      platform: state
+      entity_id: cover.a01pl13
+    action:
+      service: cover_rf_time_based.set_known_action
+      data:
+        entity_id: cover.child
+        action: >-
+          {% if trigger.to_state.state == 'opening' %}
+            open
+          {% elif trigger.to_state.state == 'closing' %}
+            close
+          {% else %}
+            stop
+          {% endif %}
+
+homeassistant:
+  customize:
+    cover.child:
+      friendly_name: 'Enfant'
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - cover.child
+    entity_config:
+      cover.child:
+        aliases:
+          - volet
+          - store
+        room: Chambre de lise

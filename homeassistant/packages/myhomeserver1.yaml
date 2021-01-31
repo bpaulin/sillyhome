@@ -1,0 +1,45 @@
+light:
+- platform: myhome
+  devices:
+    myhomeserver1_02:
+      where: '02'
+    myhomeserver1_01:
+      where: '01'
+    myhomeserver1_0012:
+      where: '0012'
+    myhomeserver1_0011:
+      where: '0011'
+    myhomeserver1_15:
+      where: '15'
+    myhomeserver1_19:
+      where: '19'
+    myhomeserver1_0111:
+      where: '0111'
+    myhomeserver1_04:
+      where: '04'
+    myhomeserver1_11:
+      where: '11'
+    myhomeserver1_0010:
+      where: '0010'
+    myhomeserver1_09:
+      where: '09'
+    myhomeserver1_0014:
+      where: '0014'
+
+cover:
+- platform: myhome
+  devices:
+    myhomeserver1_08:
+      where: '08'
+    myhomeserver1_13:
+      where: '13'
+    myhomeserver1_17:
+      where: '17'
+    myhomeserver1_06:
+      where: '06'
+    myhomeserver1_0113:
+      where: '0113'
+    myhomeserver1_07:
+      where: '07'
+    myhomeserver1_16:
+      where: '16'

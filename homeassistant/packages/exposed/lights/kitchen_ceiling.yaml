@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: kitchen_ceiling
+    entities:
+      - light.a00pl12
+
+homeassistant:
+  customize:
+    light.kitchen_ceiling:
+      friendly_name: 'Cuisine (plafond)'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.kitchen_ceiling
+    entity_config:
+      light.kitchen_ceiling:
+        aliases: []
+        room: Cuisine

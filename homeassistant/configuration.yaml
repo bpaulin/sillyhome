@@ -1,0 +1,21 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  external_url: !secret homeassistant_external_url
+  packages: !include_dir_named packages
+
+netatmo:
+  client_id: !secret netatmo_client_id
+  client_secret: !secret netatmo_client_secret
+

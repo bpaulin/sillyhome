@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: laundry
+    entities:
+      - light.a00pl14
+
+homeassistant:
+  customize:
+    light.laundry:
+      friendly_name: 'Buanderie'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.laundry
+    entity_config:
+      light.laundry:
+        aliases: []
+        room: Buanderie

@@ -1,0 +1,24 @@
+light:
+  - platform: group
+    name: child_plug
+    entities:
+      - light.bulb_child_plug
+
+homeassistant:
+  customize:
+    light.child_plug:
+      friendly_name: 'Enfant (prise)'
+      icon: mdi:floor-lamp
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.child_plug
+    entity_config:
+      light.child_plug:
+        aliases:
+          - prise
+          - petite lumière
+          - veilleuse
+        room: Chambre de Lise

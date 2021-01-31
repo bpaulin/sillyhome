@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: bathroom_ceiling
+    entities:
+      - light.a00pl10
+
+homeassistant:
+  customize:
+    light.bathroom_ceiling:
+      friendly_name: 'Salle de bains (plafond)'
+      icon: mdi:ceiling-light
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.bathroom_ceiling
+    entity_config:
+      light.bathroom_ceiling:
+        aliases: []
+        room: Salle de bains

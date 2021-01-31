@@ -1,0 +1,21 @@
+light:
+  - platform: group
+    name: kitchen_sconce
+    entities:
+      - light.a00pl11
+
+homeassistant:
+  customize:
+    light.kitchen_sconce:
+      friendly_name: 'Cuisine (meuble)'
+      icon: mdi:wall-sconce-flat
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.kitchen_sconce
+    entity_config:
+      light.kitchen_sconce:
+        aliases: []
+        room: Cuisine

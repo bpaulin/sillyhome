@@ -1,0 +1,93 @@
+cover:
+  - platform: cover_rf_time_based
+    devices:
+      parents_first:
+        name: parents_first
+        travelling_time_up: 26
+        travelling_time_down: 24
+        close_script_entity_id: script.parents_first_cover_down
+        stop_script_entity_id: script.parents_first_cover_stop
+        open_script_entity_id: script.parents_first_cover_up
+
+script:
+  parents_first_cover_down:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.parents_first_cover_known_action
+      - service: cover.close_cover
+        data:
+          entity_id: cover.a0pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a0pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.parents_first_cover_known_action
+
+  parents_first_cover_stop:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.parents_first_cover_known_action
+      - service: cover.stop_cover
+        data:
+          entity_id: cover.a0pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a0pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.parents_first_cover_known_action
+
+  parents_first_cover_up:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.parents_first_cover_known_action
+      - service: cover.open_cover
+        data:
+          entity_id: cover.a0pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a0pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.parents_first_cover_known_action
+
+automation parents_first_cover:
+  - alias: parents_first_cover_known_action
+    trigger:
+      platform: state
+      entity_id: cover.a0pl7
+    action:
+      service: cover_rf_time_based.set_known_action
+      data:
+        entity_id: cover.parents_first
+        action: >-
+          {% if trigger.to_state.state == 'opening' %}
+            open
+          {% elif trigger.to_state.state == 'closing' %}
+            close
+          {% else %}
+            stop
+          {% endif %}
+
+homeassistant:
+  customize:
+    cover.parents_first:
+      friendly_name: 'Parents (entrée)'
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - cover.parents_first
+    entity_config:
+      cover.parents_first:
+        aliases:
+          - volet de l'entrée
+          - store de l'entrée
+          - volet d'emma
+          - store d'emma
+        room: Chambre

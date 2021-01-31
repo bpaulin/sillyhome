@@ -1,0 +1,91 @@
+cover:
+  - platform: cover_rf_time_based
+    devices:
+      kitchen:
+        name: kitchen
+        travelling_time_up: 26
+        travelling_time_down: 24
+        close_script_entity_id: script.kitchen_cover_down
+        stop_script_entity_id: script.kitchen_cover_stop
+        open_script_entity_id: script.kitchen_cover_up
+
+script:
+  kitchen_cover_down:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.kitchen_cover_known_action
+      - service: cover.close_cover
+        data:
+          entity_id: cover.a1pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a1pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.kitchen_cover_known_action
+
+  kitchen_cover_stop:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.kitchen_cover_known_action
+      - service: cover.stop_cover
+        data:
+          entity_id: cover.a1pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a1pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.kitchen_cover_known_action
+
+  kitchen_cover_up:
+    sequence:
+      - service: automation.turn_off
+        data:
+          entity_id: automation.kitchen_cover_known_action
+      - service: cover.open_cover
+        data:
+          entity_id: cover.a1pl7
+      - wait_for_trigger:
+        - platform: state
+          entity_id: cover.a1pl7
+      - service: automation.turn_on
+        data:
+          entity_id: automation.kitchen_cover_known_action
+
+automation kitchen_cover:
+  - alias: kitchen_cover_known_action
+    trigger:
+      platform: state
+      entity_id: cover.a1pl7
+    action:
+      service: cover_rf_time_based.set_known_action
+      data:
+        entity_id: cover.kitchen
+        action: >-
+          {% if trigger.to_state.state == 'opening' %}
+            open
+          {% elif trigger.to_state.state == 'closing' %}
+            close
+          {% else %}
+            stop
+          {% endif %}
+
+homeassistant:
+  customize:
+    cover.kitchen:
+      friendly_name: 'Cuisine'
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - cover.kitchen
+    entity_config:
+      cover.kitchen:
+        aliases:
+          - volet
+          - store
+        room: Cuisine

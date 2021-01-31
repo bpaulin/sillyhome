@@ -1,0 +1,22 @@
+light:
+  - platform: group
+    name: parents_dad
+    entities:
+      - light.bulb_parents_dad
+
+homeassistant:
+  customize:
+    light.bulb_parents_dad:
+      friendly_name: 'Bruno'
+      icon: mdi:lamp
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.bulb_parents_dad
+    entity_config:
+      light.bulb_parents_dad:
+        aliases:
+          - Chevet de Bruno
+        room: Chambre
