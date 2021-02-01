@@ -6,7 +6,7 @@ light:
 
 homeassistant:
   customize:
-    light.bulb_parents_mum:
+    light.parents_mum:
       friendly_name: "Emma"
       icon: mdi:lamp
 
@@ -14,9 +14,9 @@ cloud:
   google_actions:
     filter:
       include_entities:
-        - light.bulb_parents_mum
+        - light.parents_mum
     entity_config:
-      light.bulb_parents_mum:
+      light.parents_mum:
         aliases:
           - Chevet d'Emma
         room: Chambre
