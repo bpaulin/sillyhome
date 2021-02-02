@@ -43,3 +43,13 @@ cover:
         where: "07"
       myhomeserver1_16:
         where: "16"
+
+sensor:
+  - platform: myhome
+    devices:
+      general_power:
+        where: "51"
+        class: power
+      water_heater_power:
+        where: "52"
+        class: power
