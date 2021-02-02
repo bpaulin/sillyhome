@@ -19,3 +19,8 @@ cloud:
       light.laundry:
         aliases: []
         room: Buanderie
+
+recorder:
+  include:
+    entities:
+      - light.laundry

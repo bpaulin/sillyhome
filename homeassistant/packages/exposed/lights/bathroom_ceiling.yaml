@@ -19,3 +19,8 @@ cloud:
       light.bathroom_ceiling:
         aliases: []
         room: Salle de bains
+
+recorder:
+  include:
+    entities:
+      - light.bathroom_ceiling

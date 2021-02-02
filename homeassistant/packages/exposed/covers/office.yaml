@@ -89,3 +89,8 @@ cloud:
           - volet
           - store
         room: Bureau
+
+recorder:
+  include:
+    entities:
+      - cover.office

@@ -42,3 +42,8 @@ cloud:
       light.corridor_ceiling:
         aliases: []
         room: Couloir
+
+recorder:
+  include:
+    entities:
+      - light.corridor_ceiling

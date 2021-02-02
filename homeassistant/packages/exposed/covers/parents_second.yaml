@@ -91,3 +91,8 @@ cloud:
           - volet de bruno
           - store de bruno
         room: Chambre
+
+recorder:
+  include:
+    entities:
+      - cover.parents_second

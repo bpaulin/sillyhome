@@ -19,3 +19,8 @@ cloud:
       light.kitchen_sconce:
         aliases: []
         room: Cuisine
+
+recorder:
+  include:
+    entities:
+      - light.kitchen_sconce

@@ -19,3 +19,8 @@ cloud:
       light.toilets:
         aliases: []
         room: Toilettes
+
+recorder:
+  include:
+    entities:
+      - light.toilets

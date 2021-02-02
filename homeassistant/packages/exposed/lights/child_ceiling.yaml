@@ -21,3 +21,8 @@ cloud:
           - plafond
           - grande lumière
         room: Chambre de Lise
+
+recorder:
+  include:
+    entities:
+      - light.child_ceiling

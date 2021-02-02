@@ -20,3 +20,8 @@ cloud:
         aliases:
           - Chevet d'Emma
         room: Chambre
+
+recorder:
+  include:
+    entities:
+      - light.parents_mum

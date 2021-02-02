@@ -22,3 +22,8 @@ cloud:
           - petite lumière
           - veilleuse
         room: Chambre de Lise
+
+recorder:
+  include:
+    entities:
+      - light.child_plug

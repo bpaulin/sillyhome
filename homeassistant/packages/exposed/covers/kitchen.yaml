@@ -89,3 +89,8 @@ cloud:
           - volet
           - store
         room: Cuisine
+
+recorder:
+  include:
+    entities:
+      - cover.kitchen

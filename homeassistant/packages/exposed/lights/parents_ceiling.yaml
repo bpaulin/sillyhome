@@ -20,3 +20,8 @@ cloud:
         aliases:
           - plafond
         room: Chambre
+
+recorder:
+  include:
+    entities:
+      - light.parents_ceiling

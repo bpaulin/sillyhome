@@ -19,3 +19,8 @@ cloud:
       light.office:
         aliases: []
         room: Bureau
+
+recorder:
+  include:
+    entities:
+      - light.office

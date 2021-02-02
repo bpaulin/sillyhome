@@ -90,3 +90,8 @@ cloud:
           - grand volet
           - grand store
         room: Salon
+
+recorder:
+  include:
+    entities:
+      - cover.living_big

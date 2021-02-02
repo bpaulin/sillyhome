@@ -44,3 +44,8 @@ cloud:
         aliases:
           - grande lumière
         room: Salon
+
+recorder:
+  include:
+    entities:
+      - light.living_ceiling

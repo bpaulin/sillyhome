@@ -89,3 +89,8 @@ cloud:
           - volet
           - store
         room: Chambre de lise
+
+recorder:
+  include:
+    entities:
+      - cover.child

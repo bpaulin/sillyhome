@@ -42,3 +42,8 @@ cloud:
           - lampadaire
           - petite lumière
         room: Salon
+
+recorder:
+  include:
+    entities:
+      - light.living_plug
