@@ -1,0 +1,14 @@
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - vacuum.robot
+    entity_config:
+      vacuum.robot:
+        aliases: []
+        room: Bureau
+
+recorder:
+  include:
+    entities:
+      - vacuum.robot
