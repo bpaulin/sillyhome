@@ -6,4 +6,5 @@
 !packages/exposed
 !packages/exposed/lights
 !packages/exposed/covers
+!packages/exposed/climates
 secrets.yaml

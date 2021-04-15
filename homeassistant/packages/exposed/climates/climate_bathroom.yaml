@@ -1,0 +1,26 @@
+sensor:
+  - platform: template
+    sensors:
+      battery_climate_bathroom:
+        unit_of_measurement: "%"
+        device_class: "battery"
+        value_template: "{{ state_attr('climate.netatmo_salle_de_bains', 'battery_level') }}"
+
+homeassistant:
+  customize:
+    climate.netatmo_salle_de_bains:
+      friendly_name: "Salle de bains"
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - climate.netatmo_salle_de_bains
+    entity_config:
+      climate.netatmo_salle_de_bains:
+        room: Salle de bains
+
+recorder:
+  include:
+    entities:
+      - climate.netatmo_salle_de_bains

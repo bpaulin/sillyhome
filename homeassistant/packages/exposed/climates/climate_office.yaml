@@ -1,0 +1,26 @@
+sensor:
+  - platform: template
+    sensors:
+      battery_climate_office:
+        unit_of_measurement: "%"
+        device_class: "battery"
+        value_template: "{{ state_attr('climate.netatmo_bureau', 'battery_level') }}"
+
+homeassistant:
+  customize:
+    climate.netatmo_bureau:
+      friendly_name: "Bureau"
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - climate.netatmo_bureau
+    entity_config:
+      climate.netatmo_bureau:
+        room: Bureau
+
+recorder:
+  include:
+    entities:
+      - climate.netatmo_bureau

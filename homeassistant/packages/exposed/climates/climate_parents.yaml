@@ -1,0 +1,26 @@
+sensor:
+  - platform: template
+    sensors:
+      battery_climate_parents:
+        unit_of_measurement: '%'
+        device_class: 'battery'
+        value_template: "{{ state_attr('climate.netatmo_chambre', 'battery_level') }}"
+
+homeassistant:
+  customize:
+    climate.netatmo_chambre:
+      friendly_name: "Chambre"
+
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - climate.netatmo_chambre
+    entity_config:
+      climate.netatmo_chambre:
+        room: Chambre
+
+recorder:
+  include:
+    entities:
+      - climate.netatmo_chambre
