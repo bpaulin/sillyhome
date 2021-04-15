@@ -9,3 +9,4 @@
 !packages/exposed/climates
 !packages/exposed/vacuums
 secrets.yaml
+known_devices.yaml
