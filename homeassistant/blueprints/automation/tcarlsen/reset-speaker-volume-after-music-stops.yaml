@@ -1,0 +1,40 @@
+blueprint:
+  name: Reset speaker volume after music stops
+  description: After speaker has been turned off for x minutes it will has its volume
+    reset to x
+  domain: automation
+  input:
+    media_player:
+      name: Media Players
+      description: Select a media player or multiple media players
+      selector:
+        entity:
+          domain: media_player
+    offtime:
+      name: Off time
+      description: How long should the media player be off for before we reset the
+        volume?
+      default: 00:01:00
+      selector:
+        time: {}
+    reset_volume:
+      name: Reset volume
+      description: The volume you want your media player to be reset to
+      default: 0.3
+      selector:
+        number:
+          min: 0.0
+          max: 1.0
+          step: 0.1
+          mode: slider
+  source_url: https://community.home-assistant.io/t/reset-speaker-volume-after-music-stops/265376
+trigger:
+  platform: state
+  entity_id: !input 'media_player'
+  from: playing
+  for: !input 'offtime'
+action:
+- service: media_player.volume_set
+  data:
+    entity_id: '{{ trigger.entity_id }}'
+    volume_level: !input 'reset_volume'
