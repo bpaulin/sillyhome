@@ -8,6 +8,8 @@
 !packages/exposed/covers
 !packages/exposed/climates
 !packages/exposed/vacuums
+!packages/internal
+!packages/internal/presence
 secrets.yaml
 known_devices.yaml
 automations.yaml

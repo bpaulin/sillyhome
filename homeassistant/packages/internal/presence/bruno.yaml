@@ -1,0 +1,5 @@
+person:
+  - name: Bruno
+    id: bruno
+    device_trackers:
+      - !secret google_maps_bruno
