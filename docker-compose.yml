@@ -18,3 +18,8 @@ services:
     volumes:
       - './mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf'
 
+  icantbelieveitsnotvaletudo:
+    image: rickardrockard/icantbelieveitsnotvaletudo:latest
+    volumes:
+      - './icantbelieveitsnotvaletudo/config.json:/app/config.json'
+
