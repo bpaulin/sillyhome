@@ -1,9 +1,0 @@
-cloud:
-  google_actions:
-    filter:
-      include_entities:
-        - camera.robot_rendered_map
-    entity_config:
-      camera.robot_rendered_map:
-        aliases: []
-        room: Bureau
