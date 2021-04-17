@@ -23,3 +23,31 @@ services:
     volumes:
       - './icantbelieveitsnotvaletudo/config.json:/app/config.json'
 
+  influxdb:
+    image: influxdb:2.0-alpine
+    ports:
+      - '8086:8086'
+    volumes:
+      - './influxdb/data:/var/lib/influxdb2'
+      - './influxdb/config:/etc/influxdb2'
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: sillyhome
+      DOCKER_INFLUXDB_INIT_BUCKET: sillyhome
+
+  telegraf:
+    image: telegraf:alpine
+    volumes:
+      - './telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro'
+      - '/:/hostfs:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    environment:
+      HOST_ETC: /hostfs/etc
+      HOST_PROC: /hostfs/proc
+      HOST_SYS: /hostfs/sys
+      HOST_VAR: /hostfs/var
+      HOST_RUN: /hostfs/run
+      HOST_MOUNT_PREFIX: /hostfs
+      INFLUX_TOKEN: ${INFLUXDB_TOKEN}
