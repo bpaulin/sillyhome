@@ -1,7 +1,0 @@
-alias: Reset bathroom volume
-use_blueprint:
-  path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
-  input:
-    offtime: 00:00:10
-    media_player: media_player.salle_de_bain
-    reset_volume: 0.3

@@ -1,7 +1,0 @@
-alias: Reset mul volume
-use_blueprint:
-  path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
-  input:
-    offtime: 00:00:10
-    media_player: media_player.emma
-    reset_volume: 0.3

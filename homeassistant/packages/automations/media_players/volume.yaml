@@ -1,0 +1,47 @@
+automation:
+  - alias: Reset bathroom volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.salle_de_bain
+        reset_volume: 0.3
+
+  - alias: Reset dad volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.bruno
+        reset_volume: 0.3
+
+  - alias: Reset mum volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.emma
+        reset_volume: 0.3
+
+  - alias: Reset child volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.chambre
+        reset_volume: 0.3
+  - alias: Reset living volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.bruno
+        reset_volume: 0.3
+
+  - alias: Reset office volume
+    use_blueprint:
+      path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
+      input:
+        offtime: 00:00:10
+        media_player: media_player.bureau_wifi
+        reset_volume: 0.3
