@@ -1,5 +1,11 @@
 person:
   - name: Bruno
     id: bruno
+    user_id: !secret user_id_bruno
     device_trackers:
       - !secret google_maps_bruno
+
+recorder:
+  include:
+    entities:
+      - person.bruno

@@ -3,3 +3,8 @@ person:
     id: emma
     device_trackers:
       - !secret google_maps_emma
+
+recorder:
+  include:
+    entities:
+      - person.emma
