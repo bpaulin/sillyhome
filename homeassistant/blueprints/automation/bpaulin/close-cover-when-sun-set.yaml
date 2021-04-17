@@ -1,0 +1,18 @@
+blueprint:
+  name: Close cover when sun set
+  description: ''
+  domain: automation
+  input:
+    cover:
+      name: Covers
+      description: Select a cover or multiple covers
+      selector:
+        entity:
+          domain: cover
+trigger:
+  platform: sun
+  event: sunset
+action:
+  service: cover.close_cover
+  data:
+    entity_id: !input 'cover'
