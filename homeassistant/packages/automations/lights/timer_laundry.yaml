@@ -1,0 +1,13 @@
+automation:
+  - alias: Turn off laundry light
+    trigger:
+      - platform: state
+        entity_id:
+          - light.laundry
+        to: "on"
+        for:
+          minutes: 3
+    action:
+      - service: light.turn_off
+        target:
+          entity_id: light.laundry
