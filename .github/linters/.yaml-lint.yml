@@ -7,9 +7,9 @@ yaml-files:
 
 
 ignore: |
-  /homeassistant/custom_components
-  /homeassistant/blueprints/automation/
-  !/homeassistant/blueprints/automation/bpaulin/*
+  homeassistant/custom_components
+  homeassistant/blueprints/automation/
+  !homeassistant/blueprints/automation/bpaulin/*
   secrets.yaml
   known_devices.yaml
 
@@ -23,8 +23,7 @@ rules:
   comments-indentation:
     level: warning
   document-end: disable
-  document-start:
-    level: warning
+  document-start: disable
   empty-lines: enable
   empty-values: disable
   hyphens: enable
@@ -38,5 +37,4 @@ rules:
   octal-values: disable
   quoted-strings: disable
   trailing-spaces: enable
-  truthy:
-    level: warning
+  truthy: disable
