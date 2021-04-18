@@ -1,0 +1,59 @@
+automation:
+  - alias: Dim down corridor at night
+    trigger:
+      - platform: state
+        entity_id:
+          - cover.child
+          - cover.parents_first
+          - cover.parents_second
+        to: "closed"
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: cover.child
+            state: "closed"
+          - condition: and
+            conditions:
+            - condition: state
+              entity_id: cover.parents_first
+              state: "closed"
+            - condition: state
+              entity_id: cover.parents_second
+              state: "closed"
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.corridor_ceiling
+        data:
+          brightness_pct: 10
+
+  - alias: Dim Up corridor at day
+    trigger:
+      - platform: state
+        entity_id:
+          - cover.child
+          - cover.parents_first
+          - cover.parents_second
+        to: "open"
+    condition:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: cover.child
+            state: "open"
+          - condition: or
+            conditions:
+            - condition: state
+              entity_id: cover.parents_first
+              state: "open"
+            - condition: state
+              entity_id: cover.parents_second
+              state: "open"
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.corridor_ceiling
+        data:
+          brightness_pct: 100
+
