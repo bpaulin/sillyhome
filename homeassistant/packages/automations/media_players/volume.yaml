@@ -30,12 +30,13 @@ automation:
         offtime: 00:00:10
         media_player: media_player.chambre
         reset_volume: 0.3
+
   - alias: Reset living volume
     use_blueprint:
       path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
       input:
         offtime: 00:00:10
-        media_player: media_player.bruno
+        media_player: media_player.ecran
         reset_volume: 0.3
 
   - alias: Reset office volume
