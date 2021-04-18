@@ -5,6 +5,14 @@ yaml-files:
   - '*.yml'
   - '.yamllint'
 
+
+ignore: |
+  /homeassistant/custom_components
+  /homeassistant/blueprints/automation/
+  !/homeassistant/blueprints/automation/bpaulin/*
+  secrets.yaml
+  known_devices.yaml
+
 rules:
   braces: enable
   brackets: enable
@@ -23,7 +31,8 @@ rules:
   indentation: enable
   key-duplicates: enable
   key-ordering: disable
-  line-length: enable
+  line-length:
+    max: 100
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable
