@@ -1,3 +1,4 @@
+---
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
@@ -18,4 +19,3 @@ homeassistant:
 netatmo:
   client_id: !secret netatmo_client_id
   client_secret: !secret netatmo_client_secret
-
