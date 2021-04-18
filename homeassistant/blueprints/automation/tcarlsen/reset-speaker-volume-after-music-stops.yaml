@@ -34,7 +34,7 @@ trigger:
   from: playing
   for: !input 'offtime'
 action:
-- service: media_player.volume_set
-  data:
-    entity_id: '{{ trigger.entity_id }}'
-    volume_level: !input 'reset_volume'
+  - service: media_player.volume_set
+    data:
+      entity_id: '{{ trigger.entity_id }}'
+      volume_level: !input 'reset_volume'

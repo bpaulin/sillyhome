@@ -9,8 +9,14 @@ light:
   - platform: template
     lights:
       corridor_ceiling:
-        level_template: "{% if states('light.bulbs_corridor_ceiling')=='on' %}{{ state_attr('light.bulbs_corridor_ceiling', 'brightness') }}{% else %}0{% endif %}"
-        value_template: "{{ states('light.a1pl1')=='on' and states('light.bulbs_corridor_ceiling')=='on' }}"
+        level_template: >-
+          {% if states('light.bulbs_corridor_ceiling')=='on' %}
+            {{ state_attr('light.bulbs_corridor_ceiling', 'brightness') }}
+          {% else -%}
+            0
+          {%- endif %}
+        value_template: >-
+          {{ states('light.a1pl1')=='on' and states('light.bulbs_corridor_ceiling')=='on' }}
         turn_on:
           service: light.turn_on
           data_template:
