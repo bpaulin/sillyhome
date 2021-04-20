@@ -28,7 +28,7 @@ automation:
       path: tcarlsen/reset-speaker-volume-after-music-stops.yaml
       input:
         offtime: 00:00:10
-        media_player: media_player.chambre
+        media_player: media_player.lise
         reset_volume: 0.1
 
   - alias: Reset living volume
