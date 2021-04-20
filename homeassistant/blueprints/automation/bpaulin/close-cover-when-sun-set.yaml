@@ -12,6 +12,12 @@ blueprint:
 trigger:
   platform: sun
   event: sunset
+condition:
+  condition: not
+  conditions:
+    - condition: state
+      entity_id: !input 'cover'
+      state: "closed"
 action:
   service: cover.close_cover
   data:
