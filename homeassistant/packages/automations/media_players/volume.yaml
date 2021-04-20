@@ -29,7 +29,7 @@ automation:
       input:
         offtime: 00:00:10
         media_player: media_player.chambre
-        reset_volume: 0.3
+        reset_volume: 0.1
 
   - alias: Reset living volume
     use_blueprint:
@@ -37,7 +37,7 @@ automation:
       input:
         offtime: 00:00:10
         media_player: media_player.ecran
-        reset_volume: 0.3
+        reset_volume: 0.5
 
   - alias: Reset office volume
     use_blueprint:
