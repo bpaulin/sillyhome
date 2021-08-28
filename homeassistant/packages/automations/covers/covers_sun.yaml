@@ -1,0 +1,20 @@
+automation:
+  - alias: Close nights cover at sunset
+    use_blueprint:
+      path: bpaulin/close-cover-when-sun-set.yaml
+      input:
+        cover: 
+         - cover.parents_second
+         - cover.parents_first
+         - cover.child
+         - cover.office
+
+  - alias: Open nights cover at sunrise
+    use_blueprint:
+      path: bpaulin/open-cover-when-sun-rise.yaml
+      input:
+        cover: 
+         - cover.parents_second
+         - cover.parents_first
+         - cover.child
+         - cover.office
