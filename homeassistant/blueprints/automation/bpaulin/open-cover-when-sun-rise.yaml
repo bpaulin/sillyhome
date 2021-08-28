@@ -1,0 +1,24 @@
+blueprint:
+  name: Open cover when sun rise
+  description: ''
+  domain: automation
+  input:
+    cover:
+      name: Covers
+      description: Select a cover or multiple covers
+      selector:
+        entity:
+          domain: cover
+trigger:
+  platform: sun
+  event: sunset
+condition:
+  condition: not
+  conditions:
+    - condition: state
+      entity_id: !input 'cover'
+      state: "open"
+action:
+  service: cover.open_cover
+  data:
+    entity_id: !input 'cover'
