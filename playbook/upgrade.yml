@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  tasks:
+  - name: Upgrade the system using yay.
+    kewlfft.aur.aur:
+      upgrade: true
+      use: yay
+    become: true
+    become_user: aur_builder
