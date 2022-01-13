@@ -3,3 +3,5 @@ vagrant-ssh
 
 *.vault
 kubeconfig
+
+ssh_config*

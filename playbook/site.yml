@@ -57,6 +57,8 @@
           - k3s-bin
           - kubectl
           - k9s
+          - python-openshift
+          - pacman-contrib
         use: yay
         state: present
       become: true
