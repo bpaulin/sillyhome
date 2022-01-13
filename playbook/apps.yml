@@ -1,0 +1,70 @@
+---
+
+- hosts: all
+  tasks:
+
+    - name: Homer Chart
+      kubernetes.core.helm:
+        name: homer
+        chart_ref: k8s-at-home/homer
+        release_namespace: homer
+        create_namespace: true
+        values:
+          configmap:
+            config:
+              enabled: true
+              data:
+                config.yml: "{{ lookup('template', 'app/homer.yml') }}"
+
+    - name: Homer route
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: traefik.containo.us/v1alpha1
+          kind: IngressRoute
+          metadata:
+            name: homer
+            namespace: homer
+          spec:
+            entryPoints:
+              - web
+              # - websecure
+            routes:
+              - match: PathPrefix(`/`)
+                kind: Rule
+                services:
+                  - name: homer
+                    port: 8080
+
+
+    - name: Homer Chart
+      kubernetes.core.helm:
+        name: homer
+        chart_ref: k8s-at-home/homer
+        release_namespace: homer-public
+        create_namespace: true
+        values:
+          configmap:
+            config:
+              enabled: true
+              data:
+                config.yml: "{{ lookup('template', 'app/homer_public.yml') }}"
+
+    - name: Homer route
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: traefik.containo.us/v1alpha1
+          kind: IngressRoute
+          metadata:
+            name: homer
+            namespace: homer-public
+          spec:
+            entryPoints:
+              - websecure
+            routes:
+              - match: PathPrefix(`/`)
+                kind: Rule
+                services:
+                  - name: homer
+                    port: 8080

@@ -58,11 +58,16 @@
           - kubectl
           - k9s
           - python-openshift
-          - pacman-contrib
+          - helm
         use: yay
         state: present
       become: true
       become_user: aur_builder
+
+    - name: Install Helm env plugin
+      kubernetes.core.helm_plugin:
+        plugin_path: https://github.com/databus23/helm-diff
+        state: present
 
     - name: Start k3s
       service:
@@ -106,5 +111,10 @@
         regexp: '127\.0\.0\.1'
         replace: "{{ ansible_host }}"
       delegate_to: localhost
+
+    - name: Add k8s-at-home charts repository
+      kubernetes.core.helm_repository:
+        name: k8s-at-home
+        repo_url: https://k8s-at-home.com/charts/
   tags:
     - k3s

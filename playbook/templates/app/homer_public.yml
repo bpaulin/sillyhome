@@ -1,0 +1,4 @@
+# -- Homer configuration. See [image documentation](https://github.com/bastienwirtz/homer/blob/main/docs/configuration.md) for more information.
+# @default -- See values.yaml
+title: homes
+subtitle: paulin

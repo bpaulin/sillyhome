@@ -1,0 +1,37 @@
+# -- Homer configuration. See [image documentation](https://github.com/bastienwirtz/homer/blob/main/docs/configuration.md) for more information.
+# @default -- See values.yaml
+title: homes
+subtitle: paulin
+services:
+- name: "Application"
+  icon: "fas fa-code-branch"
+  # A path to an image can also be provided. Note that icon take precedence if both icon and logo are set.
+  # logo: "path/to/logo"
+  items:
+    - name: "Awesome app"
+      logo: "assets/tools/sample.png"
+      # Alternatively a fa icon can be provided:
+      # icon: "fab fa-jenkins"
+      subtitle: "Bookmark example"
+      tag: "app"
+      url: "https://www.reddit.com/r/selfhosted/"
+      target: "_blank" # optional html tag target attribute
+    - name: "Another one"
+      logo: "assets/tools/sample2.png"
+      subtitle: "Another application"
+      tag: "app"
+      # Optional tagstyle
+      tagstyle: "is-success"
+      url: "#"
+- name: "Other group"
+  icon: "fas fa-heartbeat"
+  items:
+    - name: "Pi-hole"
+      logo: "assets/tools/sample.png"
+      # subtitle: "Network-wide Ad Blocking" # optional, if no subtitle is defined, PiHole statistics will be shown
+      tag: "other"
+      url: "http://192.168.0.151/admin"
+      type: "PiHole" # optional, loads a specific component that provides extra features. MUST MATCH a file name (without file extension) available in `src/components/services`
+      target: "_blank" # optional html a tag target attribute
+      # class: "green" # optional custom CSS class for card, useful with custom stylesheet
+      # background: red # optional color for card to set color directly without custom stylesheet
