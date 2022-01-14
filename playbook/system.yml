@@ -117,5 +117,19 @@
       kubernetes.core.helm_repository:
         name: k8s-at-home
         repo_url: https://k8s-at-home.com/charts/
+
+    - name: Add k8s-at-home group
+      group:
+        name: kah
+        gid: 568
+      become: true
+
+    - name: Add k8s-at-home user
+      user:
+        name: kah
+        uid: 568
+        group: kah
+      become: true
+
   tags:
     - k3s
