@@ -1,2 +1,22 @@
 title: Sillyhome
 subtitle: Private
+services:
+- items:
+    - name: jackett
+      url: "https://jackett.sillykube"
+      target: "_blank"
+    - name: radarr
+      url: "https://radarr.sillykube"
+      target: "_blank"
+    - name: sonarr
+      url: "https://sonarr.sillykube"
+      target: "_blank"
+    - name: bazarr
+      url: "https://bazarr.sillykube"
+      target: "_blank"
+    - name: transmission
+      url: "https://transmis.sillykube"
+      target: "_blank"
+    - name: jellyfin
+      url: "https://jellyfin.sillykube"
+      target: "_blank"
