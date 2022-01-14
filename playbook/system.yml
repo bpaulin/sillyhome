@@ -42,6 +42,7 @@
           - p7zip
           - speedtest-cli
           - vim
+          - jq
         use: yay
         state: present
       become: true
