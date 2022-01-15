@@ -64,15 +64,17 @@
         mode: '700'
       become: true
       loop:
-        - downloads/watch
-        - downloads/complete
-        - downloads/incomplete
-        - jackett
-        - radarr
-        - sonarr
-        - bazarr
-        - transmission
-        - jellyfin
+        - medias/downloads/watch
+        - medias/downloads/complete
+        - medias/downloads/incomplete
+        - medias/tv
+        - medias/movies
+        - config/jackett
+        - config/radarr
+        - config/sonarr
+        - config/bazarr
+        - config/transmission
+        - config/jellyfin
       tags:
         - medias
 
@@ -101,13 +103,13 @@
               enabled: true
               type: hostPath
               mountPath: /config
-              hostPath: "/home/kah/jackett"
+              hostPath: "/home/kah/config/jackett"
 
-            torrentblackhole:
+            medias:
               enabled: true
               type: hostPath
-              mountPath: /downloads
-              hostPath: "/home/kah/downloads/watch"
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
@@ -142,8 +144,14 @@
             config:
               enabled: true
               type: hostPath
-              mountPath: /downloads
-              hostPath: "/home/kah/downloads"
+              mountPath: /config
+              hostPath: "/home/kah/config/transmission"
+
+            medias:
+              enabled: true
+              type: hostPath
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
@@ -167,6 +175,18 @@
                   paths:
                     - path: "/"
                       pathType: Prefix
+          persistence:
+            config:
+              enabled: true
+              type: hostPath
+              mountPath: /config
+              hostPath: "/home/kah/config/radarr"
+
+            medias:
+              enabled: true
+              type: hostPath
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
@@ -190,6 +210,18 @@
                   paths:
                     - path: "/"
                       pathType: Prefix
+          persistence:
+            config:
+              enabled: true
+              type: hostPath
+              mountPath: /config
+              hostPath: "/home/kah/config/sonarr"
+
+            medias:
+              enabled: true
+              type: hostPath
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
@@ -213,6 +245,18 @@
                   paths:
                     - path: "/"
                       pathType: Prefix
+          persistence:
+            config:
+              enabled: true
+              type: hostPath
+              mountPath: /config
+              hostPath: "/home/kah/config/bazarr"
+
+            medias:
+              enabled: true
+              type: hostPath
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
@@ -236,6 +280,18 @@
                   paths:
                     - path: "/"
                       pathType: Prefix
+          persistence:
+            config:
+              enabled: true
+              type: hostPath
+              mountPath: /config
+              hostPath: "/home/kah/config/jellyfin"
+
+            medias:
+              enabled: true
+              type: hostPath
+              mountPath: /medias
+              hostPath: "/home/kah/medias"
       tags:
         - private
         - medias
