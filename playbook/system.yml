@@ -45,6 +45,7 @@
               - speedtest-cli
               - vim
               - jq
+              - curl
             use: yay
             state: present
           become: true
@@ -68,11 +69,6 @@
                 state: present
               become: true
               become_user: aur_builder
-
-            - name: Install Helm diff plugin
-              kubernetes.core.helm_plugin:
-                plugin_path: https://github.com/databus23/helm-diff
-                state: present
 
             - name: Start k3s
               service:
@@ -120,6 +116,11 @@
                 regexp: '127\.0\.0\.1'
                 replace: "{{ ansible_host }}"
               delegate_to: localhost
+
+            - name: Install Helm diff plugin
+              kubernetes.core.helm_plugin:
+                plugin_path: https://github.com/databus23/helm-diff
+                state: present
           tags:
             - kubeconfig
 
