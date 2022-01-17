@@ -1,0 +1,41 @@
+app_transmission:
+  name: transmission
+
+  namespace: sh-flix
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/transmission"
+      chart_values:
+        env:
+          TRANSMISSION_WEB_HOME: /web
+          TRANSMISSION_DOWNLOAD_DIR: /downloads/complete
+          TRANSMISSION_INCOMPLETE_DIR_ENABLED: true
+          TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
+          TRANSMISSION_WATCH_DIR_ENABLED: true
+          TRANSMISSION_WATCH_DIR: /downloads/watch
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: web
+            hosts:
+              - host: "transmission.sillykube"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+        persistence:
+          config:
+            enabled: true
+            type: hostPath
+            mountPath: /config
+            hostPath: "/home/kah/config/jackett"
+
+          medias:
+            enabled: true
+            type: hostPath
+            mountPath: /medias
+            hostPath: "/home/kah/medias"

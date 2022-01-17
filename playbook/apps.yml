@@ -2,297 +2,94 @@
 
 - hosts: all
   tasks:
-
-    - name: Public portal
-      kubernetes.core.helm:
-        name: homer
-        chart_ref: k8s-at-home/homer
-        release_namespace: homer-public
-        create_namespace: true
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              hosts:
-                - host: "paulin.homes"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          configmap:
-            config:
-              enabled: true
-              data:
-                config.yml: "{{ lookup('template', 'app/homer_public.yml') }}"
-      tags:
-        - public
-
-    - name: Private portal
-      kubernetes.core.helm:
-        name: homer
-        chart_ref: k8s-at-home/homer
-        release_namespace: homer
-        create_namespace: true
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          configmap:
-            config:
-              enabled: true
-              data:
-                config.yml: "{{ lookup('template', 'app/homer.yml') }}"
-      tags:
-        - private
-        - portal
-
-
-    - name: "medias folders"
-      file:
-        path: "/home/kah/{{ item }}"
-        owner: kah
-        group: kah
-        state: directory
-        mode: '700'
-      become: true
+    - name: Install apps
+      include_role:
+        name: sh_apps
+      loop_control:
+        label: "{{ app.name }}"
+        loop_var: app
       loop:
-        - medias/downloads/watch
-        - medias/downloads/complete
-        - medias/downloads/incomplete
-        - medias/tv
-        - medias/movies
-        - config/jackett
-        - config/radarr
-        - config/sonarr
-        - config/bazarr
-        - config/transmission
-        - config/jellyfin
-      tags:
-        - medias
+        - "{{ app_traefik }}"
+        - "{{ app_adguard }}"
+        - "{{ app_monitoring }}"
+        - "{{ app_jackett }}"
+        - "{{ app_transmission }}"
+        - "{{ app_radarr }}"
+        - "{{ app_sonarr }}"
+        - "{{ app_bazarr }}"
+        - "{{ app_jellyfin }}"
 
-    - name: "jackett Chart"
-      kubernetes.core.helm:
-        name: "jackett"
-        chart_ref: "k8s-at-home/jackett"
-        release_namespace: "jackett"
-        create_namespace: true
-        state: present
-        values:
-          image:
-            tag: "v0.20.314"
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "jackett.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/jackett"
+    # - name: "medias folders"
+    #   file:
+    #     path: "/home/kah/{{ item }}"
+    #     owner: kah
+    #     group: kah
+    #     state: directory
+    #     mode: '700'
+    #   become: true
+    #   loop:
+    #     - medias/downloads/watch
+    #     - medias/downloads/complete
+    #     - medias/downloads/incomplete
+    #     - medias/tv
+    #     - medias/movies
+    #     - config/jackett
+    #     - config/radarr
+    #     - config/sonarr
+    #     - config/bazarr
+    #     - config/transmission
+    #     - config/jellyfin
+    #   tags:
+    #     - medias
 
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - jackett
 
-    - name: "transmission Chart"
-      kubernetes.core.helm:
-        name: "transmission"
-        chart_ref: "k8s-at-home/transmission"
-        release_namespace: "transmission"
-        create_namespace: true
-        state: present
-        values:
-          env:
-            TRANSMISSION_WEB_HOME: /web
-            TRANSMISSION_DOWNLOAD_DIR: /downloads/complete
-            TRANSMISSION_INCOMPLETE_DIR_ENABLED: true
-            TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
-            TRANSMISSION_WATCH_DIR_ENABLED: true
-            TRANSMISSION_WATCH_DIR: /downloads/watch
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "transmission.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/transmission"
+    # - name: Public portal
+    #   kubernetes.core.helm:
+    #     name: homer
+    #     chart_ref: k8s-at-home/homer
+    #     release_namespace: homer-public
+    #     create_namespace: true
+    #     values:
+    #       ingress:
+    #         main:
+    #           enabled: true
+    #           annotations:
+    #             traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    #           hosts:
+    #             - host: "paulin.homes"
+    #               paths:
+    #                 - path: "/"
+    #                   pathType: Prefix
+    #       configmap:
+    #         config:
+    #           enabled: true
+    #           data:
+    #             config.yml: "{{ lookup('template', 'app/homer_public.yml') }}"
+    #   tags:
+    #     - public
 
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - transmission
-
-    - name: "radarr Chart"
-      kubernetes.core.helm:
-        name: "radarr"
-        chart_ref: "k8s-at-home/radarr"
-        release_namespace: "radarr"
-        create_namespace: true
-        state: present
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "radarr.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/radarr"
-
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - radarr
-
-    - name: "sonarr Chart"
-      kubernetes.core.helm:
-        name: "sonarr"
-        chart_ref: "k8s-at-home/sonarr"
-        release_namespace: "sonarr"
-        create_namespace: true
-        state: present
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "sonarr.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/sonarr"
-
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - sonarr
-
-    - name: "bazarr Chart"
-      kubernetes.core.helm:
-        name: "bazarr"
-        chart_ref: "k8s-at-home/bazarr"
-        release_namespace: "bazarr"
-        create_namespace: true
-        state: present
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "bazarr.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/bazarr"
-
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - bazarr
-
-    - name: "jellyfin Chart"
-      kubernetes.core.helm:
-        name: "jellyfin"
-        chart_ref: "k8s-at-home/jellyfin"
-        release_namespace: "jellyfin"
-        create_namespace: true
-        state: present
-        values:
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: web
-              hosts:
-                - host: "jellyfin.sillykube"
-                  paths:
-                    - path: "/"
-                      pathType: Prefix
-          persistence:
-            config:
-              enabled: true
-              type: hostPath
-              mountPath: /config
-              hostPath: "/home/kah/config/jellyfin"
-
-            medias:
-              enabled: true
-              type: hostPath
-              mountPath: /medias
-              hostPath: "/home/kah/medias"
-      tags:
-        - private
-        - medias
-        - jellyfin
+    # - name: Private portal
+    #   kubernetes.core.helm:
+    #     name: homer
+    #     chart_ref: k8s-at-home/homer
+    #     release_namespace: homer
+    #     create_namespace: true
+    #     values:
+    #       ingress:
+    #         main:
+    #           enabled: true
+    #           annotations:
+    #             traefik.ingress.kubernetes.io/router.entrypoints: web
+    #           hosts:
+    #             - host: "sillykube"
+    #               paths:
+    #                 - path: "/"
+    #                   pathType: Prefix
+    #       configmap:
+    #         config:
+    #           enabled: true
+    #           data:
+    #             config.yml: "{{ lookup('template', 'app/homer.yml') }}"
+    #   tags:
+    #     - private
+    #     - portal

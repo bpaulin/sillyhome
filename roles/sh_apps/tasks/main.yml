@@ -1,0 +1,41 @@
+---
+- name: "{{ app.name }} | namespace"
+  kubernetes.core.k8s:
+    name: "{{ app.namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: "{{ app.name }} | helm repositories"
+  kubernetes.core.helm_repository:
+    name: "{{ item.name }}"
+    repo_url: "{{ item.repo_url }}"
+  loop: "{{ app.helm_repo }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - app.helm_repo is defined
+
+- name: "{{ app.name }} | chart"
+  kubernetes.core.helm:
+    name: "{{ app.name }}"
+    chart_ref: "{{ item.ref }}"
+    release_namespace: "{{ app.namespace }}"
+    state: present
+    values: "{{ item.chart_values }}"
+  loop: "{{ app.charts }}"
+  loop_control:
+    label: "{{ item.ref }}"
+  when:
+    - app.charts is defined
+
+- name: "{{ app.name }} | manifests"
+  kubernetes.core.k8s:
+    name: "{{ item.name }}"
+    namespace: "sh-core"
+    definition: "{{ item.manifest }}"
+  loop: "{{ app.manifests }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - app.manifests is defined
