@@ -8,16 +8,7 @@
       loop_control:
         label: "{{ app.name }}"
         loop_var: app
-      loop:
-        - "{{ app_traefik }}"
-        - "{{ app_adguard }}"
-        - "{{ app_monitoring }}"
-        - "{{ app_jackett }}"
-        - "{{ app_transmission }}"
-        - "{{ app_radarr }}"
-        - "{{ app_sonarr }}"
-        - "{{ app_bazarr }}"
-        - "{{ app_jellyfin }}"
+      loop: "{{ apps }}"
 
     # - name: "medias folders"
     #   file:
@@ -41,55 +32,3 @@
     #     - config/jellyfin
     #   tags:
     #     - medias
-
-
-    # - name: Public portal
-    #   kubernetes.core.helm:
-    #     name: homer
-    #     chart_ref: k8s-at-home/homer
-    #     release_namespace: homer-public
-    #     create_namespace: true
-    #     values:
-    #       ingress:
-    #         main:
-    #           enabled: true
-    #           annotations:
-    #             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    #           hosts:
-    #             - host: "paulin.homes"
-    #               paths:
-    #                 - path: "/"
-    #                   pathType: Prefix
-    #       configmap:
-    #         config:
-    #           enabled: true
-    #           data:
-    #             config.yml: "{{ lookup('template', 'app/homer_public.yml') }}"
-    #   tags:
-    #     - public
-
-    # - name: Private portal
-    #   kubernetes.core.helm:
-    #     name: homer
-    #     chart_ref: k8s-at-home/homer
-    #     release_namespace: homer
-    #     create_namespace: true
-    #     values:
-    #       ingress:
-    #         main:
-    #           enabled: true
-    #           annotations:
-    #             traefik.ingress.kubernetes.io/router.entrypoints: web
-    #           hosts:
-    #             - host: "sillykube"
-    #               paths:
-    #                 - path: "/"
-    #                   pathType: Prefix
-    #       configmap:
-    #         config:
-    #           enabled: true
-    #           data:
-    #             config.yml: "{{ lookup('template', 'app/homer.yml') }}"
-    #   tags:
-    #     - private
-    #     - portal

@@ -1,4 +1,11 @@
 app_traefik:
+  portal:
+    name: "Routeur"
+    subtitle: "Traefik dashboard"
+    icon: "fab fa-route"
+    url: "http://traefik.sillykube"
+    target: "_blank"
+
   name: traefik
 
   namespace: sh-core

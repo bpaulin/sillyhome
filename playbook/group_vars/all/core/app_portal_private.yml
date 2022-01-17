@@ -1,0 +1,80 @@
+app_portal_private_configmap:
+  title: Sillyhome
+  subtitle: Portal
+  icon: "fas fa-house-user"
+  footer: ''
+  links:
+    - name: "Github"
+      icon: "fab fa-github"
+      url: "https://github.com/bpaulin"
+      target: "_blank"
+    - name: "Website"
+      icon: "fas fa-book"
+      url: "https://bpaulin.net"
+      target: "_blank"
+  services:
+    - name: "About"
+      icon: "fas fa-book"
+      items:
+        - name: "Github repository"
+          subtitle: "Everything here is as-code"
+          icon: "fab fa-github"
+          url: "https://github.com/bpaulin/sillyhome"
+          target: "_blank"
+
+        - name: "Documentation"
+          subtitle: "Well, at least this page exists"
+          icon: "fas fa-book"
+          url: "https://bpaulin.net/sillyhome"
+          target: "_blank"
+
+    - name: "Videos"
+      icon: "fas fa-book"
+      items:
+        - name: jackett
+          url: "http://jackett.sillykube"
+          target: "_blank"
+        - name: radarr
+          url: "http://radarr.sillykube"
+          target: "_blank"
+        - name: sonarr
+          url: "http://sonarr.sillykube"
+          target: "_blank"
+        - name: bazarr
+          url: "http://bazarr.sillykube"
+          target: "_blank"
+        - name: transmission
+          url: "http://transmis.sillykube"
+          target: "_blank"
+        - name: jellyfin
+          url: "http://jellyfin.sillykube"
+          target: "_blank"
+
+
+app_portal_private:
+  name: portal-private
+
+  namespace: sh-core
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/homer"
+      chart_values:
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: web
+            hosts:
+              - host: "sillykube"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+        configmap:
+          config:
+            enabled: true
+            data:
+              config.yml: "{{ app_portal_private_configmap | to_json }}"
