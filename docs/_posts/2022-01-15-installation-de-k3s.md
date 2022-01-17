@@ -94,4 +94,28 @@ Et enfin, pour pouvoir acceder au cluster kubernetes directement depuis mon post
   delegate_to: localhost
 ```
 
+## Preparation des repos k8s-at-home
+
+k8s-at-home fournit un grand nombre de charts assez homogènes dans lesquels je compte largement puiser. Entre autre confort, le user dans la plupart de leurs images est le meme pour faciliter les transferts donc je crée le meme udi chez moi
+
+```yaml
+- name: Add k8s-at-home charts repository
+  kubernetes.core.helm_repository:
+    name: k8s-at-home
+    repo_url: https://k8s-at-home.com/charts/
+
+- name: Add k8s-at-home group
+  group:
+    name: kah
+    gid: 568
+  become: true
+
+- name: Add k8s-at-home user
+  user:
+    name: kah
+    uid: 568
+    group: kah
+  become: true
+```
+
 Le cluster est pret, plus qu'a deployer des machins dessus!
