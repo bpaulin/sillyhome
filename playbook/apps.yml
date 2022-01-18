@@ -2,13 +2,21 @@
 
 - hosts: all
   tasks:
-    - name: Install apps
+    - name: Install core apps
       include_role:
         name: sh_apps
       loop_control:
         label: "{{ app.name }}"
         loop_var: app
-      loop: "{{ apps }}"
+      loop: "{{ apps_core }}"
+
+    - name: Install flix apps
+      include_role:
+        name: sh_apps
+      loop_control:
+        label: "{{ app.name }}"
+        loop_var: app
+      loop: "{{ apps_flix }}"
 
     # - name: "medias folders"
     #   file:

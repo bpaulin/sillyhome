@@ -32,8 +32,9 @@
 - name: "{{ app.name }} | manifests"
   kubernetes.core.k8s:
     name: "{{ item.name }}"
-    namespace: "sh-core"
+    namespace: "{{ app.namespace }}"
     definition: "{{ item.manifest }}"
+    state: present
   loop: "{{ app.manifests }}"
   loop_control:
     label: "{{ item.name }}"
