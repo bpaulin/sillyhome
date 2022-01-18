@@ -25,7 +25,7 @@ app_sonarr:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/jackett"
+            hostPath: "/home/kah/config/sonarr"
 
           medias:
             enabled: true
