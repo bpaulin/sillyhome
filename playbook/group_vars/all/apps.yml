@@ -2,7 +2,6 @@
 
 apps_core:
   - "{{ app_traefik }}"
-  - "{{ app_externaldns }}"
   - "{{ app_adguard }}"
   - "{{ app_monitoring }}"
   - "{{ app_portal_public }}"
