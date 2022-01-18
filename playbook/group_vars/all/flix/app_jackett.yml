@@ -1,0 +1,36 @@
+app_jackett:
+  name: jackett
+
+  namespace: sh-flix
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/jackett"
+      chart_values:
+        image:
+          tag: "v0.20.314"
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: web
+            hosts:
+              - host: "jackett.sillykube"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+        persistence:
+          config:
+            enabled: true
+            type: hostPath
+            mountPath: /config
+            hostPath: "/home/kah/config/jackett"
+
+          medias:
+            enabled: true
+            type: hostPath
+            mountPath: /medias
+            hostPath: "/home/kah/medias"

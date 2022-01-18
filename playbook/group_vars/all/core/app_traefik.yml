@@ -1,0 +1,26 @@
+app_traefik:
+  portal:
+    name: "Routeur"
+    subtitle: "Traefik dashboard"
+    icon: "fab fa-route"
+    url: "http://traefik.sillykube"
+    target: "_blank"
+
+  name: traefik
+
+  namespace: sh-core
+
+  manifests:
+    - name: traefik-dashboard
+      manifest:
+        apiVersion: traefik.containo.us/v1alpha1
+        kind: IngressRoute
+        spec:
+          entryPoints:
+            - web
+          routes:
+            - kind: Rule
+              match: Host(`traefik.sillykube`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+              services:
+                - kind: TraefikService
+                  name: api@internal

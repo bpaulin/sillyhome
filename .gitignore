@@ -5,3 +5,4 @@ vagrant-ssh
 kubeconfig
 
 ssh_config*
+playbook/test.yml

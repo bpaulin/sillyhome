@@ -1,0 +1,34 @@
+app_bazarr:
+  name: bazarr
+
+  namespace: sh-flix
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/bazarr"
+      chart_values:
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: web
+            hosts:
+              - host: "bazarr.sillykube"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+        persistence:
+          config:
+            enabled: true
+            type: hostPath
+            mountPath: /config
+            hostPath: "/home/kah/config/jackett"
+
+          medias:
+            enabled: true
+            type: hostPath
+            mountPath: /medias
+            hostPath: "/home/kah/medias"

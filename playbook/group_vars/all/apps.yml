@@ -1,0 +1,19 @@
+---
+
+apps_core:
+  - "{{ app_traefik }}"
+  - "{{ app_externaldns }}"
+  - "{{ app_adguard }}"
+  - "{{ app_monitoring }}"
+  - "{{ app_portal_public }}"
+  - "{{ app_portal_private}}"
+
+apps_flix:
+  - "{{ app_jackett }}"
+  - "{{ app_transmission }}"
+  - "{{ app_radarr }}"
+  - "{{ app_sonarr }}"
+  - "{{ app_bazarr }}"
+  - "{{ app_jellyfin }}"
+
+apps: "{{ apps_core + apps_flix }}"
