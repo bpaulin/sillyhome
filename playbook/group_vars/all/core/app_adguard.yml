@@ -4,7 +4,7 @@ app_adguard:
   name: adguard
 
   portal:
-    - name: adguard
+    - name: Adguard
       subtitle: "DNS interne"
       icon: fas fa-tag
       url: "http://adguard.sillykube"

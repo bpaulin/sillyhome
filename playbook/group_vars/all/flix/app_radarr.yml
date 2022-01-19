@@ -6,7 +6,7 @@ app_radarr:
     - config/radarr
 
   portal:
-    - name: radarr
+    - name: Radarr
       subtitle: "Gestion des films"
       url: "http://radarr.sillykube"
       logo: https://avatars.githubusercontent.com/u/25025331?s=200&v=4

@@ -5,6 +5,10 @@ def appsForPortal(apps, groups, public, private):
             app_for_portal["portal"]
             for app_for_portal in apps
             if "portal" in app_for_portal.keys()
+            and (
+                "state" not in app_for_portal.keys()
+                or app_for_portal["state"] == "present"
+            )
         ]
         for item in sublist
         if ((public and item["public"]) or (private and not item["public"]))

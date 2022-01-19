@@ -16,26 +16,3 @@
       when: "'all' in ansible_run_tags or app.name in ansible_run_tags"
       tags:
         - always
-
-    # - name: "medias folders"
-    #   file:
-    #     path: "/home/kah/{{ item }}"
-    #     owner: kah
-    #     group: kah
-    #     state: directory
-    #     mode: '700'
-    #   become: true
-    #   loop:
-    #     - medias/downloads/watch
-    #     - medias/downloads/complete
-    #     - medias/downloads/incomplete
-    #     - medias/tv
-    #     - medias/movies
-    #     - config/jackett
-    #     - config/radarr
-    #     - config/sonarr
-    #     - config/bazarr
-    #     - config/transmission
-    #     - config/jellyfin
-    #   tags:
-    #     - medias

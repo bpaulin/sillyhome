@@ -3,7 +3,7 @@
 app_whoami:
 
   portal:
-    - name: whoami
+    - name: Whoami
       subtitle: "Debug réseau"
       icon: fas fa-project-diagram
       url: "http://whoami.sillykube"
@@ -67,23 +67,24 @@ app_whoami:
                     path: /
                     pathType: Prefix
 
-    # - name: whoami-public
-    #   manifest:
-    #     apiVersion: networking.k8s.io/v1
-    #     kind: Ingress
-    #     metadata:
-    #       annotations:
-    #         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    #         external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
-    #     spec:
-    #       rules:
-    #         - host: "whoami.{{ cloudflare_domain }}"
-    #           http:
-    #             paths:
-    #               - backend:
-    #                   service:
-    #                     name: whoami
-    #                     port:
-    #                       number: 80
-    #                 path: /
-    #                 pathType: Prefix
+    - name: whoami-public
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+            traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+        spec:
+          rules:
+            - host: "whoami.{{ cloudflare_domain }}"
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: whoami
+                        port:
+                          number: 80
+                    path: /
+                    pathType: Prefix

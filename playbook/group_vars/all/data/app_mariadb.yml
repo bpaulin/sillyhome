@@ -1,0 +1,13 @@
+app_mariadb:
+  name: mariadb
+  state: absent
+
+  namespace: sh-data
+
+  helm_repo:
+    - name: bitnami
+      repo_url: https://charts.bitnami.com/bitnami
+
+  charts:
+    - ref: "bitnami/mariadb"
+      chart_values: {}

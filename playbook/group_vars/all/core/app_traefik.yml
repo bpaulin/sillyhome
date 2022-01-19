@@ -13,6 +13,17 @@ app_traefik:
   namespace: sh-core
 
   manifests:
+    - name: traefik
+      namespace: kube-system
+      manifest:
+        apiVersion: helm.cattle.io/v1
+        kind: HelmChartConfig
+        spec:
+          valuesContent: |-
+            globalArguments:
+              - --entryPoints.websecure.forwardedHeaders.trustedIPs={{ cloudflare_ips | join(',') }}
+            hostNetwork: true
+
     - name: traefik-dashboard
       manifest:
         apiVersion: traefik.containo.us/v1alpha1
@@ -26,3 +37,27 @@ app_traefik:
               services:
                 - kind: TraefikService
                   name: api@internal
+
+    - name: cloudflare-api-whitelist
+      manifest:
+        apiVersion: traefik.containo.us/v1alpha1
+        kind: Middleware
+        spec:
+          ipWhiteList:
+            sourceRange: "{{ cloudflare_ips }}"
+
+    - name: basic-auth
+      manifest:
+        apiVersion: traefik.containo.us/v1alpha1
+        kind: Middleware
+        spec:
+          basicAuth:
+            secret: authsecret
+
+    - name: authsecret
+      manifest:
+        apiVersion: v1
+        kind: Secret
+        data:
+          users: |2
+            YnJ1bm86JGFwcjEkSGs4NWJNNG8kWnVEdnVjN1dKeUZ5cjFtbnRTeGtQMQoK

@@ -2,7 +2,7 @@ app_externaldns:
   name: external-dns
 
   portal:
-    - name: cloudflare
+    - name: Cloudflare
       subtitle: "DNS externe"
       icon: fas fa-tags
       url: "https://dash.cloudflare.com/"
