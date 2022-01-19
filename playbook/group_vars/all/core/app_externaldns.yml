@@ -1,0 +1,30 @@
+app_externaldns:
+  name: external-dns
+
+  portal:
+    - name: cloudflare
+      subtitle: "DNS externe"
+      icon: fas fa-tags
+      url: "https://dash.cloudflare.com/"
+      target: "_blank"
+      group: core
+      public: false
+
+  namespace: sh-core
+
+  helm_repo:
+    - name: external-dns
+      repo_url: https://kubernetes-sigs.github.io/external-dns/
+
+  charts:
+    - ref: "external-dns/external-dns"
+      chart_values:
+        provider: cloudflare
+        env:
+          - name: CF_API_KEY
+            value: "{{ cloudflare_api_key }}"
+          - name: CF_API_EMAIL
+            value: "{{ cloudflare_api_email }}"
+        extraArgs:
+          - --cloudflare-proxied
+        policy: sync

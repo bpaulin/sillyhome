@@ -1,0 +1,8 @@
+---
+app_portal_base:
+  core:
+    icon: "fas fa-network-wired"
+    items: []
+  video:
+    icon: "fas fa-skull-crossbones"
+    items: []

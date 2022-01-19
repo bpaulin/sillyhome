@@ -1,6 +1,20 @@
 app_bazarr:
   name: bazarr
 
+  folders:
+    - medias/tv
+    - medias/movies
+    - config/bazarr
+
+  portal:
+    - name: bazarr
+      subtitle: "Sous titres"
+      url: "http://bazarr.sillykube"
+      logo: https://www.bazarr.media/assets/img/logo.png
+      target: "_blank"
+      group: video
+      public: false
+
   namespace: sh-flix
 
   helm_repo:

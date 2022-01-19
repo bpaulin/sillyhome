@@ -93,7 +93,7 @@ Pour finir, je vais utiliser [homer] pour un portail pour lier les applis. Une f
               annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
               hosts:
-                - host: "paulin.homes"
+                - host: "mon.super.domaine"
                   paths:
                     - path: "/"
                       pathType: Prefix

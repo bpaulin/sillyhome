@@ -1,10 +1,12 @@
 app_traefik:
   portal:
-    name: "Routeur"
-    subtitle: "Traefik dashboard"
-    icon: "fab fa-route"
-    url: "http://traefik.sillykube"
-    target: "_blank"
+    - name: "Routeur"
+      subtitle: "Traefik"
+      icon: "fas fa-route"
+      url: "http://traefik.sillykube/dashboard/"
+      target: "_blank"
+      group: core
+      public: false
 
   name: traefik
 

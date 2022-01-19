@@ -1,6 +1,19 @@
 app_sonarr:
   name: sonarr
 
+  folders:
+    - medias/tv
+    - config/sonarr
+
+  portal:
+    - name: sonarr
+      subtitle: "Gestion des séries"
+      url: "http://sonarr.sillykube"
+      logo: https://avatars.githubusercontent.com/u/1082903?s=200&v=4
+      target: "_blank"
+      group: video
+      public: false
+
   namespace: sh-flix
 
   helm_repo:

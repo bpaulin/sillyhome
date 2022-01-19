@@ -1,22 +1,21 @@
 ---
 
 - hosts: all
+  gather_facts: false
   tasks:
-    - name: Install core apps
+    - name: Install apps
       include_role:
         name: sh_apps
+        apply:
+          tags:
+            - always
       loop_control:
         label: "{{ app.name }}"
         loop_var: app
-      loop: "{{ apps_core }}"
-
-    - name: Install flix apps
-      include_role:
-        name: sh_apps
-      loop_control:
-        label: "{{ app.name }}"
-        loop_var: app
-      loop: "{{ apps_flix }}"
+      loop: "{{ apps }}"
+      when: "'all' in ansible_run_tags or app.name in ansible_run_tags"
+      tags:
+        - always
 
     # - name: "medias folders"
     #   file:

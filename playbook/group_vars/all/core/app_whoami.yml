@@ -1,0 +1,89 @@
+---
+
+app_whoami:
+
+  portal:
+    - name: whoami
+      subtitle: "Debug réseau"
+      icon: fas fa-project-diagram
+      url: "http://whoami.sillykube"
+      target: "_blank"
+      group: core
+      public: false
+
+  name: whoami
+
+  namespace: sh-core
+
+  manifests:
+    - name: whoami
+      manifest:
+        apiVersion: apps/v1
+        kind: Deployment
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: "whoami"
+          template:
+            metadata:
+              labels:
+                app: "whoami"
+            spec:
+              containers:
+                - name: whoami
+                  image: containous/whoami
+
+    - name: whoami
+      manifest:
+        apiVersion: v1
+        kind: Service
+        spec:
+          selector:
+            app: "whoami"
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 80
+              name: http
+
+    - name: whoami
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: web
+        spec:
+          rules:
+            - host: whoami.sillykube
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: whoami
+                        port:
+                          number: 80
+                    path: /
+                    pathType: Prefix
+
+    # - name: whoami-public
+    #   manifest:
+    #     apiVersion: networking.k8s.io/v1
+    #     kind: Ingress
+    #     metadata:
+    #       annotations:
+    #         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    #         external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+    #     spec:
+    #       rules:
+    #         - host: "whoami.{{ cloudflare_domain }}"
+    #           http:
+    #             paths:
+    #               - backend:
+    #                   service:
+    #                     name: whoami
+    #                     port:
+    #                       number: 80
+    #                 path: /
+    #                 pathType: Prefix

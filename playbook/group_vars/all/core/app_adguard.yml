@@ -1,7 +1,16 @@
-adguard_config:
+# adguard_config:
 
 app_adguard:
   name: adguard
+
+  portal:
+    - name: adguard
+      subtitle: "DNS interne"
+      icon: fas fa-tag
+      url: "http://adguard.sillykube"
+      target: "_blank"
+      group: core
+      public: false
 
   namespace: sh-core
 

@@ -1,10 +1,26 @@
 ---
+
+- name: "{{ app.name }} | host folders"
+  file:
+    path: "{{ sh_apps_path_base }}/{{ item }}"
+    owner: "{{ sh_apps_owner }}"
+    group: "{{ sh_apps_group }}"
+    state: directory
+    mode: "{{ sh_apps_mode }}"
+  become: true
+  loop: "{{ app.folders }}"
+  when:
+    - app.folders is defined
+    - (app.state | default('present')) == 'present'
+
 - name: "{{ app.name }} | namespace"
   kubernetes.core.k8s:
     name: "{{ app.namespace }}"
     api_version: v1
     kind: Namespace
     state: present
+  when:
+    - (app.state | default('present')) == 'present'
 
 - name: "{{ app.name }} | helm repositories"
   kubernetes.core.helm_repository:
@@ -15,13 +31,14 @@
     label: "{{ item.name }}"
   when:
     - app.helm_repo is defined
+    - (app.state | default('present')) == 'present'
 
 - name: "{{ app.name }} | chart"
   kubernetes.core.helm:
     name: "{{ app.name }}"
     chart_ref: "{{ item.ref }}"
     release_namespace: "{{ app.namespace }}"
-    state: present
+    state: "{{ app.state | default('present') }}"
     values: "{{ item.chart_values }}"
   loop: "{{ app.charts }}"
   loop_control:
@@ -32,11 +49,11 @@
 - name: "{{ app.name }} | manifests"
   kubernetes.core.k8s:
     name: "{{ item.name }}"
-    namespace: "{{ app.namespace }}"
+    namespace: "{{ item.namespace | default(app.namespace) }}"
     definition: "{{ item.manifest }}"
-    state: present
+    state: "{{ app.state | default('present') }}"
   loop: "{{ app.manifests }}"
   loop_control:
-    label: "{{ item.name }}"
+    label: "{{ item.manifest.kind }}/{{ item.name }}"
   when:
     - app.manifests is defined

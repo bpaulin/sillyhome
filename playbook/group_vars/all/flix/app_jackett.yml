@@ -1,6 +1,19 @@
 app_jackett:
   name: jackett
 
+  folders:
+    - medias/downloads/watch
+    - config/jackett
+
+  portal:
+    - name: jackett
+      subtitle: "Indexeur"
+      url: "http://jackett.sillykube"
+      logo: https://avatars.githubusercontent.com/u/15383019?s=200&v=4
+      target: "_blank"
+      group: video
+      public: false
+
   namespace: sh-flix
 
   helm_repo:

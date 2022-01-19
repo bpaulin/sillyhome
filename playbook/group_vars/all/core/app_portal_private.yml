@@ -3,56 +3,19 @@ app_portal_private_configmap:
   subtitle: Portal
   icon: "fas fa-house-user"
   footer: ''
+  columns: "auto"
   links:
-    - name: "Github"
+    - name: "Github repository"
       icon: "fab fa-github"
-      url: "https://github.com/bpaulin"
-      target: "_blank"
-    - name: "Website"
+      url: "https://github.com/bpaulin/sillyhome"
+    - name: "Documentation"
       icon: "fas fa-book"
-      url: "https://bpaulin.net"
-      target: "_blank"
-  services:
-    - name: "About"
-      icon: "fas fa-book"
-      items:
-        - name: "Github repository"
-          subtitle: "Everything here is as-code"
-          icon: "fab fa-github"
-          url: "https://github.com/bpaulin/sillyhome"
-          target: "_blank"
-
-        - name: "Documentation"
-          subtitle: "Well, at least this page exists"
-          icon: "fas fa-book"
-          url: "https://bpaulin.net/sillyhome"
-          target: "_blank"
-
-    - name: "Videos"
-      icon: "fas fa-book"
-      items:
-        - name: jackett
-          url: "http://jackett.sillykube"
-          target: "_blank"
-        - name: radarr
-          url: "http://radarr.sillykube"
-          target: "_blank"
-        - name: sonarr
-          url: "http://sonarr.sillykube"
-          target: "_blank"
-        - name: bazarr
-          url: "http://bazarr.sillykube"
-          target: "_blank"
-        - name: transmission
-          url: "http://transmis.sillykube"
-          target: "_blank"
-        - name: jellyfin
-          url: "http://jellyfin.sillykube"
-          target: "_blank"
-
+      url: "https://bpaulin.net/sillyhome"
+  services: "{{ apps_without_portal | apps_for_portal(app_portal_base, false, true) }}"
 
 app_portal_private:
   name: portal-private
+  state: present
 
   namespace: sh-core
 

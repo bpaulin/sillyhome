@@ -1,6 +1,19 @@
 app_radarr:
   name: radarr
 
+  folders:
+    - medias/movies
+    - config/radarr
+
+  portal:
+    - name: radarr
+      subtitle: "Gestion des films"
+      url: "http://radarr.sillykube"
+      logo: https://avatars.githubusercontent.com/u/25025331?s=200&v=4
+      target: "_blank"
+      group: video
+      public: false
+
   namespace: sh-flix
 
   helm_repo:

@@ -3,6 +3,7 @@ app_portal_public_configmap:
   subtitle: Portal
   icon: "fas fa-house-user"
   footer: ''
+  columns: "auto"
   links:
     - name: "Github"
       icon: "fab fa-github"
@@ -12,22 +13,7 @@ app_portal_public_configmap:
       icon: "fas fa-book"
       url: "https://bpaulin.net"
       target: "_blank"
-  services:
-    - name: "About"
-      icon: "fas fa-book"
-      items:
-        - name: "Github repository"
-          subtitle: "Everything here is as-code"
-          icon: "fab fa-github"
-          url: "https://github.com/bpaulin/sillyhome"
-          target: "_blank"
-
-        - name: "Documentation"
-          subtitle: "Well, at least this page exists"
-          icon: "fas fa-book"
-          url: "https://bpaulin.net/sillyhome"
-          target: "_blank"
-
+  services: "{{ apps_without_portal | apps_for_portal(app_portal_base, true, false) }}"
 
 app_portal_public:
   name: portal-public
@@ -46,8 +32,9 @@ app_portal_public:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              # traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd
             hosts:
-              - host: "paulin.homes"
+              - host: "{{ cloudflare_domain }}"
                 paths:
                   - path: "/"
                     pathType: Prefix
