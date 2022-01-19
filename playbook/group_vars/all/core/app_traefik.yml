@@ -22,7 +22,16 @@ app_traefik:
           valuesContent: |-
             globalArguments:
               - --entryPoints.websecure.forwardedHeaders.trustedIPs={{ cloudflare_ips | join(',') }}
+              - --entryPoints.external.forwardedHeaders.trustedIPs={{ cloudflare_ips | join(',') }}
             hostNetwork: true
+            ports:
+              external:
+                port: 8444
+                expose: true
+                exposedPort: 444
+                protocol: TCP
+                tls:
+                  enabled: true
 
     - name: traefik-dashboard
       manifest:

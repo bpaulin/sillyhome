@@ -73,7 +73,7 @@ app_whoami:
         kind: Ingress
         metadata:
           annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.entrypoints: external
             external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
             traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
         spec:

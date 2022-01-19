@@ -31,8 +31,8 @@ app_portal_public:
           main:
             enabled: true
             annotations:
-              traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              # traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-cloudflare-api-whitelist@kubernetescrd
             hosts:
               - host: "{{ cloudflare_domain }}"
                 paths:
