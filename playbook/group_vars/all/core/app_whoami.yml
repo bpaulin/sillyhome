@@ -54,10 +54,6 @@ app_whoami:
         metadata:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.tls: "true"
-            traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
-            traefik.ingress.kubernetes.io/router.tls.domains.0.main: paulin.homes
-            traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.paulin.homes"
         spec:
           rules:
             - host: "whoami.{{ cloudflare_domain }}"
@@ -79,10 +75,6 @@ app_whoami:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: external
             external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
-            traefik.ingress.kubernetes.io/router.tls: "true"
-            traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
-            traefik.ingress.kubernetes.io/router.tls.domains.0.main: "{{ cloudflare_domain }}"
-            traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.{{ cloudflare_domain }}"
             traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
         spec:
           rules:
@@ -96,3 +88,29 @@ app_whoami:
                           number: 80
                     path: /
                     pathType: Prefix
+
+    - name: health-public
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: external
+            external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
+            traefik.ingress.kubernetes.io/router.tls.domains.0.main: "{{ cloudflare_domain }}"
+            traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.{{ cloudflare_domain }}"
+            traefik.ingress.kubernetes.io/router.middlewares: sh-core-cloudflare-api-whitelist@kubernetescrd
+        spec:
+          rules:
+            - host: "{{ cloudflare_domain }}"
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: whoami
+                        port:
+                          number: 80
+                    path: /health
+                    pathType: Exact
