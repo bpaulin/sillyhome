@@ -33,7 +33,32 @@
     - app.helm_repo is defined
     - (app.state | default('present')) == 'present'
 
-- name: "{{ app.name }} | chart"
+- name: "{{ app.name }} | debug folders"
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '700'
+  loop:
+    - "manifests/{{ app.namespace }}/{{ app.name }}/charts"
+    - "manifests/{{ app.namespace }}/{{ app.name }}/manifests"
+  when:
+    - (app.state | default('present')) == 'present'
+    - sh_apps_debug
+
+- name: "{{ app.name }} | debug charts"
+  kubernetes.core.helm_template:
+    chart_ref: "{{ item.ref }}"
+    values: "{{ item.chart_values }}"
+    output_dir: "manifests/{{ app.namespace }}/{{ app.name }}/charts"
+  loop: "{{ app.charts }}"
+  loop_control:
+    label: "{{ item.ref }}"
+  when:
+    - app.charts is defined
+    - (app.state | default('present')) == 'present'
+    - sh_apps_debug
+
+- name: "{{ app.name }} | charts"
   kubernetes.core.helm:
     name: "{{ app.name }}"
     chart_ref: "{{ item.ref }}"
@@ -46,6 +71,19 @@
   when:
     - app.charts is defined
 
+- name: "{{ app.name }} | debug manifests"
+  copy:
+    content: "{{ item.manifest | to_yaml }}"
+    dest: "manifests/{{ app.namespace }}/{{ app.name }}/manifests/{{ item.manifest.kind }}-{{ item.name }}"
+    mode: '700'
+  loop: "{{ app.manifests }}"
+  loop_control:
+    label: "{{ item.manifest.kind }}/{{ item.name }}"
+  when:
+    - app.manifests is defined
+    - (app.state | default('present')) == 'present'
+    - sh_apps_debug
+
 - name: "{{ app.name }} | manifests"
   kubernetes.core.k8s:
     name: "{{ item.name }}"
@@ -57,3 +95,4 @@
     label: "{{ item.manifest.kind }}/{{ item.name }}"
   when:
     - app.manifests is defined
+    - (app.state | default('present')) == 'present'

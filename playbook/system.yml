@@ -46,6 +46,7 @@
               - vim
               - jq
               - curl
+              - tree
             use: yay
             state: present
           become: true

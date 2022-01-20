@@ -1,0 +1,13 @@
+app_influxdb:
+  name: influxdb
+  state: absent
+
+  namespace: sh-data
+
+  helm_repo:
+    - name: bitnami
+      repo_url: https://charts.bitnami.com/bitnami
+
+  charts:
+    - ref: "bitnami/influxdb"
+      chart_values: {}

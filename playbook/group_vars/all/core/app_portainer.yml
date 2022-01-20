@@ -1,0 +1,13 @@
+app_portainer:
+  name: portainer
+  state: present
+
+  namespace: sh-core
+
+  helm_repo:
+    - name: portainer
+      repo_url: https://portainer.github.io/k8s/
+
+  charts:
+    - ref: "portainer/portainer"
+      chart_values: {}

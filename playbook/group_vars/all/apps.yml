@@ -8,6 +8,7 @@ apps_without_portal:
   - "{{ app_monitoring }}"
   - "{{ app_externaldns}}"
   - "{{ app_whoami}}"
+  - "{{ app_portainer}}"
   # flix
   - "{{ app_jackett }}"
   - "{{ app_transmission }}"
@@ -17,6 +18,12 @@ apps_without_portal:
   - "{{ app_jellyfin }}"
   # data
   - "{{ app_mariadb }}"
+  - "{{ app_mosquitto }}"
+  - "{{ app_influxdb }}"
+  # home
+  - "{{ app_esphome }}"
+  - "{{ app_hass }}"
+  - "{{ app_zigbee2mqtt }}"
 
 apps: "{{ apps_without_portal + [app_portal_public, app_portal_private] }}"
 

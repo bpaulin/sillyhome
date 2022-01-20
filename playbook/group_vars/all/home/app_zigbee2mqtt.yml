@@ -1,0 +1,13 @@
+app_zigbee2mqtt:
+  name: zigbee2mqtt
+  state: absent
+
+  namespace: sh-home
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/zigbee2mqtt"
+      chart_values: {}
