@@ -6,7 +6,7 @@ app_monitoring:
     - name: Grafana
       subtitle: "Monitoring"
       icon: fas fa-chart-line
-      url: "http://grafana.sillykube"
+      url: "https://grafana.{{ cloudflare_domain }}"
       target: "_blank"
       group: core
       public: false
@@ -24,7 +24,7 @@ app_monitoring:
           ingress:
             enabled: true
             annotations:
-              traefik.ingress.kubernetes.io/router.entrypoints: web
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
             hosts:
-              - grafana.sillykube
+              - grafana.{{ cloudflare_domain }}
             path: /

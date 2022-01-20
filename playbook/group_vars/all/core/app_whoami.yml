@@ -6,7 +6,7 @@ app_whoami:
     - name: Whoami
       subtitle: "Debug réseau"
       icon: fas fa-project-diagram
-      url: "http://whoami.sillykube"
+      url: "https://whoami.{{ cloudflare_domain }}"
       target: "_blank"
       group: core
       public: false
@@ -53,10 +53,14 @@ app_whoami:
         kind: Ingress
         metadata:
           annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: web
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
+            traefik.ingress.kubernetes.io/router.tls.domains.0.main: paulin.homes
+            traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.paulin.homes"
         spec:
           rules:
-            - host: whoami.sillykube
+            - host: "whoami.{{ cloudflare_domain }}"
               http:
                 paths:
                   - backend:
@@ -75,6 +79,10 @@ app_whoami:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: external
             external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
+            traefik.ingress.kubernetes.io/router.tls.domains.0.main: "{{ cloudflare_domain }}"
+            traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.{{ cloudflare_domain }}"
             traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
         spec:
           rules:

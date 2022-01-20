@@ -3,7 +3,7 @@ app_traefik:
     - name: "Routeur"
       subtitle: "Traefik"
       icon: "fas fa-route"
-      url: "http://traefik.sillykube/dashboard/"
+      url: "https://traefik.{{ cloudflare_domain }}/dashboard/"
       target: "_blank"
       group: core
       public: false
@@ -23,6 +23,14 @@ app_traefik:
             globalArguments:
               - --entryPoints.websecure.forwardedHeaders.trustedIPs={{ cloudflare_ips | join(',') }}
               - --entryPoints.external.forwardedHeaders.trustedIPs={{ cloudflare_ips | join(',') }}
+              - --certificatesresolvers.myresolver.acme.email={{ cloudflare_api_email }}
+              - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
+              - --certificatesresolvers.myresolver.acme.storage=/data/acme.json
+            env:
+              - name: CF_API_EMAIL
+                value: {{ cloudflare_api_email }}
+              - name: CF_API_KEY
+                value: {{ cloudflare_api_key }}
             hostNetwork: true
             ports:
               external:
@@ -32,6 +40,12 @@ app_traefik:
                 protocol: TCP
                 tls:
                   enabled: true
+            persistence:
+              enabled: true
+              name: data
+              accessMode: ReadWriteOnce
+              size: 128Mi
+              path: /data
 
     - name: traefik-dashboard
       manifest:
@@ -39,10 +53,10 @@ app_traefik:
         kind: IngressRoute
         spec:
           entryPoints:
-            - web
+            - websecure
           routes:
             - kind: Rule
-              match: Host(`traefik.sillykube`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+              match: "Host(`traefik.{{ cloudflare_domain }}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
               services:
                 - kind: TraefikService
                   name: api@internal
