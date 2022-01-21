@@ -26,8 +26,8 @@ app_influxdb:
             username: "{{ influxdb_auth_user_username }}"
             password: "{{ influxdb_auth_user_password }}"
           readUser:
-            username: "{{ influxdb_auth_readUser_username }}"
-            password: "{{ influxdb_auth_readUser_password }}"
+            username: "{{ influxdb_auth_read_user_username }}"
+            password: "{{ influxdb_auth_read_user_password }}"
           writeUser:
-            username: "{{ influxdb_auth_writeUser_username }}"
-            password: "{{ influxdb_auth_writeUser_password }}"
+            username: "{{ influxdb_auth_write_user_username }}"
+            password: "{{ influxdb_auth_write_user_password }}"
