@@ -113,4 +113,4 @@ app_whoami:
                         port:
                           number: 80
                     path: /health
-                    pathType: Exact
+                    pathType: Prefix
