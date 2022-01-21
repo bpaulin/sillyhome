@@ -32,3 +32,5 @@ sh_apps_path_base: "/home/kah/"
 sh_apps_owner: kah
 sh_apps_group: kah
 sh_apps_mode: '700'
+
+sh_apps_debug: false

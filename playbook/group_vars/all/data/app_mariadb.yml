@@ -10,4 +10,6 @@ app_mariadb:
 
   charts:
     - ref: "bitnami/mariadb"
-      chart_values: {}
+      chart_values:
+        auth:
+          rootPassword: "{{ mariadb_auth_rootPassword }}"

@@ -8,3 +8,4 @@ ssh_config*
 playbook/test.yml
 
 __pycache__
+fetched

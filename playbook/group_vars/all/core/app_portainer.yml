@@ -11,3 +11,24 @@ app_portainer:
   charts:
     - ref: "portainer/portainer"
       chart_values: {}
+
+  manifests:
+    - name: portainer
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        spec:
+          rules:
+            - host: "portainer.{{ cloudflare_domain }}"
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: portainer
+                        port:
+                          name: http
+                    path: /
+                    pathType: Prefix
