@@ -2,6 +2,7 @@
 
 app_adguard:
   name: adguard
+  state: absent
 
   portal:
     - name: Adguard
@@ -33,11 +34,13 @@ app_adguard:
                     pathType: Prefix
         service:
           dns-tcp:
+            enabled: true
             type: LoadBalancer
             ports:
               dns-tcp:
                 nodePort: 53
           dns-udp:
+            enabled: true
             type: LoadBalancer
             ports:
               dns-udp:
