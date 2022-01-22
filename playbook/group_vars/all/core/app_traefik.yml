@@ -46,6 +46,8 @@ app_traefik:
               accessMode: ReadWriteOnce
               size: 128Mi
               path: /data
+            deployment:
+              dnsPolicy: ClusterFirstWithHostNet
 
     - name: traefik-dashboard
       manifest:

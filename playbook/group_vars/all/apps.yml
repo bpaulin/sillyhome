@@ -5,10 +5,12 @@ apps_without_portal:
   # core
   - "{{ app_traefik }}"
   - "{{ app_adguard }}"
+  - "{{ app_blocky }}"
   - "{{ app_monitoring }}"
   - "{{ app_externaldns}}"
   - "{{ app_whoami}}"
   - "{{ app_portainer}}"
+  - "{{ app_forwardauth }}"
   # flix
   - "{{ app_jackett }}"
   - "{{ app_transmission }}"
@@ -32,3 +34,5 @@ sh_apps_path_base: "/home/kah/"
 sh_apps_owner: kah
 sh_apps_group: kah
 sh_apps_mode: '700'
+
+sh_apps_debug: false

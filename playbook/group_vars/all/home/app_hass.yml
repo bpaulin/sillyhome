@@ -10,4 +10,14 @@ app_hass:
 
   charts:
     - ref: "k8s-at-home/home-assistant"
-      chart_values: {}
+      chart_values:
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            hosts:
+              - host: "hass.{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix

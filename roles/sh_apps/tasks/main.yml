@@ -33,6 +33,16 @@
     - app.helm_repo is defined
     - (app.state | default('present')) == 'present'
 
+- name: "{{ app.name }} | clean debug folders"
+  file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - "manifests/{{ app.namespace }}/{{ app.name }}"
+  when:
+    - (app.state | default('present')) == 'absent'
+    - sh_apps_debug
+
 - name: "{{ app.name }} | debug folders"
   file:
     path: "{{ item }}"

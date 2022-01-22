@@ -1,0 +1,34 @@
+blocky_config:
+  upstream:
+    default:
+      - 8.8.8.8
+      - 4.4.4.4
+  customDNS:
+    mapping:
+      "traefik.paulin.homes": 192.168.86.20
+      "portainer.paulin.homes": 192.168.86.20
+  httpPort: 4000
+
+app_blocky:
+  name: blocky
+  state: present
+
+  namespace: sh-core
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/blocky"
+      chart_values:
+        env:
+          config_hash: "{{ blocky_config | to_json | hash('md5') }}"
+        config: "{{ blocky_config | to_yaml }}"
+        service:
+          dns-tcp:
+            enabled: true
+            type: LoadBalancer
+          dns-udp:
+            enabled: true
+            type: LoadBalancer

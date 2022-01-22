@@ -1,6 +1,6 @@
 app_influxdb:
   name: influxdb
-  state: absent
+  state: present
 
   namespace: sh-data
 
@@ -10,4 +10,24 @@ app_influxdb:
 
   charts:
     - ref: "bitnami/influxdb"
-      chart_values: {}
+      chart_values:
+        ingress:
+          enabled: true
+          hostname: "influxdb.{{ cloudflare_domain }}"
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          pathType: Prefix
+        auth:
+          admin:
+            username: "{{ influxdb_auth_admin_username }}"
+            password: "{{ influxdb_auth_admin_password }}"
+            token: "{{ influxdb_auth_admin_token }}"
+          user:
+            username: "{{ influxdb_auth_user_username }}"
+            password: "{{ influxdb_auth_user_password }}"
+          readUser:
+            username: "{{ influxdb_auth_read_user_username }}"
+            password: "{{ influxdb_auth_read_user_password }}"
+          writeUser:
+            username: "{{ influxdb_auth_write_user_username }}"
+            password: "{{ influxdb_auth_write_user_password }}"

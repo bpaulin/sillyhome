@@ -1,0 +1,61 @@
+app_forwardauth:
+  name: forwardauth
+
+  namespace: sh-core
+
+  helm_repo:
+    - name: k8s-at-home
+      repo_url: https://k8s-at-home.com/charts/
+
+  charts:
+    - ref: "k8s-at-home/traefik-forward-auth"
+      chart_values:
+        image:
+          repository: thomseddon/traefik-forward-auth
+          tag: "latest"  # TODO: idempotence
+          pullPolicy: IfNotPresent
+        authHost: "auth.{{ cloudflare_domain }}"
+        logoutRedirect: "https://{{ cloudflare_domain }}"
+        restrictions:
+          whitelist: "{{ auth_emails_whitelist | join(',') }}"
+        middleware:
+          enabled: true
+          name: "forward-auth"
+        default:
+          provider: google
+        cookie:
+          domain: "{{ cloudflare_domain }}"
+          insecure: "false"
+          name: "_forward_auth"
+          csrfName: "_forward_auth_csrf"
+        providers:
+          google:
+            enabled: true
+            clientId: "{{ auth_google_client_id }}"
+            clientSecret: "{{ auth_google_client_secret }}"
+        logging:
+          level: "info"
+
+  manifests:
+    - name: auth-public
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: external
+            external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+        spec:
+          rules:
+            - host: "auth.{{ cloudflare_domain }}"
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: forwardauth-traefik-forward-auth
+                        port:
+                          number: 4181
+                    path: /
+                    pathType: Prefix

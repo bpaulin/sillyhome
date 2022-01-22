@@ -13,6 +13,9 @@ app_portal_public_configmap:
       icon: "fas fa-book"
       url: "https://bpaulin.net"
       target: "_blank"
+    - name: "Portal"
+      icon: "fas fa-sign-in-alt"
+      url: "https://portal.{{ cloudflare_domain }}"
   services: "{{ apps_without_portal | apps_for_portal(app_portal_base, true, false) }}"
 
 app_portal_public:

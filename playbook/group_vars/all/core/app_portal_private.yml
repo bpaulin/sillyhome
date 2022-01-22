@@ -5,13 +5,11 @@ app_portal_private_configmap:
   footer: ''
   columns: "auto"
   links:
-    - name: "Github repository"
-      icon: "fab fa-github"
-      url: "https://github.com/bpaulin/sillyhome"
-    - name: "Documentation"
-      icon: "fas fa-book"
-      url: "https://bpaulin.net/sillyhome"
+    - name: "Logout"
+      icon: "fas fa-sign-out-alt"
+      url: "https://auth.{{ cloudflare_domain }}/_oauth/logout"
   services: "{{ apps_without_portal | apps_for_portal(app_portal_base, false, true) }}"
+
 
 app_portal_private:
   name: portal-private
@@ -33,6 +31,18 @@ app_portal_private:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
             hosts:
               - host: "{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+          external:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+            hosts:
+              - host: "portal.{{ cloudflare_domain }}"
                 paths:
                   - path: "/"
                     pathType: Prefix

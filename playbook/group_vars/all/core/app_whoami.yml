@@ -75,7 +75,8 @@ app_whoami:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: external
             external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
-            traefik.ingress.kubernetes.io/router.middlewares: sh-core-basic-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
         spec:
           rules:
             - host: "whoami.{{ cloudflare_domain }}"
@@ -113,4 +114,4 @@ app_whoami:
                         port:
                           number: 80
                     path: /health
-                    pathType: Exact
+                    pathType: Prefix
