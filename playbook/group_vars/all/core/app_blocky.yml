@@ -5,8 +5,7 @@ blocky_config:
       - 4.4.4.4
   customDNS:
     mapping:
-      "traefik.paulin.homes": 192.168.86.20
-      "portainer.paulin.homes": 192.168.86.20
+      "paulin.homes": 192.168.86.20
   httpPort: 4000
 
 app_blocky:

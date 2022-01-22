@@ -9,7 +9,7 @@ app_radarr:
     - name: Radarr
       subtitle: "Gestion des films"
       url: "https://radarr.{{ cloudflare_domain }}"
-      logo: https://avatars.githubusercontent.com/u/25025331?s=200&v=4
+      logo: https://github.com/NX211/homer-icons/raw/master/png/radarr.png
       target: "_blank"
       group: video
       public: false
@@ -28,6 +28,18 @@ app_radarr:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            hosts:
+              - host: "radarr.{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+          external:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
             hosts:
               - host: "radarr.{{ cloudflare_domain }}"
                 paths:

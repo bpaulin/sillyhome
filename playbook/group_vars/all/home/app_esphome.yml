@@ -4,6 +4,14 @@ app_esphome:
 
   namespace: sh-home
 
+  portal:
+    - name: "Esphome"
+      logo: https://github.com/NX211/homer-icons/raw/master/png/esphome.png
+      url: "https://esphome.{{ cloudflare_domain }}"
+      target: "_blank"
+      group: home
+      public: false
+
   helm_repo:
     - name: k8s-at-home
       repo_url: https://k8s-at-home.com/charts/

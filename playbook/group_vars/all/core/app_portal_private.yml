@@ -30,7 +30,7 @@ app_portal_private:
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
             hosts:
-              - host: "{{ cloudflare_domain }}"
+              - host: "portal.{{ cloudflare_domain }}"
                 paths:
                   - path: "/"
                     pathType: Prefix
@@ -38,8 +38,8 @@ app_portal_private:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: external
-              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
               traefik.ingress.kubernetes.io/router.tls: "true"
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
               traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
             hosts:
               - host: "portal.{{ cloudflare_domain }}"

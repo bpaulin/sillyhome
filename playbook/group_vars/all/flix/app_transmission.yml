@@ -10,7 +10,7 @@ app_transmission:
     - name: Transmission
       subtitle: "Téléchargement"
       url: "https://transmission.{{ cloudflare_domain }}"
-      logo: https://avatars.githubusercontent.com/u/223312?s=200&v=4
+      logo: https://github.com/NX211/homer-icons/raw/master/png/transmission.png
       target: "_blank"
       group: video
       public: false
@@ -41,12 +41,24 @@ app_transmission:
                 paths:
                   - path: "/"
                     pathType: Prefix
+          external:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+            hosts:
+              - host: "transmission.{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
         persistence:
           config:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/jackett"
+            hostPath: "/home/kah/config/transmission"
 
           medias:
             enabled: true

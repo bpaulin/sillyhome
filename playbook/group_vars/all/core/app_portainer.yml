@@ -32,3 +32,26 @@ app_portainer:
                           name: http
                     path: /
                     pathType: Prefix
+
+    - name: portainer-external
+      manifest:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: external
+            external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+            traefik.ingress.kubernetes.io/router.tls: "true"
+            traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
+        spec:
+          rules:
+            - host: "portainer.{{ cloudflare_domain }}"
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: portainer
+                        port:
+                          name: http
+                    path: /
+                    pathType: Prefix

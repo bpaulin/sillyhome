@@ -10,7 +10,7 @@ app_bazarr:
     - name: Bazarr
       subtitle: "Sous titres"
       url: "https://bazarr.{{ cloudflare_domain }}"
-      logo: https://www.bazarr.media/assets/img/logo.png
+      logo: https://github.com/NX211/homer-icons/raw/master/png/bazarr.png
       target: "_blank"
       group: video
       public: false
@@ -29,6 +29,18 @@ app_bazarr:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            hosts:
+              - host: "bazarr.{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+          external:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
             hosts:
               - host: "bazarr.{{ cloudflare_domain }}"
                 paths:

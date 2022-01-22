@@ -4,6 +4,14 @@ app_hass:
 
   namespace: sh-home
 
+  portal:
+    - name: "Home Assistant"
+      logo: https://github.com/NX211/homer-icons/raw/master/png/home-assistant.png
+      url: "https://hass.{{ cloudflare_domain }}"
+      target: "_blank"
+      group: home
+      public: false
+
   helm_repo:
     - name: k8s-at-home
       repo_url: https://k8s-at-home.com/charts/
@@ -16,6 +24,19 @@ app_hass:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              traefik.ingress.kubernetes.io/router.tls: "true"
+            hosts:
+              - host: "hass.{{ cloudflare_domain }}"
+                paths:
+                  - path: "/"
+                    pathType: Prefix
+          external:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: external
+              external-dns.alpha.kubernetes.io/target: "{{ cloudflare_backend }}"
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              traefik.ingress.kubernetes.io/router.middlewares: sh-core-forward-auth@kubernetescrd,sh-core-cloudflare-api-whitelist@kubernetescrd
             hosts:
               - host: "hass.{{ cloudflare_domain }}"
                 paths:

@@ -27,4 +27,5 @@ app_externaldns:
             value: "{{ cloudflare_api_email }}"
         extraArgs:
           - --cloudflare-proxied
+          - --annotation-filter=traefik.ingress.kubernetes.io/router.entrypoints=external
         policy: sync
