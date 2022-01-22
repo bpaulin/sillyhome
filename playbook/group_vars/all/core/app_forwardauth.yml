@@ -15,6 +15,7 @@ app_forwardauth:
           tag: "latest" # TODO: idempotence
           pullPolicy: IfNotPresent
         authHost: "auth.{{ cloudflare_domain }}"
+        logoutRedirect: "https://{{ cloudflare_domain }}"
         restrictions:
           whitelist: "{{ auth_emails_whitelist | join(',') }}"
         middleware:
