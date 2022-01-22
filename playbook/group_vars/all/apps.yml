@@ -5,10 +5,12 @@ apps_without_portal:
   # core
   - "{{ app_traefik }}"
   - "{{ app_adguard }}"
+  - "{{ app_blocky }}"
   - "{{ app_monitoring }}"
   - "{{ app_externaldns}}"
   - "{{ app_whoami}}"
   - "{{ app_portainer}}"
+  - "{{ app_forwardauth }}"
   # flix
   - "{{ app_jackett }}"
   - "{{ app_transmission }}"
