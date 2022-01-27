@@ -1,6 +1,6 @@
 app_hass:
   name: hass
-  state: present
+  state: absent
 
   namespace: sh-home
 

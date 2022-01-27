@@ -29,9 +29,9 @@ apps_without_portal:
 apps: "{{ apps_without_portal + [app_portal_public, app_portal_private] }}"
 
 
-sh_apps_path_base: "/home/kah/"
-sh_apps_owner: kah
-sh_apps_group: kah
+sh_apps_path_base: "/data"
+sh_apps_owner: 568
+sh_apps_group: 568
 sh_apps_mode: '700'
 
 sh_apps_debug: false

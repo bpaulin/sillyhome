@@ -1,5 +1,6 @@
 app_jackett:
   name: jackett
+  state: absent
 
   folders:
     - medias/downloads/watch

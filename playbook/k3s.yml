@@ -1,0 +1,79 @@
+---
+- hosts: all
+  gather_facts: true
+  any_errors_fatal: true
+  become: true
+  collections:
+    - devsec.hardening
+  pre_tasks:
+    - name: Pausing for 5 seconds...
+      pause:
+        seconds: 5
+  tasks:
+    - name: Install Kubernetes
+      vars:
+        k3s_become: true
+        k3s_release_version: "v1.22.6+k3s1"
+        k3s_server:
+          write-kubeconfig-mode: "644"
+      include_role:
+        name: xanmanning.k3s
+        public: true
+
+
+    - name: setup kube config
+      block:
+        - name: create kube directory
+          file:
+            path: "/home/{{ ansible_user }}/.kube"
+            state: directory
+            mode: '755'
+
+        - name: copy kubeconfig
+          copy:
+            src: /etc/rancher/k3s/k3s.yaml
+            remote_src: true
+            dest: "/home/{{ ansible_user }}/.kube/config"
+            owner: "{{ ansible_user }}"
+            group: "{{ ansible_user }}"
+            mode: '600'
+          become: true
+
+        - name: fetch kubeconfig
+          fetch:
+            src: "/home/{{ ansible_user }}/.kube/config"
+            dest: "../kubeconfig"
+            flat: true
+
+        - name: set ip in kubeconfig
+          replace:
+            path: "../kubeconfig"
+            regexp: 'localhost'
+            replace: "{{ ansible_host }}"
+          delegate_to: localhost
+          become: false
+      tags:
+        - kubeconfig
+
+
+    - name: setup k8s at home
+      block:
+        - name: Add k8s-at-home charts repository
+          kubernetes.core.helm_repository:
+            name: k8s-at-home
+            repo_url: https://k8s-at-home.com/charts/
+
+        - name: Add k8s-at-home group
+          group:
+            name: kah
+            gid: 568
+          become: true
+
+        - name: Add k8s-at-home user
+          user:
+            name: kah
+            uid: 568
+            group: kah
+          become: true
+      tags:
+        - kah

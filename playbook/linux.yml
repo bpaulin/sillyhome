@@ -1,0 +1,49 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  collections:
+    - devsec.hardening
+  pre_tasks:
+    - name: Pausing for 5 seconds...
+      pause:
+        seconds: 5
+  tasks:
+    - name: devsec
+      block:
+        - name: os Hardening
+          vars:
+            os_auditd_enabled: false
+          import_role:
+            name: devsec.hardening.os_hardening
+
+        - name: ssh Hardening
+          import_role:
+            name: devsec.hardening.ssh_hardening
+      tags:
+        - devsec
+        - never
+
+    - name: install arch packages
+      package:
+        name:
+          - helm
+          - k9s
+          - jq
+          - curl
+          - python-pip
+          - git
+        state: present
+
+    - name: install pip packages
+      pip:
+        name:
+          - openshift
+        state: present
+
+    - name: install helm plugin
+      become: false
+      kubernetes.core.helm_plugin:
+        plugin_path: https://github.com/databus23/helm-diff
+        state: present

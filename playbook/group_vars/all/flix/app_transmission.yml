@@ -1,5 +1,6 @@
 app_transmission:
   name: transmission
+  state: absent
 
   folders:
     - medias/downloads/watch

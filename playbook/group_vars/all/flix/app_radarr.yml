@@ -1,5 +1,6 @@
 app_radarr:
   name: radarr
+  state: absent
 
   folders:
     - medias/movies

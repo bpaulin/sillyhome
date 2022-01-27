@@ -1,5 +1,6 @@
 app_jellyfin:
   name: jellyfin
+  state: absent
 
   folders:
     - medias/tv
