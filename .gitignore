@@ -10,3 +10,4 @@ playbook/test.yml
 __pycache__
 fetched
 roles/xanmanning.k3s
+notes
