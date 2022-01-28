@@ -1,6 +1,6 @@
 app_jackett:
   name: jackett
-  state: absent
+  state: present
 
   folders:
     - medias/downloads/watch
@@ -53,10 +53,10 @@ app_jackett:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/jackett"
+            hostPath: "{{ sh_apps_path_base }}/config/jackett"
 
           medias:
             enabled: true
             type: hostPath
             mountPath: /medias
-            hostPath: "/home/kah/medias"
+            hostPath: "{{ sh_apps_path_base }}/medias"

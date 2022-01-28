@@ -1,6 +1,6 @@
 app_jellyfin:
   name: jellyfin
-  state: absent
+  state: present
 
   folders:
     - medias/tv
@@ -52,10 +52,10 @@ app_jellyfin:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/jackett"
+            hostPath: "{{ sh_apps_path_base }}/config/jellyfin"
 
           medias:
             enabled: true
             type: hostPath
             mountPath: /medias
-            hostPath: "/home/kah/medias"
+            hostPath: "{{ sh_apps_path_base }}/medias"

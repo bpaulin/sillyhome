@@ -1,6 +1,6 @@
 app_portainer:
   name: portainer
-  state: present
+  state: absent
 
   namespace: sh-core
 

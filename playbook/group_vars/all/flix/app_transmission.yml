@@ -1,6 +1,6 @@
 app_transmission:
   name: transmission
-  state: absent
+  state: present
 
   folders:
     - medias/downloads/watch
@@ -59,10 +59,10 @@ app_transmission:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/transmission"
+            hostPath: "{{ sh_apps_path_base }}/config/transmission"
 
           medias:
             enabled: true
             type: hostPath
             mountPath: /medias
-            hostPath: "/home/kah/medias"
+            hostPath: "{{ sh_apps_path_base }}/medias"

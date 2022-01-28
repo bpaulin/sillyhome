@@ -1,6 +1,6 @@
 app_sonarr:
   name: sonarr
-  state: absent
+  state: present
 
   folders:
     - medias/tv
@@ -51,10 +51,10 @@ app_sonarr:
             enabled: true
             type: hostPath
             mountPath: /config
-            hostPath: "/home/kah/config/sonarr"
+            hostPath: "{{ sh_apps_path_base }}/config/sonarr"
 
           medias:
             enabled: true
             type: hostPath
             mountPath: /medias
-            hostPath: "/home/kah/medias"
+            hostPath: "{{ sh_apps_path_base }}/medias"
