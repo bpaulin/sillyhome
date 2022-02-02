@@ -157,7 +157,7 @@ verify_binaries() {
     _has_binary "jq"
     _has_binary "sops"
     _has_binary "ssh"
-    _has_binary "task"
+    _has_binary "gtask"
     _has_binary "terraform"
 }
 
@@ -226,7 +226,7 @@ verify_ansible_hosts() {
     local node_hostname=
     local default_control_node_prefix=
     local default_worker_node_prefix=
-    
+
     default_control_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_CONTROL_NODE_HOSTNAME_PREFIX"
     default_worker_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_NODE_HOSTNAME_PREFIX"
     _has_optional_envar "${default_control_node_prefix}"
