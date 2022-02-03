@@ -5,5 +5,4 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  METALLB_LB_RANGE: 192.168.86.220-192.168.86.230
-  METALLB_TRAEFIK_ADDR: 192.168.86.220
+  USELESS_VAR: useless_value
