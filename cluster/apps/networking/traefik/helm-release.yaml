@@ -64,7 +64,7 @@ spec:
           enabled: true
           options: "default"
       external:
-        port: 444
+        port: 8444
         expose: true
         exposedPort: 444
         tls:
