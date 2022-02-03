@@ -8,7 +8,9 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: git@github.com:bpaulin/sillyhome-private.git
+  url: ssh://git@github.com/bpaulin/sillyhome-private
+  secretRef:
+    name: ssh-credentials
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
