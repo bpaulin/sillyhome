@@ -10,10 +10,7 @@ k3s_server:
   node-ip: "{{ ansible_host }}"
   # Disable Docker - this will use the default containerd CRI
   docker: false
-  flannel-backend: "none" # This needs to be in quotes
   disable:
-    # Disable flannel - replaced with Calico
-    - flannel
     # Disable traefik - installed with Flux
     - traefik
     # Disable metrics-server - installed with Flux
