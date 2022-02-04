@@ -10,7 +10,7 @@ tasks:
   markdown:
     desc: Lint Markdown
     cmds:
-      - markdownlint -c '.github/linters/.markdownlint.yaml' *.md **/*.md
+      - markdownlint -c '.github/linters/.markdownlint.yaml' -i provision/ansible/roles/xanmanning.k3s *.md **/*.md
     ignore_errors: true
 
   yaml:
