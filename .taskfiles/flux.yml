@@ -23,9 +23,9 @@ tasks:
       - echo "# LAST COMMIT"
       - git rev-parse --short HEAD
       - echo ''
-      - echo "# KUSTOMIZATIONS"
-      - flux get kustomizations
-      - echo ''
       - echo "# HELMRELEASES"
       - flux get helmreleases -A
+      - echo ''
+      - echo "# KUSTOMIZATIONS"
+      - flux get kustomizations
     silent: true
