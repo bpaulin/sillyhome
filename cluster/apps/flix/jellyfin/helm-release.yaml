@@ -32,3 +32,8 @@ spec:
           - hosts:
               - "jellyfin.${SECRET_DOMAIN}"
             secretName: "jellyfin-tls"
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        mountPath: /config

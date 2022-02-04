@@ -6,3 +6,5 @@ resources:
   - data.yaml
   - home.yaml
   - flix.yaml
+  - storage.yaml
+  - longhorn-system.yaml

@@ -16,6 +16,11 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
     ingress:
       main:
         enabled: true
@@ -32,3 +37,8 @@ spec:
           - hosts:
               - "bazarr.${SECRET_DOMAIN}"
             secretName: "bazarr-tls"
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        mountPath: /config

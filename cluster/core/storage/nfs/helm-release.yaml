@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nfs-subdir-external-provisioner
+  namespace: storage
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+      chart: nfs-subdir-external-provisioner
+      version: 4.0.15
+      sourceRef:
+        kind: HelmRepository
+        name: nfs-subdir-external-provisioner-charts
+        namespace: flux-system
+      interval: 5m
+  timeout: 20m
+  values:
+    nfs:
+      server: 127.0.0.1
+      path: "/sillydata/share"
+    storageClass:
+      pathPattern: "${.PVC.namespace}-${.PVC.name}"

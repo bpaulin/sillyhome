@@ -16,6 +16,13 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      tag: "v0.20.314"
     ingress:
       main:
         enabled: true
@@ -32,3 +39,8 @@ spec:
           - hosts:
               - "jackett.${SECRET_DOMAIN}"
             secretName: "jackett-tls"
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        mountPath: /config
