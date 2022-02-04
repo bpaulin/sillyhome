@@ -11,8 +11,21 @@ tasks:
   reconcile:
     desc: Reconcile flux
     cmds:
-      - flux reconcile kustomization flux-system
+      - flux reconcile kustomization --with-source flux-system
       - flux reconcile kustomization crds
       - flux reconcile kustomization core
       - flux reconcile kustomization apps
+    silent: true
+
+  show:
+    desc: show status flux
+    cmds:
+      - echo "# LAST COMMIT"
+      - git rev-parse --short HEAD
+      - echo ''
+      - echo "# KUSTOMIZATIONS"
+      - flux get kustomizations
+      - echo ''
+      - echo "# HELMRELEASES"
+      - flux get helmreleases -A
     silent: true
