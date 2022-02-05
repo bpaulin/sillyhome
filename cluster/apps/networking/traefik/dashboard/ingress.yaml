@@ -9,7 +9,9 @@ metadata:
     hajimari.io/appName: "traefik"
     hajimari.io/enable: "true"
     hajimari.io/icon: "web"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    traefik.ingress.kubernetes.io/router.entrypoints: "external"
+    traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
 spec:
   ingressClassName: "traefik"
   tls:
