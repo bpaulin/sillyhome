@@ -2,10 +2,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: external
+  name: basic-auth
   namespace: networking
 spec:
-  chain:
-    middlewares:
-      - name: cloudflare-ips
-      - name: common
+  basicAuth:
+    secret: authsecret
