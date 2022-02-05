@@ -19,7 +19,3 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-  tls:
-    - hosts:
-        - "longhorn.${SECRET_DOMAIN}"
-      secretName: "longhorn-tls"

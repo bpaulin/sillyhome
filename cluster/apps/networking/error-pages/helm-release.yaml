@@ -22,7 +22,6 @@ spec:
       main:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.tls: "true"
@@ -31,7 +30,3 @@ spec:
             paths:
               - path: "/"
                 pathType: Prefix
-        tls:
-          - hosts:
-              - "error-pages.${SECRET_DOMAIN}"
-            secretName: "error-pages-tls"
