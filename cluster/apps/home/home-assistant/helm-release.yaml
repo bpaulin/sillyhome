@@ -39,7 +39,7 @@ spec:
         enabled: ${DEV_MODE}
         image:
           repository: codercom/code-server
-          tag: 3.9.0
+          tag: 4.0.2
         workingDir: "/config"
         args:
           - --auth
