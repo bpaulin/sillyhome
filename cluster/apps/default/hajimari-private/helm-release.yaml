@@ -24,7 +24,7 @@ spec:
       defaultEnable: false
       namespaceSelector:
         any: true
-      name: "silly visitor"
+      name: "silly me"
       customApps: []
       groups: []
     ingress:

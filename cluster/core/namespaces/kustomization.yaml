@@ -7,3 +7,4 @@ resources:
   - flix.yaml
   - storage.yaml
   - longhorn-system.yaml
+  - monitoring.yaml

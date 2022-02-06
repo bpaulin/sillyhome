@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      version: 31.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 5m
+  timeout: 20m
+  values:
+    grafana:
+      adminPassword: ${SECRET_GRAFANA_PASSWORD}
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+        hosts:
+          - "grafana.${SECRET_DOMAIN}"
+        paths: "/"
