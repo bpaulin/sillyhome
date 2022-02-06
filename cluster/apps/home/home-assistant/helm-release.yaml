@@ -29,3 +29,36 @@ spec:
             paths:
               - path: "/"
                 pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn
+        mountPath: /config
+    addons:
+      codeserver:
+        enabled: ${DEV_MODE}
+        image:
+          repository: codercom/code-server
+          tag: 3.9.0
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+            traefik.ingress.kubernetes.io/router.entrypoints: "external"
+            traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
+          hosts:
+            - host: "config-hass.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        volumeMounts:
+          - name: config
+            mountPath: /config
