@@ -21,6 +21,12 @@ tasks:
     cmds:
       - "ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --list-hosts"
 
+  playbook:nfs:
+    desc: Prepare nfs hosts
+    dir: provision/ansible
+    cmds:
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/nfs.yml"
+
   playbook:ubuntu-prepare:
     desc: Prepare all the k8s nodes for running k3s
     dir: provision/ansible

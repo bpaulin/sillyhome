@@ -2,27 +2,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: whoami-external
+  name: traefik-dashboard
   namespace: networking
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    hajimari.io/appName: "traefik"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "web"
     external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
     traefik.ingress.kubernetes.io/router.entrypoints: "external"
     traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
-    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  tls:
-    - hosts:
-        - "whoami.${SECRET_DOMAIN}"
-      secretName: "whoami-tls"
   rules:
-    - host: "whoami.${SECRET_DOMAIN}"
+    - host: "traefik.${SECRET_DOMAIN}"
       http:
         paths:
-          - backend:
-              service:
-                name: whoami
-                port:
-                  number: 80
-            path: /
+          - path: /
             pathType: Prefix
+            backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000
