@@ -16,6 +16,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 2022.2.6
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     ingress:
