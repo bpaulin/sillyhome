@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - traefik
   - external-dns
-  # - kube-prometheus-stack
+  - kube-prometheus-stack

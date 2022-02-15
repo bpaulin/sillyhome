@@ -26,19 +26,26 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
-          traefik.ingress.kubernetes.io/router.tls: "true"
         hosts:
           - "grafana.${SECRET_DOMAIN}"
-        paths: "/"
+    alertmanager:
+      ingress:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "external"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
+        hosts:
+          - "alert.${SECRET_DOMAIN}"
     prometheus:
       prometheusSpec:
         podMonitorSelector:
           matchLabels:
             app.kubernetes.io/part-of: flux
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              # storageClassName: longhorn
-              resources:
-                requests:
-                  storage: 10Gi
+        # storageSpec:
+        #   volumeClaimTemplate:
+        #     spec:
+        #       storageClassName: longhorn
+        #       resources:
+        #         requests:
+        #           storage: 20Gi
