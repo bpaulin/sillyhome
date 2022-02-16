@@ -4,3 +4,4 @@ resources:
   - kube-prometheus-stack
   - metrics-server
   - flux-system
+  - longhorn

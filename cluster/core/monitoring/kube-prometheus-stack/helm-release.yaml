@@ -42,6 +42,9 @@ spec:
         podMonitorSelector:
           matchLabels:
             app.kubernetes.io/part-of: flux
+        # serviceMonitorSelector:
+        #   matchLabels:
+        #     app.kubernetes.io/part-of: longhorn
         # storageSpec:
         #   volumeClaimTemplate:
         #     spec:

@@ -28,7 +28,6 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
-          traefik.ingress.kubernetes.io/router.tls: "true"
         hosts:
           - host: "sonarr.${SECRET_DOMAIN}"
             paths:
@@ -37,5 +36,5 @@ spec:
     persistence:
       config:
         enabled: true
-        # storageClass: longhorn
+        storageClass: longhorn
         mountPath: /config
