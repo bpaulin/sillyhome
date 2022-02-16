@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: portal
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: forecastle
+      version: v1.0.78
+      sourceRef:
+        kind: HelmRepository
+        name: stakater-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    forecastle:
+      ingress:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "external"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
+        hosts:
+          - host: "portal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+      config:
+        namespaceSelector:
+          any: true
+        title: "${SECRET_DOMAIN}"

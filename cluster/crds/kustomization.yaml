@@ -4,3 +4,4 @@ resources:
   - traefik
   - external-dns
   - kube-prometheus-stack
+  - forecastle

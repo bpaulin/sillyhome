@@ -23,6 +23,9 @@ spec:
       ingress:
         enabled: true
         annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/appName: "Grafana"
+          forecastle.stakater.com/icon: "https://github.com/NX211/homer-icons/raw/master/png/grafana.png"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
@@ -32,6 +35,9 @@ spec:
       ingress:
         enabled: true
         annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/appName: "Alert manager"
+          forecastle.stakater.com/icon: "https://github.com/NX211/homer-icons/raw/master/png/alertmanager.png"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
