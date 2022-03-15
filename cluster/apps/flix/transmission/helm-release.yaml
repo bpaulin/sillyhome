@@ -21,10 +21,34 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
+    env:
+      TRANSMISSION_WEB_HOME: /web
+      TRANSMISSION_DOWNLOAD_DIR: /medias/downloads/complete
+      TRANSMISSION_INCOMPLETE_DIR_ENABLED: true
+      TRANSMISSION_INCOMPLETE_DIR: /medias/downloads/incomplete
+      TRANSMISSION_WATCH_DIR_ENABLED: true
+      TRANSMISSION_WATCH_DIR: /medias/downloads/watch
+    initContainers:
+      init:
+        image: busybox:1.35.0
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - >-
+            mkdir -p
+            /medias/downloads/complete
+            /medias/downloads/incomplete
+            /medias/downloads/watch
+        volumeMounts:
+          - name: medias
+            mountPath: /medias
     ingress:
       main:
         enabled: true
         annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/appName: "Transmission"
+          forecastle.stakater.com/icon: "https://github.com/NX211/homer-icons/raw/master/png/transmission.png"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "external"
           traefik.ingress.kubernetes.io/router.middlewares: networking-protected@kubernetescrd
@@ -38,3 +62,8 @@ spec:
         enabled: true
         storageClass: longhorn
         mountPath: /config
+      medias:
+        enabled: true
+        mountPath: /medias
+        existingClaim: medias
+        # subPath: downloads

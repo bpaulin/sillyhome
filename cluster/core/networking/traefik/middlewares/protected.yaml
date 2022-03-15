@@ -9,4 +9,4 @@ spec:
     middlewares:
       # - name: cloudflare-ips
       - name: basic-auth
-      - name: error-pages
+      # - name: error-pages

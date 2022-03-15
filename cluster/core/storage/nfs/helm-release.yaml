@@ -22,6 +22,6 @@ spec:
   values:
     nfs:
       server: 127.0.0.1
-      path: "/data"
+      path: "/data/hdd"
     storageClass:
       pathPattern: "${.PVC.namespace}-${.PVC.name}"
