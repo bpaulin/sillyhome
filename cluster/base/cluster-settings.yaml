@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 data:
   USELESS_VAR: useless_value
-  DEV_MODE: "true"
+  DEV_MODE: "false"
