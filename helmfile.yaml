@@ -1,0 +1,33 @@
+repositories:
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+
+releases:
+  - name: radarr
+    namespace: flix
+    chart: k8s-at-home/radarr
+
+  - name: sonarr
+    namespace: flix
+    chart: k8s-at-home/sonarr
+
+  - name: bazarr
+    namespace: flix
+    chart: k8s-at-home/bazarr
+
+  - name: transmission
+    namespace: flix
+    chart: k8s-at-home/transmission
+
+  - name: jackett
+    namespace: flix
+    chart: k8s-at-home/jackett
+
+  - name: jellyfin
+    namespace: flix
+    chart: k8s-at-home/jellyfin
+
+  - name: home-assistant
+    namespace: home
+    chart: k8s-at-home/home-assistant
+
