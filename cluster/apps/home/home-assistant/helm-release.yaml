@@ -38,8 +38,9 @@ spec:
       config:
         enabled: true
         # storageClass: nfs-client
-        storageClass: longhorn
+        storageClass: hostPath
         mountPath: /config
+        hostPath: /srv/config/home-assistant
     addons:
       codeserver:
         enabled: ${DEV_MODE}
