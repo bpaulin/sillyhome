@@ -38,7 +38,7 @@ spec:
       config:
         enabled: true
         # storageClass: nfs-client
-        storageClass: hostPath
+        type: hostPath
         mountPath: /config
         hostPath: /srv/config/home-assistant
     addons:
