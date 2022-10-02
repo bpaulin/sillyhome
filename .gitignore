@@ -16,3 +16,5 @@ geerlingguy.nfs*
 .terraform
 .terraform.tfstate*
 terraform.tfstate*
+age.txt
+kubeconfig.yaml
