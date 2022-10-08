@@ -46,7 +46,7 @@ spec:
         enabled: ${DEV_MODE}
         image:
           repository: codercom/code-server
-          tag: 4.6.0
+          tag: 4.7.1
         workingDir: "/config"
         args:
           - --auth
